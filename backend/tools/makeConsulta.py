@@ -1,4 +1,4 @@
-from DataService import DataService
+from tools.DataService import DataService
 import re
 
 def getData(service:DataService,result):
