@@ -1,57 +1,58 @@
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang=\"es\">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grupo Danec | Asistente Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>Grupo Danec | Asistente</title>
+    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
+    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>
+    <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">
+    <link rel=\"stylesheet\" href=\"{{ url_for('static', filename='style.css') }}\">
 </head>
 <body>
-    <div class="app-shell">
-        <aside class="sidebar">
-            <div class="brand-block">
-                <img src="{{ url_for('static', filename='danecLogo.png') }}" alt="Grupo Danec" class="brand-logo">
+    <div class=\"app-shell\">
+        <aside class=\"sidebar\">
+            <div class=\"brand-block\">
+                <img src=\"{{ url_for('static', filename='danecLogo.png') }}\" alt=\"Grupo Danec\" class=\"brand-logo\">
                 <div>
-                    <p class="brand-kicker">Asistente corporativo</p>
+                    <p class=\"brand-kicker\">Asistente corporativo</p>
                     <h1>Grupo Danec</h1>
                 </div>
             </div>
 
-            <button class="new-chat-btn" type="button" id="newChatBtn">
+            <button id=\"newChatBtn\" class=\"new-chat-btn\" type=\"button\">
                 <span>＋</span>
                 Nuevo chat
             </button>
 
-            <div class="history-header">Historial de chats</div>
+            <div class=\"history-header\">Historial de chats</div>
 
-            <nav class="history-list" id="historyList">
+            <nav class=\"history-list\" id=\"historyList\">
                 {% for chat in chats %}
-                <a href="/?chat_id={{ chat.id }}" class="history-item {% if chat.id == active_chat.id %}active{% endif %}">
-                    <div class="history-title">{{ chat.title }}</div>
-                    <div class="history-preview">{{ chat.preview }}</div>
+                <a href=\"/?chat_id={{ chat.id }}\"
+                   class=\"history-item {% if chat.id == active_chat.id %}active{% endif %}\"
+                   data-chat-id=\"{{ chat.id }}\">
+                    <div class=\"history-title\">{{ chat.title }}</div>
+                    <div class=\"history-preview\">{{ chat.preview }}</div>
                 </a>
                 {% endfor %}
             </nav>
         </aside>
 
-        <main class="main-panel">
-            <header class="topbar">
+        <main class=\"main-panel\">
+            <header class=\"topbar\">
                 <div>
-                    <h2 id="chatTitle">{{ active_chat.title }}</h2>
-                    
+                    <h2 id=\"chatTitle\">{{ active_chat.title }}</h2>
+                    <p>Chat conectado con backend Flask + Ollama</p>
                 </div>
             </header>
 
-            <section class="chat-area" id="chatArea">
+            <section class=\"chat-area\" id=\"chatArea\">
                 {% for msg in active_chat.messages %}
-                <article class="message-row {{ msg.role }}">
-                    <div class="avatar">{{ 'GD' if msg.role == 'assistant' else 'TÚ' }}</div>
-                    <div class="message-card">
-                        <div class="message-meta">
+                <article class=\"message-row {{ msg.role }}\">
+                    <div class=\"avatar\">{{ 'GD' if msg.role == 'assistant' else 'TÚ' }}</div>
+                    <div class=\"message-card\">
+                        <div class=\"message-meta\">
                             <span>{{ 'Asistente Danec' if msg.role == 'assistant' else 'Usuario' }}</span>
                             <time>{{ msg.time }}</time>
                         </div>
@@ -61,14 +62,14 @@
                 {% endfor %}
             </section>
 
-            <section class="prompt-panel">
-                <form id="promptForm" class="prompt-form">
-                    <label for="promptInput" class="prompt-label">Ingrese su pregunta</label>
-                    <div class="prompt-box">
-                        <textarea id="promptInput" name="prompt" rows="1" placeholder="Escribe tu prompt aquí..."></textarea>
-                        <button type="submit" class="send-btn">Enviar</button>
+            <section class=\"prompt-panel\">
+                <form id=\"promptForm\" class=\"prompt-form\">
+                    <label for=\"promptInput\" class=\"prompt-label\">Ingrese su pregunta</label>
+                    <div class=\"prompt-box\">
+                        <textarea id=\"promptInput\" name=\"message\" rows=\"1\" placeholder=\"Escribe tu prompt aquí...\"></textarea>
+                        <button type=\"submit\" class=\"send-btn\" id=\"sendBtn\">Enviar</button>
                     </div>
-                    <div class="prompt-hint">El historial se guarda en JSON en el frontend.</div>
+                    <div class=\"prompt-hint\">El frontend envía el mensaje al backend y guarda el historial local.</div>
                 </form>
             </section>
         </main>
@@ -78,25 +79,23 @@
 const form = document.getElementById('promptForm');
 const input = document.getElementById('promptInput');
 const chatArea = document.getElementById('chatArea');
-const newChatBtn = document.getElementById('newChatBtn');
+const historyList = document.getElementById('historyList');
 const chatTitle = document.getElementById('chatTitle');
-let currentChatId = {{ active_chat.id|tojson }};
+const newChatBtn = document.getElementById('newChatBtn');
+const sendBtn = document.getElementById('sendBtn');
 
-function addMessage(role, author, time, content) {
-    const row = document.createElement('article');
-    row.className = `message-row ${role}`;
-    row.innerHTML = `
-        <div class="avatar">${role === 'assistant' ? 'GD' : 'TÚ'}</div>
-        <div class="message-card">
-            <div class="message-meta">
-                <span>${author}</span>
-                <time>${time}</time>
-            </div>
-            <p></p>
-        </div>
-    `;
-    row.querySelector('p').textContent = content;
-    chatArea.appendChild(row);
+let activeChatId = \"{{ active_chat.id }}\";
+
+function escapeHtml(value) {
+    return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('\"', '&quot;')
+        .replaceAll("'", '&#039;');
+}
+
+function scrollToBottom() {
     chatArea.scrollTop = chatArea.scrollHeight;
 }
 
@@ -105,44 +104,176 @@ function autoResize(el) {
     el.style.height = Math.min(el.scrollHeight, 180) + 'px';
 }
 
+function renderMessage(msg) {
+    const role = msg.role === 'assistant' ? 'assistant' : 'user';
+    const author = role === 'assistant' ? 'Asistente Danec' : 'Usuario';
+    const time = msg.time || 'Ahora';
+
+    const row = document.createElement('article');
+    row.className = `message-row ${role}`;
+    row.innerHTML = `
+        <div class="avatar">${role === 'assistant' ? 'GD' : 'TÚ'}</div>
+        <div class="message-card">
+            <div class="message-meta">
+                <span>${author}</span>
+                <time>${escapeHtml(time)}</time>
+            </div>
+            <p>${escapeHtml(msg.content || '')}</p>
+        </div>
+    `;
+    chatArea.appendChild(row);
+}
+
+function renderChat(chat) {
+    chatTitle.textContent = chat.title || 'Nuevo chat';
+    chatArea.innerHTML = '';
+
+    const messages = Array.isArray(chat.messages) ? chat.messages : [];
+    messages.forEach(renderMessage);
+    scrollToBottom();
+}
+
+function updateHistorySelection() {
+    document.querySelectorAll('.history-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.chatId === activeChatId);
+    });
+}
+
+function prependHistoryItem(chat) {
+    const a = document.createElement('a');
+    a.href = `/?chat_id=${encodeURIComponent(chat.id)}`;
+    a.className = 'history-item active';
+    a.dataset.chatId = chat.id;
+    a.innerHTML = `
+        <div class="history-title">${escapeHtml(chat.title || 'Nuevo chat')}</div>
+        <div class="history-preview">${escapeHtml(chat.preview || '')}</div>
+    `;
+
+    const first = historyList.firstElementChild;
+    if (first) {
+        historyList.insertBefore(a, first);
+    } else {
+        historyList.appendChild(a);
+    }
+
+    updateHistorySelection();
+}
+
+function updateHistoryItem(chat) {
+    const item = historyList.querySelector(`[data-chat-id="${chat.id}"]`);
+    if (!item) {
+        prependHistoryItem(chat);
+        return;
+    }
+
+    const titleNode = item.querySelector('.history-title');
+    const previewNode = item.querySelector('.history-preview');
+
+    if (titleNode) titleNode.textContent = chat.title || 'Nuevo chat';
+    if (previewNode) previewNode.textContent = chat.preview || '';
+}
+
 input.addEventListener('input', () => autoResize(input));
 
-newChatBtn.addEventListener('click', async () => {
-    const res = await fetch('/api/chats/new', { method: 'POST' });
-    const data = await res.json();
-    if (!data.ok) return;
-    window.location.href = `/?chat_id=${data.chat.id}`;
-});
+historyList.addEventListener('click', async (event) => {
+    const item = event.target.closest('.history-item');
+    if (!item) return;
 
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const prompt = input.value.trim();
-    if (!prompt) return;
-
-    addMessage('user', 'Usuario', 'Ahora', prompt);
-    input.value = '';
-    autoResize(input);
+    event.preventDefault();
+    const chatId = item.dataset.chatId;
+    if (!chatId) return;
 
     try {
-        const res = await fetch(`/api/chats/${currentChatId}/message`, {
+        const res = await fetch(`/api/chats/${encodeURIComponent(chatId)}`);
+        const data = await res.json();
+
+        if (!data.ok) {
+            alert(data.error || 'No se pudo cargar el chat.');
+            return;
+        }
+
+        activeChatId = chatId;
+        renderChat(data.chat);
+        updateHistorySelection();
+        history.replaceState({}, '', `/?chat_id=${encodeURIComponent(chatId)}`);
+    } catch (error) {
+        alert('No fue posible cargar el chat seleccionado.');
+    }
+});
+
+newChatBtn.addEventListener('click', async () => {
+    try {
+        const res = await fetch('/api/chats', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt })
+            headers: { 'Content-Type': 'application/json' }
         });
         const data = await res.json();
 
         if (!data.ok) {
-            addMessage('assistant', 'Asistente Danec', 'Ahora', data.error || 'Ocurrió un error.');
+            alert(data.error || 'No se pudo crear un nuevo chat.');
             return;
         }
 
-        chatTitle.textContent = data.chat.title;
-        addMessage('assistant', 'Asistente Danec', data.assistant_message.time, data.assistant_message.content);
-        window.history.replaceState({}, '', `/?chat_id=${currentChatId}`);
-        setTimeout(() => window.location.reload(), 250);
+        activeChatId = data.active_chat_id;
+        prependHistoryItem(data.chat);
+        renderChat(data.chat);
+        history.replaceState({}, '', `/?chat_id=${encodeURIComponent(activeChatId)}`);
+        input.focus();
     } catch (error) {
-        addMessage('assistant', 'Asistente Danec', 'Ahora', 'No fue posible conectar con el frontend o backend.');
+        alert('No fue posible crear un nuevo chat.');
     }
+});
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const message = input.value.trim();
+    if (!message || !activeChatId) return;
+
+    sendBtn.disabled = true;
+
+    try {
+        const res = await fetch(`/api/chats/${encodeURIComponent(activeChatId)}/message`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message })
+        });
+
+        const data = await res.json();
+
+        if (!data.ok) {
+            renderMessage({
+                role: 'assistant',
+                content: data.error || 'Ocurrió un error al procesar el mensaje.',
+                time: 'Ahora'
+            });
+            scrollToBottom();
+            return;
+        }
+
+        renderChat(data.chat);
+        updateHistoryItem(data.chat);
+        updateHistorySelection();
+        history.replaceState({}, '', `/?chat_id=${encodeURIComponent(activeChatId)}`);
+        input.value = '';
+        autoResize(input);
+    } catch (error) {
+        renderMessage({
+            role: 'assistant',
+            content: 'No fue posible conectar con el frontend o backend.',
+            time: 'Ahora'
+        });
+        scrollToBottom();
+    } finally {
+        sendBtn.disabled = false;
+        input.focus();
+    }
+});
+
+window.addEventListener('load', () => {
+    autoResize(input);
+    scrollToBottom();
+    updateHistorySelection();
 });
 </script>
 </body>
