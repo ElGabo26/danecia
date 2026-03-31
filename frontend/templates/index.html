@@ -124,7 +124,7 @@ form.addEventListener('submit', async (e) => {
     autoResize(input);
 
     try {
-        const res = await fetch(`/api/chats/${currentChatId}/messages`, {
+        const res = await fetch(`/api/chats/${currentChatId}/message`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ prompt })
