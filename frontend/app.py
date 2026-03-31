@@ -1,176 +1,204 @@
-
 import json
 import os
 import uuid
-from datetime import datetime
 from pathlib import Path
 
 import requests
 from flask import Flask, jsonify, render_template, request
 
-app = Flask(__name__)
-
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 DATA_DIR.mkdir(exist_ok=True)
+
 CHAT_FILE = DATA_DIR / "chat_history.json"
-BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:5000")
-TIMEOUT_SECONDS = int(os.getenv("BACKEND_TIMEOUT", "180"))
 
+BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:5000/analizar")
+FRONTEND_HOST = os.getenv("FRONTEND_HOST", "0.0.0.0")
+FRONTEND_PORT = int(os.getenv("FRONTEND_PORT", "8000"))
+REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "180"))
 
-def _default_chat():
-    return {
-        "id": str(uuid.uuid4()),
-        "title": "Nuevo chat",
-        "preview": "Sin mensajes todavía",
-        "messages": [
-            {
-                "role": "assistant",
-                "content": "Hola. Bienvenido al asistente de Grupo Danec.",
-                "time": datetime.now().strftime("%H:%M"),
-            }
-        ],
-    }
+app = Flask(
+    __name__,
+    template_folder="templates",
+    static_folder="static"
+)
 
 
 def load_history():
     if not CHAT_FILE.exists():
-        chats = [_default_chat()]
-        save_history(chats)
-        return chats
+        return {"active_chat_id": None, "chats": []}
 
     try:
-        with CHAT_FILE.open("r", encoding="utf-8") as f:
-            data = json.load(f)
-        if isinstance(data, list) and data:
-            return data
+        with open(CHAT_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
     except Exception:
-        pass
-
-    chats = [_default_chat()]
-    save_history(chats)
-    return chats
+        return {"active_chat_id": None, "chats": []}
 
 
-def save_history(chats):
-    with CHAT_FILE.open("w", encoding="utf-8") as f:
-        json.dump(chats, f, ensure_ascii=False, indent=2)
+def save_history(data):
+    with open(CHAT_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
 
-def get_chat(chats, chat_id):
-    return next((chat for chat in chats if chat["id"] == chat_id), None)
+def create_chat(title="Nuevo chat"):
+    return {
+        "id": str(uuid.uuid4()),
+        "title": title,
+        "preview": "",
+        "messages": []
+    }
 
 
-def build_preview(messages):
-    valid = [m for m in messages if m.get("role") == "assistant" and m.get("content")]
-    if valid:
-        return valid[-1]["content"][:90]
-    valid = [m for m in messages if m.get("content")]
-    return valid[-1]["content"][:90] if valid else "Sin mensajes todavía"
+def get_active_chat(data):
+    active_id = data.get("active_chat_id")
+    chats = data.get("chats", [])
+
+    if not chats:
+        new_chat = create_chat()
+        data["chats"] = [new_chat]
+        data["active_chat_id"] = new_chat["id"]
+        save_history(data)
+        return new_chat
+
+    for chat in chats:
+        if chat["id"] == active_id:
+            return chat
+
+    data["active_chat_id"] = chats[0]["id"]
+    save_history(data)
+    return chats[0]
 
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def index():
-    chats = load_history()
-    active_chat_id = request.args.get("chat_id") or chats[0]["id"]
-    active_chat = get_chat(chats, active_chat_id) or chats[0]
+    data = load_history()
+    active_chat = get_active_chat(data)
     return render_template(
         "index.html",
-        chats=chats,
-        active_chat=active_chat,
-        backend_url=BACKEND_URL,
+        chats=data["chats"],
+        active_chat=active_chat
     )
 
 
 @app.route("/api/chats", methods=["GET"])
 def list_chats():
-    return jsonify({"ok": True, "chats": load_history()})
+    data = load_history()
+    active_chat = get_active_chat(data)
+    return jsonify({
+        "chats": data["chats"],
+        "active_chat_id": active_chat["id"]
+    })
 
 
-@app.route("/api/chats/new", methods=["POST"])
+@app.route("/api/chats", methods=["POST"])
 def new_chat():
-    chats = load_history()
-    chat = _default_chat()
-    chats.insert(0, chat)
-    save_history(chats)
-    return jsonify({"ok": True, "chat": chat})
+    data = load_history()
+    chat = create_chat()
+
+    data["chats"].insert(0, chat)
+    data["active_chat_id"] = chat["id"]
+    save_history(data)
+
+    return jsonify({
+        "ok": True,
+        "chat": chat,
+        "active_chat_id": chat["id"]
+    })
 
 
-@app.route("/api/chats/<chat_id>/messages", methods=["POST"])
+@app.route("/api/chats/<chat_id>", methods=["GET"])
+def get_chat(chat_id):
+    data = load_history()
+
+    for chat in data["chats"]:
+        if chat["id"] == chat_id:
+            data["active_chat_id"] = chat_id
+            save_history(data)
+            return jsonify({"ok": True, "chat": chat})
+
+    return jsonify({"ok": False, "error": "Chat no encontrado"}), 404
+
+
+@app.route("/api/chats/<chat_id>/message", methods=["POST"])
 def send_message(chat_id):
+    data = load_history()
     payload = request.get_json(silent=True) or {}
-    prompt = (payload.get("prompt") or "").strip()
+    prompt = (payload.get("message") or "").strip()
 
     if not prompt:
-        return jsonify({"ok": False, "error": "El prompt está vacío."}), 400
+        return jsonify({"ok": False, "error": "El mensaje está vacío"}), 400
 
-    chats = load_history()
-    chat = get_chat(chats, chat_id)
-    if not chat:
-        return jsonify({"ok": False, "error": "No se encontró el chat solicitado."}), 404
+    target_chat = None
+    for chat in data["chats"]:
+        if chat["id"] == chat_id:
+            target_chat = chat
+            break
 
-    current_time = datetime.now().strftime("%H:%M")
-    user_message = {"role": "user", "content": prompt, "time": current_time}
-    chat["messages"].append(user_message)
+    if target_chat is None:
+        return jsonify({"ok": False, "error": "Chat no encontrado"}), 404
 
-    if chat["title"] == "Nuevo chat":
-        chat["title"] = prompt[:40]
+    target_chat["messages"].append({
+        "role": "user",
+        "content": prompt
+    })
+
+    if not target_chat["title"] or target_chat["title"] == "Nuevo chat":
+        target_chat["title"] = prompt[:40] + ("..." if len(prompt) > 40 else "")
+
+    target_chat["preview"] = prompt[:80] + ("..." if len(prompt) > 80 else "")
+    data["active_chat_id"] = chat_id
+    save_history(data)
 
     try:
         response = requests.post(
-            f"{BACKEND_URL.rstrip('/')}/analizar",
-            data={"prompt": prompt},
-            timeout=TIMEOUT_SECONDS,
+            BACKEND_URL,
+            json={"prompt": prompt},
+            timeout=REQUEST_TIMEOUT
         )
         response.raise_for_status()
-        body = response.json()
-        assistant_text = body.get("resultado") or "No se recibió contenido desde el backend."
-    except requests.RequestException as exc:
-        assistant_text = f"No fue posible conectar con el backend: {exc}"
-    except ValueError:
-        assistant_text = "El backend respondió con un formato no válido."
+        result = response.json()
 
-    assistant_message = {
+        answer = (
+            result.get("respuesta")
+            or result.get("answer")
+            or result.get("response")
+            or "No se recibió respuesta del backend."
+        )
+
+    except requests.exceptions.Timeout:
+        answer = "Error: el backend tardó demasiado en responder."
+    except requests.exceptions.ConnectionError:
+        answer = "Error: no se pudo conectar con el backend."
+    except requests.exceptions.HTTPError as e:
+        answer = f"Error HTTP del backend: {str(e)}"
+    except Exception as e:
+        answer = f"Error inesperado: {str(e)}"
+
+    target_chat["messages"].append({
         "role": "assistant",
-        "content": assistant_text,
-        "time": datetime.now().strftime("%H:%M"),
-    }
-    chat["messages"].append(assistant_message)
-    chat["preview"] = build_preview(chat["messages"])
-    save_history(chats)
+        "content": answer
+    })
 
-    return jsonify(
-        {
-            "ok": True,
-            "chat": chat,
-            "user_message": user_message,
-            "assistant_message": assistant_message,
-        }
-    )
+    save_history(data)
+
+    return jsonify({
+        "ok": True,
+        "chat": target_chat
+    })
 
 
 @app.route("/health", methods=["GET"])
 def health():
-    frontend_ok = True
-    backend_ok = False
-    backend_status = "No verificado"
-
-    try:
-        response = requests.get(BACKEND_URL, timeout=5)
-        backend_ok = response.ok
-        backend_status = response.text
-    except requests.RequestException as exc:
-        backend_status = str(exc)
-
-    return jsonify(
-        {
-            "ok": frontend_ok,
-            "backend_ok": backend_ok,
-            "backend_url": BACKEND_URL,
-            "backend_status": backend_status,
-        }
-    )
+    return jsonify({
+        "status": "ok",
+        "service": "frontend",
+        "backend_url": BACKEND_URL
+    })
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    app.run(
+        host=FRONTEND_HOST,
+        port=FRONTEND_PORT,
+        debug=False
+    )

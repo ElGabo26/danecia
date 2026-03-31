@@ -19,7 +19,7 @@ client = OpenAI(
 MODELO_LOCAL = "qwen2.5-coder:3b"
 MODELO_RESPONSE = "llama3-chatqa:latest"
 
-service = DataService()
+service= DataService()
 
 
 # --- Endpoint Principal ---
