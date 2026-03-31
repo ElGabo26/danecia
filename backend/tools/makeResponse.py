@@ -1,4 +1,4 @@
-from makeContext1 import build_prompt
+from tools.makeContext1 import build_prompt
 from time import time
 def getResponse(pregunta,client,modelName,temperature:float):
     print('|',end="|")

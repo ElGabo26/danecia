@@ -1,4 +1,3 @@
-# file: rag_search.py
 import os
 import json
 import re
