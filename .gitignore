@@ -84,7 +84,6 @@ frontend/data/chat_history.json
 *.bin
 *.safetensors
 *.onnx
-*.npz
 *.pkl
 *.joblib
 
