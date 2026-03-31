@@ -4,7 +4,6 @@ from flask_cors import CORS
 from openai import OpenAI
 import pandas as pd
 from tools.DataService import DataService
-from tools.makeContext1 import build_prompt
 from tools.makeResponse import getResponse
 from tools.makeConsulta import getData
 
