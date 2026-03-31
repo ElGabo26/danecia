@@ -75,7 +75,7 @@ htmlcov/
 # =========================
 # Frontend generated/local data
 # =========================
-frontend/data/chat_history.json
+#frontend/data/chat_history.json
 
 # =========================
 # Backend / model artifacts
