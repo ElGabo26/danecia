@@ -169,6 +169,7 @@ def send_message(chat_id):
         answer = "Error: el backend tardó demasiado en responder."
     except requests.exceptions.ConnectionError:
         answer = "Error: no se pudo conectar con el backend."
+        print(prompt)
     except requests.exceptions.HTTPError as e:
         answer = f"Error HTTP del backend: {str(e)}"
     except Exception as e:
