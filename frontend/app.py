@@ -14,7 +14,7 @@ CHAT_FILE = DATA_DIR / "chat_history.json"
 
 BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:5000/analizar")
 FRONTEND_HOST = os.getenv("FRONTEND_HOST", "0.0.0.0")
-FRONTEND_PORT = int(os.getenv("FRONTEND_PORT", "8000"))
+FRONTEND_PORT = int(os.getenv("FRONTEND_PORT", "8001"))
 REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "180"))
 
 app = Flask(
