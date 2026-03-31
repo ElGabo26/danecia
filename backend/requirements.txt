@@ -11,3 +11,4 @@ tornado==6.5.2
 dotenv
 PyMySQL
 sqlalchemy
+httpx==0.27.2
