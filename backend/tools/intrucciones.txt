@@ -1,0 +1,4 @@
+Genera  codigo limpio para MYSQL.
+Toma en  cuenta  solo las  columnas  y  tablas  existentes.
+SOLO TIENES PERMISOS  DE  CONSULTA.
+LIMITA  TUS  CONSULTAS A   AÑO  ATRAS  DE LA  FECHA  ACTUAL.
