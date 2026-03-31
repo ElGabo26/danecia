@@ -293,7 +293,7 @@ def limpiar_respuesta_deepseek(texto: str) -> str:
 # =========================================================
 # PROMPT
 # =========================================================
-with open(r"\tools\instrucciones.txt", "r", encoding="utf-8") as f:
+with open("/mnt/deploy/danecia/backend/tools/instrucciones.txt", "r", encoding="utf-8") as f:
     instrucciones = f.read()
 
 
