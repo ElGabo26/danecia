@@ -26,6 +26,8 @@ service= DataService()
 @app.route('/analizar', methods=['POST'])
 def analizar():
     pregunta = request.form.get("prompt", "General")
+    print("pensando")
+    print(pregunta)
     r1 = getResponse(pregunta, client, MODELO_LOCAL, 0.1)
     d = getData(service, r1)
     limit = 0
