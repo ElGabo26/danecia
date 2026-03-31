@@ -64,7 +64,7 @@ def probar_conexion():
     return "✅ Backend operativo"
 
 
-@app.route('/health', methods=['GET'])
+@app.route('/analizar', methods=['GET'])
 def health():
     return jsonify(
         {
