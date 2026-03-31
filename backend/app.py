@@ -1,317 +1,79 @@
-import json
-import os
-import uuid
-from pathlib import Path
+import re
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from openai import OpenAI
+import pandas as pd
+from tools.DataService import DataService
+from tools.makeResponse import getResponse
+from tools.makeConsulta import getData
 
-import requests
-from flask import Flask, jsonify, render_template, request
+app = Flask(__name__)
+CORS(app)
 
-BASE_DIR = Path(__file__).resolve().parent
-DATA_DIR = BASE_DIR / "data"
-DATA_DIR.mkdir(exist_ok=True)
-
-CHAT_FILE = DATA_DIR / "chat_history.json"
-
-BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:5000/analizar")
-FRONTEND_HOST = os.getenv("FRONTEND_HOST", "0.0.0.0")
-FRONTEND_PORT = int(os.getenv("FRONTEND_PORT", "8000"))
-REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "180"))
-
-app = Flask(
-    __name__,
-    template_folder="templates",
-    static_folder="static"
+# --- CONFIGURACIÓN LOCAL (OLLAMA) ---
+client = OpenAI(
+    base_url="http://localhost:11434/v1",
+    api_key="ollama",
 )
 
+MODELO_LOCAL = "qwen2.5-coder:3b"
+MODELO_RESPONSE = "llama3-chatqa:latest"
 
-def save_history(data: dict) -> None:
-    with open(CHAT_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-
-
-def create_default_history() -> dict:
-    return {
-        "active_chat_id": None,
-        "chats": []
-    }
+service= DataService()
 
 
-def create_chat(title: str = "Nuevo chat") -> dict:
-    return {
-        "id": str(uuid.uuid4()),
-        "title": title,
-        "preview": "",
-        "messages": []
-    }
+# --- Endpoint Principal ---
+@app.route('/analizar', methods=['POST'])
+def analizar():
+    pregunta = request.form.get("prompt", "General")
+    print("pensando")
+    print(pregunta)
+    r1 = getResponse(pregunta, client, MODELO_LOCAL, 0.1)
+    d = getData(service, r1)
+    limit = 0
 
+    if not isinstance(d, pd.DataFrame):
+        while limit <= 3 and not isinstance(d, pd.DataFrame):
+            pregunta1 = f"""Corrige tu respuesta tomando en cuenta el siguiente error:
+{d}"""
+            r1 = getResponse(pregunta1, client, MODELO_LOCAL, 0.1)
+            d = getData(service, r1)
+            limit += 1
 
-def normalize_history(data) -> dict:
-    default_data = create_default_history()
+    if not isinstance(d, pd.DataFrame):
+        return jsonify({"resultado": "No se han encontrado datos"})
 
-    if data is None:
-        return default_data
+    data_text = d.to_json(orient="records", force_ascii=False)
+    final_prompt = f"""Responde la siguiente pregunta:
+{pregunta}, solo en base a los siguientes datos adjuntos"""
 
-    # Caso correcto
-    if isinstance(data, dict):
-        if "active_chat_id" not in data:
-            data["active_chat_id"] = None
-
-        if "chats" not in data or not isinstance(data["chats"], list):
-            data["chats"] = []
-
-        # Normalizar cada chat
-        normalized_chats = []
-        for chat in data["chats"]:
-            if not isinstance(chat, dict):
-                continue
-
-            normalized_chat = {
-                "id": chat.get("id", str(uuid.uuid4())),
-                "title": chat.get("title", "Nuevo chat"),
-                "preview": chat.get("preview", ""),
-                "messages": chat.get("messages", [])
-            }
-
-            if not isinstance(normalized_chat["messages"], list):
-                normalized_chat["messages"] = []
-
-            normalized_chats.append(normalized_chat)
-
-        data["chats"] = normalized_chats
-        return data
-
-    # Compatibilidad con formato antiguo: lista de chats
-    if isinstance(data, list):
-        chats = []
-        for chat in data:
-            if not isinstance(chat, dict):
-                continue
-
-            normalized_chat = {
-                "id": chat.get("id", str(uuid.uuid4())),
-                "title": chat.get("title", "Nuevo chat"),
-                "preview": chat.get("preview", ""),
-                "messages": chat.get("messages", [])
-            }
-
-            if not isinstance(normalized_chat["messages"], list):
-                normalized_chat["messages"] = []
-
-            chats.append(normalized_chat)
-
-        return {
-            "active_chat_id": chats[0]["id"] if chats else None,
-            "chats": chats
-        }
-
-    return default_data
-
-
-def load_history() -> dict:
-    default_data = create_default_history()
-
-    if not CHAT_FILE.exists():
-        save_history(default_data)
-        return default_data
-
-    try:
-        with open(CHAT_FILE, "r", encoding="utf-8") as f:
-            raw_data = json.load(f)
-
-        data = normalize_history(raw_data)
-        save_history(data)
-        return data
-
-    except Exception:
-        save_history(default_data)
-        return default_data
-
-
-def get_active_chat(data: dict) -> dict:
-    if not isinstance(data, dict):
-        data = create_default_history()
-
-    chats = data.get("chats", [])
-    active_id = data.get("active_chat_id")
-
-    if not chats:
-        new_chat = create_chat()
-        data["chats"] = [new_chat]
-        data["active_chat_id"] = new_chat["id"]
-        save_history(data)
-        return new_chat
-
-    for chat in chats:
-        if chat.get("id") == active_id:
-            return chat
-
-    data["active_chat_id"] = chats[0]["id"]
-    save_history(data)
-    return chats[0]
-
-
-def find_chat_by_id(data: dict, chat_id: str):
-    chats = data.get("chats", [])
-    for chat in chats:
-        if chat.get("id") == chat_id:
-            return chat
-    return None
-
-
-@app.route("/", methods=["GET"])
-def index():
-    data = load_history()
-    active_chat = get_active_chat(data)
-
-    return render_template(
-        "index.html",
-        chats=data.get("chats", []),
-        active_chat=active_chat
+    response = client.chat.completions.create(
+        model=MODELO_RESPONSE,
+        messages=[
+            {"role": "system", "content": data_text},
+            {"role": "user", "content": final_prompt}
+        ],
+        temperature=0.1,
     )
+    result = response.choices[0].message.content
+    return jsonify({"resultado": result})
 
 
-@app.route("/api/chats", methods=["GET"])
-def list_chats():
-    data = load_history()
-    active_chat = get_active_chat(data)
-
-    return jsonify({
-        "ok": True,
-        "chats": data.get("chats", []),
-        "active_chat_id": active_chat.get("id")
-    })
+@app.route('/', methods=['GET'])
+def probar_conexion():
+    return "✅ Backend operativo"
 
 
-@app.route("/api/chats", methods=["POST"])
-def new_chat():
-    data = load_history()
-    chat = create_chat()
-
-    data["chats"].insert(0, chat)
-    data["active_chat_id"] = chat["id"]
-    save_history(data)
-
-    return jsonify({
-        "ok": True,
-        "chat": chat,
-        "active_chat_id": chat["id"]
-    })
-
-
-@app.route("/api/chats/<chat_id>", methods=["GET"])
-def get_chat(chat_id):
-    data = load_history()
-    chat = find_chat_by_id(data, chat_id)
-
-    if chat is None:
-        return jsonify({
-            "ok": False,
-            "error": "Chat no encontrado"
-        }), 404
-
-    data["active_chat_id"] = chat_id
-    save_history(data)
-
-    return jsonify({
-        "ok": True,
-        "chat": chat
-    })
-
-
-@app.route("/api/chats/<chat_id>/message", methods=["POST"])
-def send_message(chat_id):
-    data = load_history()
-    chat = find_chat_by_id(data, chat_id)
-
-    if chat is None:
-        return jsonify({
-            "ok": False,
-            "error": "Chat no encontrado"
-        }), 404
-
-    payload = request.get_json(silent=True) or {}
-    prompt = str(payload.get("message", "")).strip()
-
-    if not prompt:
-        return jsonify({
-            "ok": False,
-            "error": "El mensaje está vacío"
-        }), 400
-
-    # Guardar mensaje del usuario
-    chat["messages"].append({
-        "role": "user",
-        "content": prompt
-    })
-
-    if not chat.get("title") or chat["title"] == "Nuevo chat":
-        chat["title"] = prompt[:40] + ("..." if len(prompt) > 40 else "")
-
-    chat["preview"] = prompt[:80] + ("..." if len(prompt) > 80 else "")
-    data["active_chat_id"] = chat_id
-    save_history(data)
-
-    answer = "No se recibió respuesta del backend."
-
-    try:
-        response = requests.post(
-            BACKEND_URL,
-            json={"prompt": prompt},
-            timeout=REQUEST_TIMEOUT
-        )
-        response.raise_for_status()
-
-        result = response.json()
-
-        # Compatibilidad con distintas claves de respuesta
-        answer = (
-            result.get("respuesta")
-            or result.get("answer")
-            or result.get("response")
-            or result.get("resultado")
-            or "No se recibió respuesta del backend."
-        )
-
-    except requests.exceptions.Timeout:
-        answer = "Error: el backend tardó demasiado en responder."
-    except requests.exceptions.ConnectionError:
-        answer = "Error: no se pudo conectar con el backend."
-    except requests.exceptions.HTTPError as e:
-        try:
-            error_json = response.json()
-            backend_msg = error_json.get("error") or error_json.get("message") or str(e)
-            answer = f"Error HTTP del backend: {backend_msg}"
-        except Exception:
-            answer = f"Error HTTP del backend: {str(e)}"
-    except Exception as e:
-        answer = f"Error inesperado: {str(e)}"
-
-    # Guardar respuesta del asistente
-    chat["messages"].append({
-        "role": "assistant",
-        "content": answer
-    })
-
-    save_history(data)
-
-    return jsonify({
-        "ok": True,
-        "chat": chat
-    })
-
-
-@app.route("/health", methods=["GET"])
+@app.route('/health', methods=['GET'])
 def health():
-    return jsonify({
-        "status": "ok",
-        "service": "frontend",
-        "backend_url": BACKEND_URL
-    })
-
-
-if __name__ == "__main__":
-    app.run(
-        host=FRONTEND_HOST,
-        port=FRONTEND_PORT,
-        debug=False
+    return jsonify(
+        {
+            "ok": True,
+            "modelo_sql": MODELO_LOCAL,
+            "modelo_respuesta": MODELO_RESPONSE,
+        }
     )
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
