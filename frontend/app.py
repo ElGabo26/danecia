@@ -45,7 +45,7 @@ def create_chat(title="Nuevo chat"):
         "id": str(uuid.uuid4()),
         "title": title,
         "preview": "",
-        "messages": []
+        "message": []
     }
 
 
@@ -137,7 +137,7 @@ def send_message(chat_id):
     if target_chat is None:
         return jsonify({"ok": False, "error": "Chat no encontrado"}), 404
 
-    target_chat["messages"].append({
+    target_chat["message"].append({
         "role": "user",
         "content": prompt
     })
@@ -175,7 +175,7 @@ def send_message(chat_id):
     except Exception as e:
         answer = f"Error inesperado: {str(e)}"
 
-    target_chat["messages"].append({
+    target_chat["message"].append({
         "role": "assistant",
         "content": answer
     })
