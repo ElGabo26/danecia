@@ -108,7 +108,7 @@ function autoResize(el) {
 input.addEventListener('input', () => autoResize(input));
 
 newChatBtn.addEventListener('click', async () => {
-    const res = await fetch('/api/chats/new', { method: 'POST' });
+    const res = await fetch('/api/chats/', { method: 'POST' });
     const data = await res.json();
     if (!data.ok) return;
     window.location.href = `/?chat_id=${data.chat.id}`;
