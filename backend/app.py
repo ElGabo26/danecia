@@ -29,6 +29,9 @@ def analizar():
     print("pensando")
     print(pregunta)
     r1 = getResponse(pregunta, client, MODELO_LOCAL, 0.1)
+    if not r1:
+        r1 ="NO SELECT;"
+    
     d = getData(service, r1)
     limit = 0
 
