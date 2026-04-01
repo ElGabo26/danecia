@@ -21,6 +21,6 @@ def getResponse(pregunta,client,modelName,temperature:float):
         print(e)
         t1, t0=0,0
         print(e)
-        r=None
+        r="SELECT ;"
     print(t1-t0)
     return r
