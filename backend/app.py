@@ -40,12 +40,14 @@ def analizar():
             pregunta1 = f"""Corrige tu respuesta tomando en cuenta el siguiente error:
 {d}"""
             r1 = getResponse(pregunta1, client, MODELO_LOCAL, 0.1)
+            print(r1)
             d = getData(service, r1)
+            
             limit += 1
 
     if not isinstance(d, pd.DataFrame):
         return jsonify({"resultado": "No se han encontrado datos"})
-
+    print(d.shape)
     data_text = d.to_json(orient="records", force_ascii=False)
     final_prompt = f"""Responde la siguiente pregunta:
 {pregunta}, solo en base a los siguientes datos adjuntos"""
