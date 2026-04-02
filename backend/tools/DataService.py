@@ -18,11 +18,17 @@ class DataService:
     
     # Get data from database
     def get_data(self, query):
-        connection =create_engine(f'mysql+pymysql://{self.__user}:{self.__password}@{self.__host}/{self.__database}')
-        #Create Cursor
-        result= read_sql(query,connection)
-        connection.close()
-        return result
+        engine = create_engine(
+            f"mysql+pymysql://{self.__user}:{self.__password}@{self.__host}/{self.__database}"
+        )
+        try:
+            with engine.connect() as connection:
+                result = read_sql(query, connection)
+            return result
+        except Exception as e:
+            return e
+        finally:
+            engine.dispose()
     def up_data(self,data,tabla):
         try:
             # Crear la conexión con SQLAlchemy
