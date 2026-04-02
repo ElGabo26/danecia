@@ -61,6 +61,7 @@ def analizar():
         temperature=0.1,
     )
         result = response.choices[0].message.content
+        print(result)
     except:
         print("llama error")
         result=data_text
