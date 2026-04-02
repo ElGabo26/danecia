@@ -51,6 +51,7 @@ def analizar():
     data_text = d.to_json(orient="records", force_ascii=False)
     final_prompt = f"""Responde la siguiente pregunta:
 {pregunta}, solo en base a los siguientes datos adjuntos"""
+    print(final_prompt)
     try:
         response = client.chat.completions.create(
         model=MODELO_RESPONSE,
