@@ -1,0 +1,77 @@
+[
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 0,
+    "text": "FINANZAS\nUsa solo:\n1) DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL (real): CCIA, COMPANIA, ANIO_FISCAL, UNDNEGOCIO, ID_CUENTA, NOMBRE_CUENTA, SUBLIBRO, TIPOCTA, TRASPASO_SALDO, ENE_ACT..DIC_ACT.\n2) DDM_ERP.FAC_ESTRESULTADOS_PRESUP_ALL (presupuesto): mismas columnas y estructura.\n3) DDM_ERP.DIM_UNIDAD_NEGOCIO: "
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 1,
+    "text": "mnas y estructura.\n3) DDM_ERP.DIM_UNIDAD_NEGOCIO: ID_UNID_NEGOCIO, COD_UNID_NEGOCIO, NOM_UNID_NEGOCIO, COD_CIA, NOM_CIA.\n\nJoins válidos:\n- ACT vs PRESUP por ANIO_FISCAL, ID_CUENTA, SUBLIBRO, UNDNEGOCIO.\n- UNDNEGOCIO con DIM_UNIDAD_NEGOCIO mediante UNDNEGOCIO = COD_UNID_NEGOCIO si se requiere nombre "
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 2,
+    "text": "DNEGOCIO = COD_UNID_NEGOCIO si se requiere nombre de unidad.\n\nReglas:\n- Filtrar ANIO_FISCAL entre 2020 y año actual.\n- TRASPASO_SALDO = saldo inicial.\n- ENE_ACT..DIC_ACT son valores mensuales; no inventar columna MES si no se construye con UNION ALL o CASE.\n- Para costo de flete de exportación usar "
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 3,
+    "text": "o CASE.\n- Para costo de flete de exportación usar ID_CUENTA='00176320'.\n\nNo usar tablas o columnas no listadas. Si se compara real vs presupuesto, mantener mismas llaves y granularidad.\n\nAGRICOLA\nUsa solo:\n1) DDM_ERP.FAC_SGA_PRESUPUESTO_EXT: ID_COMPANIA, ID_PLANTACION, ANIO, MES, ID_TIPO_CLASIFICACI"
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 4,
+    "text": "NIA, ID_PLANTACION, ANIO, MES, ID_TIPO_CLASIFICACION, ID_MATERIAL, ID_ORIGEN, ID_TIPO_DOCUMENTO, CANTIDAD, CANTIDAD_PRESUPUESTO_INICIAL, GLCLASS, FECHA_INICIO, FECHA_FIN, ID_ESTADO_CULTIVO.\n2) DDM_ERP.DIM_COMPANIA: ID_COMPANIA, COD_COMPANIA, NOM_COMPANIA.\n3) DDM_ERP.DIM_PLANTACION: ID_PLANTACION, CO"
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 5,
+    "text": "ANIA.\n3) DDM_ERP.DIM_PLANTACION: ID_PLANTACION, COD_PLANTACION, NOM_PLANTACION, NOM_ZONA_GEOGRAFICA, NOM_TIPO_PLANTACION, NOM_UNID_NEGOCIO, NOM_ESTADO.\n4) DDM_ERP.DIM_SGA_ORIGEN: ID_ORIGEN, COD_ORIGEN, NOM_ORIGEN.\n5) DDM_ERP.DIM_SGA_MATERIAL: ID_MATERIAL, COD_MATERIAL, NOM_MATERIAL.\n6) DDM_ERP.DIM_S"
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 6,
+    "text": "RIAL, COD_MATERIAL, NOM_MATERIAL.\n6) DDM_ERP.DIM_SGA_TIPO_DOCUMENTO: ID_TIPO_DOCUMENTO, COD_TIPO_DOCUMENTO, NOM_TIPO_DOCUMENTO.\n7) DDM_ERP.DIM_ESTADO: ID_ESTADO, COD_ESTADO, NOM_ESTADO.\n8) DDM_ERP.DIM_SGA_TIPO_CLASIFICACION: ID_TIPO_CLASIFICACION, COD_TIPO_CLASIFICACION, NOM_TIPO_CLASIFICACION.\n\nJoi"
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 7,
+    "text": "D_TIPO_CLASIFICACION, NOM_TIPO_CLASIFICACION.\n\nJoins: siempre por IDs homólogos.\nReglas:\n- Si NOM_TIPO_CLASIFICACION es NULL, usar 'FRUTA'.\n- Valores útiles: ORIGEN {PROPIO, TERCERO}, MATERIAL {HIBRIDO, GUINEENSIS}, TIPO_DOCUMENTO {PRESUPUESTO, REAL}.\n- No inventar mapeos contables fuera de GLCLASS "
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 8,
+    "text": ".\n- No inventar mapeos contables fuera de GLCLASS o dimensiones.\n\nVENTAS Y KARDEX\nUsa solo:\n1) DDM_ERP.FAC_VENTA_TOTAL: ID_PRODUCTO, ID_DOCUMENTO, ID_CLIENTE, ID_COMPANIA, ID_UNID_NEGOCIO, ID_FECHA, DATE_CONTA, CANT_VENDIDA, PRECIO_VENTA_TOTAL, PVP_TOTAL, VENTA_KG, VENTA_CAJ_REAL, VENTA_CAJ_EST, VEN"
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 9,
+    "text": "OTAL, VENTA_KG, VENTA_CAJ_REAL, VENTA_CAJ_EST, VENTA_AUTOCONSUMO, MARGEN, VALORFLETE.\n2) DDM_ERP.DIM_PRODUCTO: ID_PRODUCTO, NOM_FAMILIA, NOM_MARCA, NOM_LINEA_ART, COD_CAT_CONTA, NOM_CAT_CONTA, COD_UNID_NEGOCIO, NOM_UNID_NEGOCIO.\n3) DDM_ERP.DIM_CLIENTE: ID_CLIENTE, NOM_CLIENTE, COD_CANAL, NOM_CANAL, "
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 10,
+    "text": "E: ID_CLIENTE, NOM_CLIENTE, COD_CANAL, NOM_CANAL, COD_SUBCANAL, NOM_SUBCANAL, COD_AGENCIA, NOM_AGENCIA, COD_TIPO_ID, DESC_TIPO_ID, PAIS, NOM_PAIS, CIUDAD.\n4) DDM_ERP.DIM_TIPO_DOCUMENTO: id_documento, cod_documento, nom_documento, agrupacion.\n5) DDM_ERP.DIM_FECHA: id_fecha, fecha, anio, trimestre, me"
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 11,
+    "text": "RP.DIM_FECHA: id_fecha, fecha, anio, trimestre, mes, semana.\n6) DDM_ERP.FAC_COSTO_MARGEN: CODITEM, FECHA, COSTOXKILO, CANAL.\n7) DDM_ERP.FAC_V_MQRY_KARDEX_AGRICOLA: CIA, CODIGOCORTO, FECHA, TDOC, TORDEN, GLCLASS, CANTIDAD, VALOR, UNIDAD.\n\nJoins válidos:\n- VENTA_TOTAL.ID_PRODUCTO = DIM_PRODUCTO.ID_PRO"
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 12,
+    "text": "s:\n- VENTA_TOTAL.ID_PRODUCTO = DIM_PRODUCTO.ID_PRODUCTO\n- VENTA_TOTAL.ID_CLIENTE = DIM_CLIENTE.ID_CLIENTE\n- VENTA_TOTAL.ID_DOCUMENTO = DIM_TIPO_DOCUMENTO.id_documento\n- VENTA_TOTAL.ID_FECHA = DIM_FECHA.id_fecha o DATE_CONTA = fecha\n- FAC_COSTO_MARGEN.CODITEM = VENTA_TOTAL.ID_PRODUCTO\n- KARDEX.CODIGO"
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 13,
+    "text": ".CODITEM = VENTA_TOTAL.ID_PRODUCTO\n- KARDEX.CODIGOCORTO = DIM_PRODUCTO.ID_PRODUCTO\n\nReglas:\n- Excluir DESC_TIPO_ID='NO APLICA' en ventas.\n- Kardex: CIA in ('00105','00106','00107','00111'), GLCLASS in ('FPSH','FPCS'), FECHA>='2020-01-01'. Si UNIDAD='KG', convertir a toneladas dividiendo entre 1000.\n"
+  },
+  {
+    "doc": "contextos_sql_comprimidos.txt",
+    "chunk": 14,
+    "text": "KG', convertir a toneladas dividiendo entre 1000.\n\n"
+  }
+]

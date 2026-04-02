@@ -18,14 +18,8 @@ class DataService:
     
     # Get data from database
     def get_data(self, query):
-        connection = pymysql.connect(
-            host=self.__host,
-            user=self.__user,
-            password=self.__password,
-            database=self.__database,
-            port= self.__port
-        )
-        # Create Cursor
+        connection =create_engine(f'mysql+pymysql://{self.__user}:{self.__password}@{self.__host}/{self.__database}')
+        #Create Cursor
         result= read_sql(query,connection)
         connection.close()
         return result
