@@ -51,8 +51,8 @@ def analizar():
     data_text = d.to_json(orient="records", force_ascii=False)
     final_prompt = f"""Responde la siguiente pregunta:
 {pregunta}, solo en base a los siguientes datos adjuntos"""
-
-    response = client.chat.completions.create(
+    try:
+        response = client.chat.completions.create(
         model=MODELO_RESPONSE,
         messages=[
             {"role": "system", "content": data_text},
@@ -60,7 +60,10 @@ def analizar():
         ],
         temperature=0.1,
     )
-    result = response.choices[0].message.content
+        result = response.choices[0].message.content
+    except:
+        print("llama error")
+        result=data_text
     return jsonify({"resultado": result})
 
 
