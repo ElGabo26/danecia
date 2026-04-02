@@ -191,7 +191,7 @@ INDICES_RAG = cargar_indices_por_archivo(RAG_PATH)
 # =========================================================
 # RECUPERACIÓN DE CONTEXTO
 # =========================================================
-def retrieve_context_per_file(question: str, k_per_file: int = 5):
+def retrieve_context_per_file(question: str, k_per_file: int = 1):
     """
     Busca el top-k dentro de cada archivo por separado.
     Devuelve una lista con resultados agrupados por archivo.
