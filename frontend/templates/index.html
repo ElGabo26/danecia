@@ -1,79 +1,3 @@
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grupo Danec | Asistente Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="app-shell">
-        <aside class="sidebar">
-            <div class="brand-block">
-                <img src="{{ url_for('static', filename='danecLogo.png') }}" alt="Grupo Danec" class="brand-logo">
-                <div>
-                    <p class="brand-kicker">Asistente corporativo</p>
-                    <h1>Grupo Danec</h1>
-                </div>
-            </div>
-
-            <button class="new-chat-btn" type="button" id="newChatBtn">
-                <span>＋</span>
-                Nuevo chat
-            </button>
-
-            <div class="history-header">Historial de chats</div>
-
-            <nav class="history-list" id="historyList">
-                {% for chat in chats %}
-                <a href="/?chat_id={{ chat.id }}" class="history-item {% if chat.id == active_chat.id %}active{% endif %}">
-                    <div class="history-title">{{ chat.title }}</div>
-                    <div class="history-preview">{{ chat.preview }}</div>
-                </a>
-                {% endfor %}
-            </nav>
-        </aside>
-
-        <main class="main-panel">
-            <header class="topbar">
-                <div>
-                    <h2 id="chatTitle">{{ active_chat.title }}</h2>
-                    
-                </div>
-            </header>
-
-            <section class="chat-area" id="chatArea">
-                {% for msg in active_chat.messages %}
-                <article class="message-row {{ msg.role }}">
-                    <div class="avatar">{{ 'GD' if msg.role == 'assistant' else 'TÚ' }}</div>
-                    <div class="message-card">
-                        <div class="message-meta">
-                            <span>{{ 'Asistente Danec' if msg.role == 'assistant' else 'Usuario' }}</span>
-                            <time>{{ msg.time }}</time>
-                        </div>
-                        <p>{{ msg.content }}</p>
-                    </div>
-                </article>
-                {% endfor %}
-            </section>
-
-            <section class="prompt-panel">
-                <form id="promptForm" class="prompt-form">
-                    <label for="promptInput" class="prompt-label">Ingrese su pregunta</label>
-                    <div class="prompt-box">
-                        <textarea id="promptInput" name="prompt" rows="1" placeholder="Escribe tu prompt aquí..."></textarea>
-                        <button type="submit" class="send-btn">Enviar</button>
-                    </div>
-                    <div class="prompt-hint">El historial se guarda en JSON en el frontend.</div>
-                </form>
-            </section>
-        </main>
-    </div>
-
 <script>
 const form = document.getElementById('promptForm');
 const input = document.getElementById('promptInput');
@@ -98,11 +22,63 @@ function addMessage(role, author, time, content) {
     row.querySelector('p').textContent = content;
     chatArea.appendChild(row);
     chatArea.scrollTop = chatArea.scrollHeight;
+    return row;
+}
+
+function updateMessage(row, content, time = 'Ahora') {
+    const p = row.querySelector('p');
+    const timeEl = row.querySelector('time');
+    if (p) p.textContent = content;
+    if (timeEl) timeEl.textContent = time;
+    chatArea.scrollTop = chatArea.scrollHeight;
 }
 
 function autoResize(el) {
     el.style.height = 'auto';
     el.style.height = Math.min(el.scrollHeight, 180) + 'px';
+}
+
+function getStageLabel(stage) {
+    const labels = {
+        inicio: 'Iniciando proceso',
+        llm_sql: 'Generando consulta SQL',
+        db: 'Consultando base de datos',
+        correccion: 'Corrigiendo consulta',
+        datos: 'Procesando datos',
+        respuesta_final: 'Generando respuesta final',
+        fin: 'Proceso completado',
+        error: 'Error'
+    };
+    return labels[stage] || 'Procesando';
+}
+
+function parseSSEChunk(chunk) {
+    const events = [];
+    const parts = chunk.split('\n\n');
+
+    for (const part of parts) {
+        const trimmed = part.trim();
+        if (!trimmed) continue;
+
+        const lines = trimmed.split('\n');
+        let dataLine = '';
+
+        for (const line of lines) {
+            if (line.startsWith('data:')) {
+                dataLine += line.slice(5).trim();
+            }
+        }
+
+        if (dataLine) {
+            try {
+                events.push(JSON.parse(dataLine));
+            } catch (e) {
+                console.error('No se pudo parsear evento SSE:', dataLine, e);
+            }
+        }
+    }
+
+    return events;
 }
 
 input.addEventListener('input', () => autoResize(input));
@@ -123,27 +99,118 @@ form.addEventListener('submit', async (e) => {
     input.value = '';
     autoResize(input);
 
+    const assistantRow = addMessage(
+        'assistant',
+        'Asistente Danec',
+        'Ahora',
+        'Iniciando proceso...'
+    );
+
     try {
         const res = await fetch(`/api/chats/${currentChatId}/message`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ prompt })
         });
-        const data = await res.json();
 
-        if (!data.ok) {
-            addMessage('assistant', 'Asistente Danec', 'Ahora', data.error || 'Ocurrió un error.');
+        if (!res.ok) {
+            updateMessage(
+                assistantRow,
+                `Error del servidor: ${res.status} ${res.statusText}`
+            );
             return;
         }
 
-        chatTitle.textContent = data.chat.title;
-        addMessage('assistant', 'Asistente Danec', data.assistant_message.time, data.assistant_message.content);
-        window.history.replaceState({}, '', `/?chat_id=${currentChatId}`);
-        setTimeout(() => window.location.reload(), 250);
+        const contentType = res.headers.get('content-type') || '';
+
+        if (!contentType.includes('text/event-stream')) {
+            const data = await res.json();
+
+            if (!data.ok) {
+                updateMessage(
+                    assistantRow,
+                    data.error || 'Ocurrió un error.'
+                );
+                return;
+            }
+
+            chatTitle.textContent = data.chat?.title || chatTitle.textContent;
+            updateMessage(
+                assistantRow,
+                data.assistant_message?.content || 'Sin respuesta del backend.',
+                data.assistant_message?.time || 'Ahora'
+            );
+            return;
+        }
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+        let buffer = '';
+        let finalResult = null;
+
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+
+            const completeParts = buffer.split('\n\n');
+            buffer = completeParts.pop() || '';
+
+            for (const part of completeParts) {
+                const events = parseSSEChunk(part + '\n\n');
+
+                for (const event of events) {
+                    const stage = event.stage || 'proceso';
+                    const stageLabel = getStageLabel(stage);
+                    const message = event.message || stageLabel;
+
+                    if (event.resultado) {
+                        finalResult = event.resultado;
+                    }
+
+                    if (stage === 'fin') {
+                        updateMessage(
+                            assistantRow,
+                            finalResult || event.resultado || message,
+                            'Ahora'
+                        );
+                    } else if (stage === 'error') {
+                        updateMessage(
+                            assistantRow,
+                            `Error: ${message}`,
+                            'Ahora'
+                        );
+                    } else {
+                        updateMessage(
+                            assistantRow,
+                            `${stageLabel}...\n${message}`,
+                            'Ahora'
+                        );
+                    }
+                }
+            }
+        }
+
+        if (buffer.trim()) {
+            const events = parseSSEChunk(buffer);
+            for (const event of events) {
+                if (event.stage === 'fin') {
+                    updateMessage(
+                        assistantRow,
+                        event.resultado || event.message || 'Proceso completado',
+                        'Ahora'
+                    );
+                }
+            }
+        }
+
     } catch (error) {
-        addMessage('assistant', 'Asistente Danec', 'Ahora', 'No fue posible conectar con el frontend o backend.');
+        updateMessage(
+            assistantRow,
+            'No fue posible conectar con el frontend o backend.'
+        );
+        console.error(error);
     }
 });
 </script>
-</body>
-</html>
