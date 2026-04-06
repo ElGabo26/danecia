@@ -1,0 +1,5296 @@
+{
+  "tables": [
+    {
+      "table_name": "DDM_ERP.DIM_CLIENTE",
+      "domain": "dimension",
+      "description": "Se usa para filtrar movimientos válidos y apoyar la clasificación comercial según canal o tipo de identificación del cliente.",
+      "columns": [
+        {
+          "name": "ID_CLIENTE",
+          "type": "bigint(20)",
+          "nullable": "NO",
+          "key": "MUL",
+          "description": "Columna ID_CLIENTE de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_CLIENTE",
+          "type": "double",
+          "nullable": "YES",
+          "key": "MUL",
+          "description": "Columna COD_CLIENTE de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_CLIENTE_ANT",
+          "type": "varchar(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_CLIENTE_ANT de DIM_CLIENTE"
+        },
+        {
+          "name": "RUC_CI",
+          "type": "varchar(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna RUC_CI de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_CLIENTE",
+          "type": "varchar(40)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_CLIENTE de DIM_CLIENTE"
+        },
+        {
+          "name": "FECHA_CREACION",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_CREACION de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_AGENT_CRED",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_AGENT_CRED de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_AGENT_CRE",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_AGENT_CRE de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_COBRA_CRE",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_COBRA_CRE de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_COBRA_CRE",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_COBRA_CRE de DIM_CLIENTE"
+        },
+        {
+          "name": "MONTO_CREDITO",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna MONTO_CREDITO de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_CANAL",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_CANAL de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_CANAL",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_CANAL de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_SUBCANAL",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_SUBCANAL de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_SUBCANAL",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_SUBCANAL de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_AGENCIA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_AGENCIA de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_AGENCIA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_AGENCIA de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_RUTA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_RUTA de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_RUTA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_RUTA de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_ZONA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_ZONA de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_ZONA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_ZONA de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_DIA_VISITA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_DIA_VISITA de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_DIA_VISITA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_DIA_VISITA de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_TIPO_PROV",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_PROV de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_PROVEE",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_PROVEE de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_REGION",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_REGION de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_REGION",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_REGION de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_TIP_OFER",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIP_OFER de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_TIP_OFER",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIP_OFER de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_SEC_VISIT",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_SEC_VISIT de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_SEC_VISIT",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_SEC_VISIT de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_TIP_MERC",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIP_MERC de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_TIP_MERC",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIP_MERC de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_TIP_DIST",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIP_DIST de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_TIP_DIST",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIP_DIST de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_MOT_COMPRA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_MOT_COMPRA de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_TIP_COMPRA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIP_COMPRA de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_STATUS",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_STATUS de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_STATUS",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_STATUS de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_RESUR_MAN",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_RESUR_MAN de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_RESUR_MAN",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_RESUR_MAN de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_EXCLU_NOEXCLU",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_EXCLU_NOEXCLU de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_EXCLU_NOEXCLU",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_EXCLU_NOEXCLU de DIM_CLIENTE"
+        },
+        {
+          "name": "ANIO_INI",
+          "type": "varchar(15)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ANIO_INI de DIM_CLIENTE"
+        },
+        {
+          "name": "TAZA_FISCAL",
+          "type": "varchar(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TAZA_FISCAL de DIM_CLIENTE"
+        },
+        {
+          "name": "EXPLIC_FISCAL",
+          "type": "varchar(15)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna EXPLIC_FISCAL de DIM_CLIENTE"
+        },
+        {
+          "name": "DESC_TAZA_FISCAL",
+          "type": "varchar(40)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_TAZA_FISCAL de DIM_CLIENTE"
+        },
+        {
+          "name": "DESC_EXPLIC_FISCAL",
+          "type": "varchar(40)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_EXPLIC_FISCAL de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_TIPO_CLI",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_CLI de DIM_CLIENTE"
+        },
+        {
+          "name": "DESC_TIPO_CLI",
+          "type": "varchar(40)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_TIPO_CLI de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_TIPO_ID",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_ID de DIM_CLIENTE"
+        },
+        {
+          "name": "DESC_TIPO_ID",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_TIPO_ID de DIM_CLIENTE"
+        },
+        {
+          "name": "FECHA_ACTZ",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_ACTZ de DIM_CLIENTE"
+        },
+        {
+          "name": "FECHA_PRIMERA_COMPRA",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_PRIMERA_COMPRA de DIM_CLIENTE"
+        },
+        {
+          "name": "FECHA_ULTIMA_COMPRA",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_ULTIMA_COMPRA de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_LISTA_AJUSTE",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_LISTA_AJUSTE de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_LISTA_AJUSTE",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_LISTA_AJUSTE de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_UNID_NEG",
+          "type": "varchar(12)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_UNID_NEG de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_UNI_NEG",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_UNI_NEG de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_GRU_PRECIOS",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_GRU_PRECIOS de DIM_CLIENTE"
+        },
+        {
+          "name": "DESC_GRU_PRECIOS",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_GRU_PRECIOS de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_SURTIDO",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_SURTIDO de DIM_CLIENTE"
+        },
+        {
+          "name": "DESC_SURTIDO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_SURTIDO de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_TRA_COB",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TRA_COB de DIM_CLIENTE"
+        },
+        {
+          "name": "DESC_TRA_COB",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_TRA_COB de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_TERR_VENTA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TERR_VENTA de DIM_CLIENTE"
+        },
+        {
+          "name": "DESC_TERR_VENTA_2",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_TERR_VENTA_2 de DIM_CLIENTE"
+        },
+        {
+          "name": "ICA",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ICA de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_CONDI_PAGO",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_CONDI_PAGO de DIM_CLIENTE"
+        },
+        {
+          "name": "DESC_CONDI_PAGO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_CONDI_PAGO de DIM_CLIENTE"
+        },
+        {
+          "name": "FECHA_CREA_CLI",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_CREA_CLI de DIM_CLIENTE"
+        },
+        {
+          "name": "CANTCLIE",
+          "type": "varchar(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANTCLIE de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_MERCADO",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_MERCADO de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_MERCADO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_MERCADO de DIM_CLIENTE"
+        },
+        {
+          "name": "PRETON2014",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRETON2014 de DIM_CLIENTE"
+        },
+        {
+          "name": "PREDOL2014",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PREDOL2014 de DIM_CLIENTE"
+        },
+        {
+          "name": "PRETRUP2014",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRETRUP2014 de DIM_CLIENTE"
+        },
+        {
+          "name": "VTATON2013",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VTATON2013 de DIM_CLIENTE"
+        },
+        {
+          "name": "VTAUSD2013",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VTAUSD2013 de DIM_CLIENTE"
+        },
+        {
+          "name": "TRUP2013",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TRUP2013 de DIM_CLIENTE"
+        },
+        {
+          "name": "PRETON2015",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRETON2015 de DIM_CLIENTE"
+        },
+        {
+          "name": "PREDOL2015",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PREDOL2015 de DIM_CLIENTE"
+        },
+        {
+          "name": "PRETRUP2015",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRETRUP2015 de DIM_CLIENTE"
+        },
+        {
+          "name": "VTATON2014",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VTATON2014 de DIM_CLIENTE"
+        },
+        {
+          "name": "VTAUSD2014",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VTAUSD2014 de DIM_CLIENTE"
+        },
+        {
+          "name": "TRUP2014",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TRUP2014 de DIM_CLIENTE"
+        },
+        {
+          "name": "PRETON2016",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRETON2016 de DIM_CLIENTE"
+        },
+        {
+          "name": "PREDOL2016",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PREDOL2016 de DIM_CLIENTE"
+        },
+        {
+          "name": "PRETRU2016",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRETRU2016 de DIM_CLIENTE"
+        },
+        {
+          "name": "VTATON2015",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VTATON2015 de DIM_CLIENTE"
+        },
+        {
+          "name": "VTAUSD2015",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VTAUSD2015 de DIM_CLIENTE"
+        },
+        {
+          "name": "TRUP2015",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TRUP2015 de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_SEGURO",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_SEGURO de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_SEGURO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_SEGURO de DIM_CLIENTE"
+        },
+        {
+          "name": "VTATON2016",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VTATON2016 de DIM_CLIENTE"
+        },
+        {
+          "name": "VTAUSD2016",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VTAUSD2016 de DIM_CLIENTE"
+        },
+        {
+          "name": "TRUPUT2016",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TRUPUT2016 de DIM_CLIENTE"
+        },
+        {
+          "name": "PAIS",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PAIS de DIM_CLIENTE"
+        },
+        {
+          "name": "NOM_PAIS",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_PAIS de DIM_CLIENTE"
+        },
+        {
+          "name": "CIUDAD",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CIUDAD de DIM_CLIENTE"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_RUTA_TRAN",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_RUTA_TRAN de DIM_CLIENTE"
+        },
+        {
+          "name": "DESC_RUTA_TRAN",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_RUTA_TRAN de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_VISIBLE_APP_FV",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_VISIBLE_APP_FV de DIM_CLIENTE"
+        },
+        {
+          "name": "DESC_VISIBLE_APP_FV",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_VISIBLE_APP_FV de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_ESTADO_HABILITADO",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_ESTADO_HABILITADO de DIM_CLIENTE"
+        },
+        {
+          "name": "DESC_ESTADO_HABILITADO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_ESTADO_HABILITADO de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_PROVINCIA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_PROVINCIA de DIM_CLIENTE"
+        },
+        {
+          "name": "DESC_PROVINCIA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_PROVINCIA de DIM_CLIENTE"
+        },
+        {
+          "name": "SEGMENTO",
+          "type": "varchar(3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna SEGMENTO de DIM_CLIENTE"
+        },
+        {
+          "name": "INSTRUMENTO",
+          "type": "varchar(3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna INSTRUMENTO de DIM_CLIENTE"
+        },
+        {
+          "name": "HAB_FAC_CLIENTE",
+          "type": "varchar(1)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna HAB_FAC_CLIENTE de DIM_CLIENTE"
+        },
+        {
+          "name": "COD_CLIENTE_PADRE",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_CLIENTE_PADRE de DIM_CLIENTE"
+        },
+        {
+          "name": "STATUS_CORREO",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna STATUS_CORREO de DIM_CLIENTE"
+        },
+        {
+          "name": "LOPDP",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna LOPDP de DIM_CLIENTE"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.DIM_COMPANIA",
+      "domain": "dimension",
+      "description": "Tabla DIM_COMPANIA sin descripción funcional explícita.",
+      "columns": [
+        {
+          "name": "ID_COMPANIA",
+          "type": "bigint(20)",
+          "nullable": "NO",
+          "key": "MUL",
+          "description": "Columna ID_COMPANIA de DIM_COMPANIA"
+        },
+        {
+          "name": "COD_COMPANIA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": "MUL",
+          "description": "Columna COD_COMPANIA de DIM_COMPANIA"
+        },
+        {
+          "name": "NOM_COMPANIA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_COMPANIA de DIM_COMPANIA"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de DIM_COMPANIA"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.DIM_ESTADO",
+      "domain": "dimension",
+      "description": "Tabla DIM_ESTADO sin descripción funcional explícita.",
+      "columns": [
+        {
+          "name": "ID_ESTADO",
+          "type": "bigint(20)",
+          "nullable": "NO",
+          "key": "MUL",
+          "description": "Columna ID_ESTADO de DIM_ESTADO"
+        },
+        {
+          "name": "COD_ESTADO",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": "MUL",
+          "description": "Columna COD_ESTADO de DIM_ESTADO"
+        },
+        {
+          "name": "NOM_ESTADO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_ESTADO de DIM_ESTADO"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de DIM_ESTADO"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.DIM_FECHA",
+      "domain": "dimension",
+      "description": "Se usa para transformar la fecha contable en una fecha mensual (MES) para agregación.",
+      "columns": [
+        {
+          "name": "id_fecha",
+          "type": "bigint(20)",
+          "nullable": "NO",
+          "key": "MUL",
+          "description": "Columna id_fecha de DIM_FECHA"
+        },
+        {
+          "name": "anio",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna anio de DIM_FECHA"
+        },
+        {
+          "name": "semestre",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna semestre de DIM_FECHA"
+        },
+        {
+          "name": "trimestre",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna trimestre de DIM_FECHA"
+        },
+        {
+          "name": "mes",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna mes de DIM_FECHA"
+        },
+        {
+          "name": "semana",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna semana de DIM_FECHA"
+        },
+        {
+          "name": "fecha",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna fecha de DIM_FECHA"
+        },
+        {
+          "name": "anio_semestre",
+          "type": "varchar(64)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna anio_semestre de DIM_FECHA"
+        },
+        {
+          "name": "anio_trimestre",
+          "type": "varchar(64)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna anio_trimestre de DIM_FECHA"
+        },
+        {
+          "name": "anio_semana",
+          "type": "varchar(64)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna anio_semana de DIM_FECHA"
+        },
+        {
+          "name": "inicio_anio",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna inicio_anio de DIM_FECHA"
+        },
+        {
+          "name": "inicio_semestre",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna inicio_semestre de DIM_FECHA"
+        },
+        {
+          "name": "inicio_trimestre",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna inicio_trimestre de DIM_FECHA"
+        },
+        {
+          "name": "inicio_mes",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna inicio_mes de DIM_FECHA"
+        },
+        {
+          "name": "inicio_semana",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna inicio_semana de DIM_FECHA"
+        },
+        {
+          "name": "fin_anio",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna fin_anio de DIM_FECHA"
+        },
+        {
+          "name": "fin_semestre",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna fin_semestre de DIM_FECHA"
+        },
+        {
+          "name": "fin_trimestre",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna fin_trimestre de DIM_FECHA"
+        },
+        {
+          "name": "fin_mes",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna fin_mes de DIM_FECHA"
+        },
+        {
+          "name": "fin_semana",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna fin_semana de DIM_FECHA"
+        },
+        {
+          "name": "mes_nombre_corto",
+          "type": "varchar(64)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna mes_nombre_corto de DIM_FECHA"
+        },
+        {
+          "name": "mes_nombre_largo",
+          "type": "varchar(64)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna mes_nombre_largo de DIM_FECHA"
+        },
+        {
+          "name": "dia_semana",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna dia_semana de DIM_FECHA"
+        },
+        {
+          "name": "dia_nombre_corto",
+          "type": "varchar(64)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna dia_nombre_corto de DIM_FECHA"
+        },
+        {
+          "name": "dia_nombre_largo",
+          "type": "varchar(64)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna dia_nombre_largo de DIM_FECHA"
+        },
+        {
+          "name": "dia_mes",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna dia_mes de DIM_FECHA"
+        },
+        {
+          "name": "dia_anio",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna dia_anio de DIM_FECHA"
+        },
+        {
+          "name": "etl_tstamp",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna etl_tstamp de DIM_FECHA"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.DIM_PLANTACION",
+      "domain": "dimension",
+      "description": "Tabla DIM_PLANTACION sin descripción funcional explícita.",
+      "columns": [
+        {
+          "name": "ID_PLANTACION",
+          "type": "bigint(20)",
+          "nullable": "NO",
+          "key": "MUL",
+          "description": "Columna ID_PLANTACION de DIM_PLANTACION"
+        },
+        {
+          "name": "COD_PLANTACION",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": "MUL",
+          "description": "Columna COD_PLANTACION de DIM_PLANTACION"
+        },
+        {
+          "name": "NOM_PLANTACION",
+          "type": "varchar(60)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_PLANTACION de DIM_PLANTACION"
+        },
+        {
+          "name": "NOM_ZONA_GEOGRAFICA",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_ZONA_GEOGRAFICA de DIM_PLANTACION"
+        },
+        {
+          "name": "NOM_TIPO_PLANTACION",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIPO_PLANTACION de DIM_PLANTACION"
+        },
+        {
+          "name": "NOM_UNID_NEGOCIO",
+          "type": "varchar(40)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_UNID_NEGOCIO de DIM_PLANTACION"
+        },
+        {
+          "name": "NOM_REPRESENTANTE_LEGAL",
+          "type": "varchar(40)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_REPRESENTANTE_LEGAL de DIM_PLANTACION"
+        },
+        {
+          "name": "COD_SIGLAS_PAIS",
+          "type": "varchar(3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_SIGLAS_PAIS de DIM_PLANTACION"
+        },
+        {
+          "name": "NOM_DIRECTOR",
+          "type": "varchar(40)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_DIRECTOR de DIM_PLANTACION"
+        },
+        {
+          "name": "NOM_COMPANIA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_COMPANIA de DIM_PLANTACION"
+        },
+        {
+          "name": "COD_PROVINCIA",
+          "type": "varchar(3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_PROVINCIA de DIM_PLANTACION"
+        },
+        {
+          "name": "NOM_CIUDAD",
+          "type": "varchar(25)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_CIUDAD de DIM_PLANTACION"
+        },
+        {
+          "name": "DESC_DIRECCION",
+          "type": "varchar(80)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_DIRECCION de DIM_PLANTACION"
+        },
+        {
+          "name": "TOLERANCIA_PESOPROMEDIO",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TOLERANCIA_PESOPROMEDIO de DIM_PLANTACION"
+        },
+        {
+          "name": "TOLERANCIA_PESOPROMEDIOTOTAL",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TOLERANCIA_PESOPROMEDIOTOTAL de DIM_PLANTACION"
+        },
+        {
+          "name": "COD_AGENCIA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_AGENCIA de DIM_PLANTACION"
+        },
+        {
+          "name": "COD_EMPRESA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_EMPRESA de DIM_PLANTACION"
+        },
+        {
+          "name": "NOM_ESTADO",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_ESTADO de DIM_PLANTACION"
+        },
+        {
+          "name": "COD_ALIAS_PLT",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_ALIAS_PLT de DIM_PLANTACION"
+        },
+        {
+          "name": "COD_AGENCIA_DATALIFE",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_AGENCIA_DATALIFE de DIM_PLANTACION"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de DIM_PLANTACION"
+        },
+        {
+          "name": "ANIOS_PRODUCCION",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ANIOS_PRODUCCION de DIM_PLANTACION"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.DIM_PRODUCTO",
+      "domain": "dimension",
+      "description": "Se usa para obtener categoría contable, familia, subclasificación y factores de peso para clasificar canales y calcular cantidades/costos.",
+      "columns": [
+        {
+          "name": "ID_PRODUCTO",
+          "type": "bigint(20)",
+          "nullable": "NO",
+          "key": "MUL",
+          "description": "Columna ID_PRODUCTO de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_1_PROD",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_1_PROD de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_2_PROD",
+          "type": "varchar(25)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_2_PROD de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_3_PROD",
+          "type": "varchar(25)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_3_PROD de DIM_PRODUCTO"
+        },
+        {
+          "name": "DESC_PROD_1",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_PROD_1 de DIM_PRODUCTO"
+        },
+        {
+          "name": "DESC_PROD_2",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_PROD_2 de DIM_PRODUCTO"
+        },
+        {
+          "name": "DESC_PROD_3",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_PROD_3 de DIM_PRODUCTO"
+        },
+        {
+          "name": "DESC_PROD_4",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_PROD_4 de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_FAMILIA",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_FAMILIA de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_FAMILIA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_FAMILIA de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_MARCA",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_MARCA de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_MARCA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_MARCA de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_PRESENTACION",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_PRESENTACION de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_PRESENTACION",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_PRESENTACION de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_ENVASE",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_ENVASE de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_ENVASE",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_ENVASE de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_TIPO_PROD",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_PROD de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_TIPO_PROD",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIPO_PROD de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_TIPO_FAB",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_FAB de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_TIPO_FAB",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIPO_FAB de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_SEGMENTO",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_SEGMENTO de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_SEGMENTO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_SEGMENTO de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_TIPO_CONSUM",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_CONSUM de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_TIPO_CONSUM",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIPO_CONSUM de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_CALSIF_MCIA",
+          "type": "varchar(3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_CALSIF_MCIA de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_CLASIF_MCIA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_CLASIF_MCIA de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_SCLASIF_MCIA",
+          "type": "varchar(3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_SCLASIF_MCIA de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_SCLASIF_MCIA",
+          "type": "varchar(65)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_SCLASIF_MCIA de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_TIPO_CTRL",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_CTRL de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_TIPO_CTRL",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIPO_CTRL de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_FAM_PLANIF",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_FAM_PLANIF de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_FAM_PLANIF",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_FAM_PLANIF de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_REGLA_COSTO",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_REGLA_COSTO de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_REGLA_COSTO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_REGLA_COSTO de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_1",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_1 de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_2",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_2 de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_COMPRA",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_COMPRA de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_PRECIO",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_PRECIO de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_ENVIO",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_ENVIO de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_PRODUCCION",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_PRODUCCION de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_COMPONENTE",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_COMPONENTE de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_PESO",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_PESO de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_VOLUMEN",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_VOLUMEN de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_ALMACEN",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_ALMACEN de DIM_PRODUCTO"
+        },
+        {
+          "name": "DIAS_VIDA_UTIL",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DIAS_VIDA_UTIL de DIM_PRODUCTO"
+        },
+        {
+          "name": "FECHA_ACTUALIZA",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_ACTUALIZA de DIM_PRODUCTO"
+        },
+        {
+          "name": "STOCK_MINIMO",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna STOCK_MINIMO de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_DIM_ART",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_DIM_ART de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_DIM_ART",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_DIM_ART de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_LINEA_ART",
+          "type": "varchar(3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_LINEA_ART de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_LINEA_ART",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_LINEA_ART de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_TIPO_ART",
+          "type": "varchar(3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_ART de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_TIPO_ART",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIPO_ART de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_CAT_CONTA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_CAT_CONTA de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_CAT_CONTA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_CAT_CONTA de DIM_PRODUCTO"
+        },
+        {
+          "name": "STOCK_SEGUR",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna STOCK_SEGUR de DIM_PRODUCTO"
+        },
+        {
+          "name": "FACTOR_CAJA_REAL",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FACTOR_CAJA_REAL de DIM_PRODUCTO"
+        },
+        {
+          "name": "FACTOR_CAJA_ESTAD",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FACTOR_CAJA_ESTAD de DIM_PRODUCTO"
+        },
+        {
+          "name": "FACTOR_UNID",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FACTOR_UNID de DIM_PRODUCTO"
+        },
+        {
+          "name": "FACTOR_PESO",
+          "type": "decimal(19,7)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FACTOR_PESO de DIM_PRODUCTO"
+        },
+        {
+          "name": "PRECIO_PVP_U",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_PVP_U de DIM_PRODUCTO"
+        },
+        {
+          "name": "COSTO_VAR_U",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_VAR_U de DIM_PRODUCTO"
+        },
+        {
+          "name": "PRECIO_LISTA_U",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_LISTA_U de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_IMP_COMPRA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_IMP_COMPRA de DIM_PRODUCTO"
+        },
+        {
+          "name": "DESC_IMP_COMPRA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_IMP_COMPRA de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_IMP_VENTA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_IMP_VENTA de DIM_PRODUCTO"
+        },
+        {
+          "name": "DESC_IMP_VENTA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_IMP_VENTA de DIM_PRODUCTO"
+        },
+        {
+          "name": "COSTO_CONTABLE",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_CONTABLE de DIM_PRODUCTO"
+        },
+        {
+          "name": "FECHA_INTRO_PROD",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_INTRO_PROD de DIM_PRODUCTO"
+        },
+        {
+          "name": "FECHA_ULTI_MOVI",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_ULTI_MOVI de DIM_PRODUCTO"
+        },
+        {
+          "name": "PROD_NUEVO",
+          "type": "varchar(8)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PROD_NUEVO de DIM_PRODUCTO"
+        },
+        {
+          "name": "BOD_PRINCIPAL",
+          "type": "varchar(12)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna BOD_PRINCIPAL de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_BOD_PRINCIPAL",
+          "type": "varchar(40)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_BOD_PRINCIPAL de DIM_PRODUCTO"
+        },
+        {
+          "name": "VALORK",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VALORK de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_PROD_MD",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_PROD_MD de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_PROD_MD",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_PROD_MD de DIM_PRODUCTO"
+        },
+        {
+          "name": "FECHA_CREAPRODUC",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_CREAPRODUC de DIM_PRODUCTO"
+        },
+        {
+          "name": "ID_FECHACREAPRODUC",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_FECHACREAPRODUC de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_GRUPO",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_GRUPO de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_GRUPO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_GRUPO de DIM_PRODUCTO"
+        },
+        {
+          "name": "ESTATUS",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ESTATUS de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_ESTATUS",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_ESTATUS de DIM_PRODUCTO"
+        },
+        {
+          "name": "PRODUCTO_UNIFICADO",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRODUCTO_UNIFICADO de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_APROG",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_APROG de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_APROG",
+          "type": "varchar(60)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_APROG de DIM_PRODUCTO"
+        },
+        {
+          "name": "CODIGO_EAN13",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CODIGO_EAN13 de DIM_PRODUCTO"
+        },
+        {
+          "name": "JOBFU1",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna JOBFU1 de DIM_PRODUCTO"
+        },
+        {
+          "name": "JOBFU2",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna JOBFU2 de DIM_PRODUCTO"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_DOMINIO",
+          "type": "varchar(6)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_DOMINIO de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_DOMINIO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_DOMINIO de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_UNID_NEGOCIO",
+          "type": "varchar(6)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_UNID_NEGOCIO de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_UNID_NEGOCIO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_UNID_NEGOCIO de DIM_PRODUCTO"
+        },
+        {
+          "name": "LEADTIME",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna LEADTIME de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_CLASIFI_ABC",
+          "type": "varchar(6)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_CLASIFI_ABC de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_CLASIFI_ABC",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_CLASIFI_ABC de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_IDENTIFICA_EMP",
+          "type": "varchar(6)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_IDENTIFICA_EMP de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_IDENTIFICA_EMP",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_IDENTIFICA_EMP de DIM_PRODUCTO"
+        },
+        {
+          "name": "ID_PRODUCTO",
+          "type": "bigint(20)",
+          "nullable": "NO",
+          "key": "MUL",
+          "description": "Columna ID_PRODUCTO de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_1_PROD",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_1_PROD de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_2_PROD",
+          "type": "varchar(25)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_2_PROD de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_3_PROD",
+          "type": "varchar(25)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_3_PROD de DIM_PRODUCTO"
+        },
+        {
+          "name": "DESC_PROD_1",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_PROD_1 de DIM_PRODUCTO"
+        },
+        {
+          "name": "DESC_PROD_2",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_PROD_2 de DIM_PRODUCTO"
+        },
+        {
+          "name": "DESC_PROD_3",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_PROD_3 de DIM_PRODUCTO"
+        },
+        {
+          "name": "DESC_PROD_4",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_PROD_4 de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_FAMILIA",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_FAMILIA de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_FAMILIA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_FAMILIA de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_MARCA",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_MARCA de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_MARCA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_MARCA de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_PRESENTACION",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_PRESENTACION de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_PRESENTACION",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_PRESENTACION de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_ENVASE",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_ENVASE de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_ENVASE",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_ENVASE de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_TIPO_PROD",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_PROD de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_TIPO_PROD",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIPO_PROD de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_TIPO_FAB",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_FAB de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_TIPO_FAB",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIPO_FAB de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_SEGMENTO",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_SEGMENTO de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_SEGMENTO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_SEGMENTO de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_TIPO_CONSUM",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_CONSUM de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_TIPO_CONSUM",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIPO_CONSUM de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_CALSIF_MCIA",
+          "type": "varchar(3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_CALSIF_MCIA de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_CLASIF_MCIA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_CLASIF_MCIA de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_SCLASIF_MCIA",
+          "type": "varchar(3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_SCLASIF_MCIA de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_SCLASIF_MCIA",
+          "type": "varchar(65)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_SCLASIF_MCIA de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_TIPO_CTRL",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_CTRL de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_TIPO_CTRL",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIPO_CTRL de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_FAM_PLANIF",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_FAM_PLANIF de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_FAM_PLANIF",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_FAM_PLANIF de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_REGLA_COSTO",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_REGLA_COSTO de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_REGLA_COSTO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_REGLA_COSTO de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_1",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_1 de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_2",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_2 de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_COMPRA",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_COMPRA de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_PRECIO",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_PRECIO de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_ENVIO",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_ENVIO de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_PRODUCCION",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_PRODUCCION de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_COMPONENTE",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_COMPONENTE de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_PESO",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_PESO de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_VOLUMEN",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_VOLUMEN de DIM_PRODUCTO"
+        },
+        {
+          "name": "UNID_MED_ALMACEN",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNID_MED_ALMACEN de DIM_PRODUCTO"
+        },
+        {
+          "name": "DIAS_VIDA_UTIL",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DIAS_VIDA_UTIL de DIM_PRODUCTO"
+        },
+        {
+          "name": "FECHA_ACTUALIZA",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_ACTUALIZA de DIM_PRODUCTO"
+        },
+        {
+          "name": "STOCK_MINIMO",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna STOCK_MINIMO de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_DIM_ART",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_DIM_ART de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_DIM_ART",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_DIM_ART de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_LINEA_ART",
+          "type": "varchar(3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_LINEA_ART de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_LINEA_ART",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_LINEA_ART de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_TIPO_ART",
+          "type": "varchar(3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_ART de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_TIPO_ART",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIPO_ART de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_CAT_CONTA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_CAT_CONTA de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_CAT_CONTA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_CAT_CONTA de DIM_PRODUCTO"
+        },
+        {
+          "name": "STOCK_SEGUR",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna STOCK_SEGUR de DIM_PRODUCTO"
+        },
+        {
+          "name": "FACTOR_CAJA_REAL",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FACTOR_CAJA_REAL de DIM_PRODUCTO"
+        },
+        {
+          "name": "FACTOR_CAJA_ESTAD",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FACTOR_CAJA_ESTAD de DIM_PRODUCTO"
+        },
+        {
+          "name": "FACTOR_UNID",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FACTOR_UNID de DIM_PRODUCTO"
+        },
+        {
+          "name": "FACTOR_PESO",
+          "type": "decimal(19,7)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FACTOR_PESO de DIM_PRODUCTO"
+        },
+        {
+          "name": "PRECIO_PVP_U",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_PVP_U de DIM_PRODUCTO"
+        },
+        {
+          "name": "COSTO_VAR_U",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_VAR_U de DIM_PRODUCTO"
+        },
+        {
+          "name": "PRECIO_LISTA_U",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_LISTA_U de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_IMP_COMPRA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_IMP_COMPRA de DIM_PRODUCTO"
+        },
+        {
+          "name": "DESC_IMP_COMPRA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_IMP_COMPRA de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_IMP_VENTA",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_IMP_VENTA de DIM_PRODUCTO"
+        },
+        {
+          "name": "DESC_IMP_VENTA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_IMP_VENTA de DIM_PRODUCTO"
+        },
+        {
+          "name": "COSTO_CONTABLE",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_CONTABLE de DIM_PRODUCTO"
+        },
+        {
+          "name": "FECHA_INTRO_PROD",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_INTRO_PROD de DIM_PRODUCTO"
+        },
+        {
+          "name": "FECHA_ULTI_MOVI",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_ULTI_MOVI de DIM_PRODUCTO"
+        },
+        {
+          "name": "PROD_NUEVO",
+          "type": "varchar(8)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PROD_NUEVO de DIM_PRODUCTO"
+        },
+        {
+          "name": "BOD_PRINCIPAL",
+          "type": "varchar(12)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna BOD_PRINCIPAL de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_BOD_PRINCIPAL",
+          "type": "varchar(40)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_BOD_PRINCIPAL de DIM_PRODUCTO"
+        },
+        {
+          "name": "VALORK",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VALORK de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_PROD_MD",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_PROD_MD de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_PROD_MD",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_PROD_MD de DIM_PRODUCTO"
+        },
+        {
+          "name": "FECHA_CREAPRODUC",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_CREAPRODUC de DIM_PRODUCTO"
+        },
+        {
+          "name": "ID_FECHACREAPRODUC",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_FECHACREAPRODUC de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_GRUPO",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_GRUPO de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_GRUPO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_GRUPO de DIM_PRODUCTO"
+        },
+        {
+          "name": "ESTATUS",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ESTATUS de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_ESTATUS",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_ESTATUS de DIM_PRODUCTO"
+        },
+        {
+          "name": "PRODUCTO_UNIFICADO",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRODUCTO_UNIFICADO de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_APROG",
+          "type": "varchar(5)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_APROG de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_APROG",
+          "type": "varchar(60)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_APROG de DIM_PRODUCTO"
+        },
+        {
+          "name": "CODIGO_EAN13",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CODIGO_EAN13 de DIM_PRODUCTO"
+        },
+        {
+          "name": "JOBFU1",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna JOBFU1 de DIM_PRODUCTO"
+        },
+        {
+          "name": "JOBFU2",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna JOBFU2 de DIM_PRODUCTO"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_DOMINIO",
+          "type": "varchar(6)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_DOMINIO de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_DOMINIO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_DOMINIO de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_UNID_NEGOCIO",
+          "type": "varchar(6)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_UNID_NEGOCIO de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_UNID_NEGOCIO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_UNID_NEGOCIO de DIM_PRODUCTO"
+        },
+        {
+          "name": "LEADTIME",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna LEADTIME de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_CLASIFI_ABC",
+          "type": "varchar(6)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_CLASIFI_ABC de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_CLASIFI_ABC",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_CLASIFI_ABC de DIM_PRODUCTO"
+        },
+        {
+          "name": "COD_IDENTIFICA_EMP",
+          "type": "varchar(6)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_IDENTIFICA_EMP de DIM_PRODUCTO"
+        },
+        {
+          "name": "NOM_IDENTIFICA_EMP",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_IDENTIFICA_EMP de DIM_PRODUCTO"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.DIM_SGA_MATERIAL",
+      "domain": "dimension",
+      "description": "Tabla DIM_SGA_MATERIAL sin descripción funcional explícita.",
+      "columns": [
+        {
+          "name": "ID_MATERIAL",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_MATERIAL de DIM_SGA_MATERIAL"
+        },
+        {
+          "name": "COD_MATERIAL",
+          "type": "varchar(4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_MATERIAL de DIM_SGA_MATERIAL"
+        },
+        {
+          "name": "NOM_MATERIAL",
+          "type": "varchar(100)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_MATERIAL de DIM_SGA_MATERIAL"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de DIM_SGA_MATERIAL"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.DIM_SGA_ORIGEN",
+      "domain": "dimension",
+      "description": "Tabla DIM_SGA_ORIGEN sin descripción funcional explícita.",
+      "columns": [
+        {
+          "name": "ID_ORIGEN",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_ORIGEN de DIM_SGA_ORIGEN"
+        },
+        {
+          "name": "COD_ORIGEN",
+          "type": "varchar(4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_ORIGEN de DIM_SGA_ORIGEN"
+        },
+        {
+          "name": "NOM_ORIGEN",
+          "type": "varchar(100)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_ORIGEN de DIM_SGA_ORIGEN"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de DIM_SGA_ORIGEN"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.DIM_SGA_TIPO_CLASIFICACION",
+      "domain": "dimension",
+      "description": "Tabla DIM_SGA_TIPO_CLASIFICACION sin descripción funcional explícita.",
+      "columns": [
+        {
+          "name": "ID_TIPO_CLASIFICACION",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_TIPO_CLASIFICACION de DIM_SGA_TIPO_CLASIFICACION"
+        },
+        {
+          "name": "COD_TIPO_CLASIFICACION",
+          "type": "varchar(4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_CLASIFICACION de DIM_SGA_TIPO_CLASIFICACION"
+        },
+        {
+          "name": "NOM_TIPO_CLASIFICACION",
+          "type": "varchar(100)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIPO_CLASIFICACION de DIM_SGA_TIPO_CLASIFICACION"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de DIM_SGA_TIPO_CLASIFICACION"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.DIM_SGA_TIPO_DOCUMENTO",
+      "domain": "dimension",
+      "description": "Tabla DIM_SGA_TIPO_DOCUMENTO sin descripción funcional explícita.",
+      "columns": [
+        {
+          "name": "ID_TIPO_DOCUMENTO",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_TIPO_DOCUMENTO de DIM_SGA_TIPO_DOCUMENTO"
+        },
+        {
+          "name": "COD_TIPO_DOCUMENTO",
+          "type": "varchar(4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_DOCUMENTO de DIM_SGA_TIPO_DOCUMENTO"
+        },
+        {
+          "name": "NOM_TIPO_DOCUMENTO",
+          "type": "varchar(100)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_TIPO_DOCUMENTO de DIM_SGA_TIPO_DOCUMENTO"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de DIM_SGA_TIPO_DOCUMENTO"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.DIM_TIPO_DOCUMENTO",
+      "domain": "dimension",
+      "description": "Se usa en el bloque DANEC para clasificar ciertos documentos como exportaciones y apoyar la lógica de canal de venta.",
+      "columns": [
+        {
+          "name": "id_documento",
+          "type": "bigint(20)",
+          "nullable": "NO",
+          "key": "MUL",
+          "description": "Columna id_documento de DIM_TIPO_DOCUMENTO"
+        },
+        {
+          "name": "cod_documento",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": "MUL",
+          "description": "Columna cod_documento de DIM_TIPO_DOCUMENTO"
+        },
+        {
+          "name": "nom_documento",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna nom_documento de DIM_TIPO_DOCUMENTO"
+        },
+        {
+          "name": "cod_doc",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna cod_doc de DIM_TIPO_DOCUMENTO"
+        },
+        {
+          "name": "agrupacion",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna agrupacion de DIM_TIPO_DOCUMENTO"
+        },
+        {
+          "name": "etl_tstamp",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna etl_tstamp de DIM_TIPO_DOCUMENTO"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.DIM_UNIDAD_NEGOCIO",
+      "domain": "dimension",
+      "description": "Se usa en el bloque AGRÍCOLAS para reclasificar compañía y apoyar la definición del canal de venta.",
+      "columns": [
+        {
+          "name": "ID_UNID_NEGOCIO",
+          "type": "bigint(20)",
+          "nullable": "NO",
+          "key": "MUL",
+          "description": "Columna ID_UNID_NEGOCIO de DIM_UNIDAD_NEGOCIO"
+        },
+        {
+          "name": "COD_UNID_NEGOCIO",
+          "type": "varchar(12)",
+          "nullable": "YES",
+          "key": "MUL",
+          "description": "Columna COD_UNID_NEGOCIO de DIM_UNIDAD_NEGOCIO"
+        },
+        {
+          "name": "NOM_UNID_NEGOCIO",
+          "type": "varchar(40)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_UNID_NEGOCIO de DIM_UNIDAD_NEGOCIO"
+        },
+        {
+          "name": "COD_TIPO_UNID",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_TIPO_UNID de DIM_UNIDAD_NEGOCIO"
+        },
+        {
+          "name": "DESC_TIPO_UNID",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESC_TIPO_UNID de DIM_UNIDAD_NEGOCIO"
+        },
+        {
+          "name": "COD_CIA",
+          "type": "varchar(10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COD_CIA de DIM_UNIDAD_NEGOCIO"
+        },
+        {
+          "name": "NOM_CIA",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOM_CIA de DIM_UNIDAD_NEGOCIO"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de DIM_UNIDAD_NEGOCIO"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.FAC_COSTO_MARGEN",
+      "domain": "dimension",
+      "description": "Se usa en una subconsulta para obtener COSTOXKILO, calcular costo de ventas y completar el último costo disponible por producto.",
+      "columns": [
+        {
+          "name": "ITEM",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ITEM de FAC_COSTO_MARGEN"
+        },
+        {
+          "name": "COSTO",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO de FAC_COSTO_MARGEN"
+        },
+        {
+          "name": "CODITEM",
+          "type": "double",
+          "nullable": "YES",
+          "key": "MUL",
+          "description": "Columna CODITEM de FAC_COSTO_MARGEN"
+        },
+        {
+          "name": "FECHA",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA de FAC_COSTO_MARGEN"
+        },
+        {
+          "name": "COSTOXKILO",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTOXKILO de FAC_COSTO_MARGEN"
+        },
+        {
+          "name": "KILOS",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna KILOS de FAC_COSTO_MARGEN"
+        },
+        {
+          "name": "CANAL",
+          "type": "varchar(3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANAL de FAC_COSTO_MARGEN"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de FAC_COSTO_MARGEN"
+        },
+        {
+          "name": "CPGRASASTON",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CPGRASASTON de FAC_COSTO_MARGEN"
+        },
+        {
+          "name": "CPEMPAQUETON",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CPEMPAQUETON de FAC_COSTO_MARGEN"
+        },
+        {
+          "name": "CPINSUMOSTON",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CPINSUMOSTON de FAC_COSTO_MARGEN"
+        },
+        {
+          "name": "CPOTROSTON",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CPOTROSTON de FAC_COSTO_MARGEN"
+        },
+        {
+          "name": "CPTOTALTON",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CPTOTALTON de FAC_COSTO_MARGEN"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL",
+      "domain": "finanzas",
+      "description": "Consulta los valores reales y el traspaso de saldo inicial del estado de resultados. Convierte columnas mensuales en registros por mes y genera una fecha mensual.",
+      "columns": [
+        {
+          "name": "CCIA",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CCIA de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "COMPANIA",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COMPANIA de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "ANIO_FISCAL",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ANIO_FISCAL de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "CAT27",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CAT27 de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "D_CAT27",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna D_CAT27 de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "CAT28",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CAT28 de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "D_CAT28",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna D_CAT28 de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "CAT29",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CAT29 de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "D_CAT29",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna D_CAT29 de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "CAT30",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CAT30 de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "D_CAT30",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna D_CAT30 de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "CAT31",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CAT31 de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "D_CAT31",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna D_CAT31 de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "UNDNEGOCIO",
+          "type": "varchar(255)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNDNEGOCIO de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "CTACONTBLE",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CTACONTBLE de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "NOMBRE_CUENTA",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOMBRE_CUENTA de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "ID_CUENTA",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_CUENTA de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "NIVEL_DETALLE",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NIVEL_DETALLE de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "SUBLIBRO",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna SUBLIBRO de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "TIPOCTA",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TIPOCTA de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "TRASPASO_SALDO",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TRASPASO_SALDO de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "ENE_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ENE_ACT de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "FEB_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FEB_ACT de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "MAR_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna MAR_ACT de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "ABR_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ABR_ACT de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "MAY_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna MAY_ACT de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "JUN_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna JUN_ACT de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "JUL_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna JUL_ACT de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "AGO_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna AGO_ACT de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "SEP_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna SEP_ACT de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "OCT_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna OCT_ACT de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "NOV_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOV_ACT de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "DIC_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DIC_ACT de FAC_ESTRESULTADOS_ACT_ALL"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de FAC_ESTRESULTADOS_ACT_ALL"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.FAC_ESTRESULTADOS_PRESUP_ALL",
+      "domain": "finanzas",
+      "description": "Tabla FAC_ESTRESULTADOS_PRESUP_ALL sin descripción funcional explícita.",
+      "columns": [
+        {
+          "name": "CCIA",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CCIA de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "COMPANIA",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COMPANIA de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "ANIO_FISCAL",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ANIO_FISCAL de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "CAT27",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CAT27 de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "D_CAT27",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna D_CAT27 de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "CAT28",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CAT28 de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "D_CAT28",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna D_CAT28 de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "CAT29",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CAT29 de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "D_CAT29",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna D_CAT29 de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "CAT30",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CAT30 de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "D_CAT30",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna D_CAT30 de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "CAT31",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CAT31 de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "D_CAT31",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna D_CAT31 de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "UNDNEGOCIO",
+          "type": "varchar(255)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNDNEGOCIO de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "CTACONTBLE",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CTACONTBLE de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "NOMBRE_CUENTA",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOMBRE_CUENTA de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "ID_CUENTA",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_CUENTA de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "NIVEL_DETALLE",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NIVEL_DETALLE de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "SUBLIBRO",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna SUBLIBRO de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "TIPOCTA",
+          "type": "tinytext",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TIPOCTA de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "TRASPASO_SALDO",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TRASPASO_SALDO de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "ENE_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ENE_ACT de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "FEB_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FEB_ACT de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "MAR_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna MAR_ACT de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "ABR_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ABR_ACT de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "MAY_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna MAY_ACT de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "JUN_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna JUN_ACT de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "JUL_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna JUL_ACT de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "AGO_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna AGO_ACT de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "SEP_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna SEP_ACT de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "OCT_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna OCT_ACT de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "NOV_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOV_ACT de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "DIC_ACT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DIC_ACT de FAC_ESTRESULTADOS_PRESUP_ALL"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de FAC_ESTRESULTADOS_PRESUP_ALL"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.FAC_SGA_PRESUPUESTO_EXT",
+      "domain": "presupuesto",
+      "description": "Tabla FAC_SGA_PRESUPUESTO_EXT sin descripción funcional explícita.",
+      "columns": [
+        {
+          "name": "ID_COMPANIA",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_COMPANIA de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "ID_PLANTACION",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_PLANTACION de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "ANIO",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ANIO de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "MES",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna MES de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "ID_TIPO_CLASIFICACION",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_TIPO_CLASIFICACION de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "ID_MATERIAL",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_MATERIAL de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "ID_ORIGEN",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_ORIGEN de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "FECHA_INICIO",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_INICIO de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "FECHA_FIN",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_FIN de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "CODIGO_ARTICULO_CORTO",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CODIGO_ARTICULO_CORTO de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "CODIGO_ARTICULO_LARGO",
+          "type": "varchar(25)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CODIGO_ARTICULO_LARGO de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "ID_TIPO_DOCUMENTO",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_TIPO_DOCUMENTO de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "CANTIDAD",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANTIDAD de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "CANTIDAD_PRESUPUESTO_INICIAL",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANTIDAD_PRESUPUESTO_INICIAL de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "GLCLASS",
+          "type": "varchar(8)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna GLCLASS de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "FECHA_CREACION",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_CREACION de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "ID_USUARIO_CREACION",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_USUARIO_CREACION de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "USUARIO_CREACION",
+          "type": "varchar(15)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USUARIO_CREACION de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "FECHA_ACTUALIZACION",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_ACTUALIZACION de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "ID_USUARIO_ACTUALIZACION",
+          "type": "int(11)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_USUARIO_ACTUALIZACION de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "USUARIO_ACTUALIZACION",
+          "type": "varchar(15)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USUARIO_ACTUALIZACION de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de FAC_SGA_PRESUPUESTO_EXT"
+        },
+        {
+          "name": "ID_ESTADO_CULTIVO",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_ESTADO_CULTIVO de FAC_SGA_PRESUPUESTO_EXT"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.FAC_VENTA_TOTAL",
+      "domain": "ventas",
+      "description": "Tabla principal de ventas en los bloques DANEC y AGRÍCOLAS. La consulta resume ventas, cantidades y en algunos casos costos por fecha, categoría contable y canal de venta.",
+      "columns": [
+        {
+          "name": "ID_PRODUCTO",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_PRODUCTO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_ESTADO",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_ESTADO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_PROX_ESTADO",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_PROX_ESTADO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_DOCUMENTO",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_DOCUMENTO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_MONEDA",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_MONEDA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_VENDEDOR",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_VENDEDOR de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_COMPANIA",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_COMPANIA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_UNID_NEGOCIO",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_UNID_NEGOCIO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_UNIDAD",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_UNIDAD de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_CLIENTE",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_CLIENTE de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_FECHA",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_FECHA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_BODEGA",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_BODEGA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DATE_CONTA",
+          "type": "date",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DATE_CONTA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_FECHA_FACT",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_FECHA_FACT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "IVA",
+          "type": "varchar(2)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna IVA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "FACTOR_CAJAS_REAL",
+          "type": "decimal(15,3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FACTOR_CAJAS_REAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "FACTOR_CAJA_ESTAD",
+          "type": "decimal(15,3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FACTOR_CAJA_ESTAD de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "FACTOR_PESO",
+          "type": "decimal(19,7)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FACTOR_PESO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PVP_UNIT",
+          "type": "decimal(15,3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PVP_UNIT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_SOLICITADA",
+          "type": "decimal(15,3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_SOLICITADA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTO_UNITARIO",
+          "type": "decimal(15,3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_UNITARIO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_LISTA",
+          "type": "decimal(15,3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_LISTA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTO_VAR_UNIT",
+          "type": "decimal(15,3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_VAR_UNIT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_UNIT_VENTA",
+          "type": "decimal(15,3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_UNIT_VENTA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTO_UNIT_INVENT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_UNIT_INVENT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_VENDIDA",
+          "type": "decimal(15,3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_VENDIDA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_VENDIDA_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_VENDIDA_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_VEND_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_VEND_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_VEND_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_VEND_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_VEND_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_VEND_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_VEND_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_VEND_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_CANT_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_CANT_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_CANT_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_CANT_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DESCUENTO",
+          "type": "decimal(15,3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESCUENTO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DESCUENTO_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESCUENTO_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DESCUENTO_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESCUENTO_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DESCUENTO_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESCUENTO_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DESCUENTO_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESCUENTO_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DESCUENTO_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DESCUENTO_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_DESC_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_DESC_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_DESC_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_DESC_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PVP_TOTAL",
+          "type": "decimal(18,3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PVP_TOTAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PVP_TOT_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PVP_TOT_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PVP_TOT_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PVP_TOT_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PVP_TOT_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PVP_TOT_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PVP_TOT_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PVP_TOT_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PVP_TOT_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PVP_TOT_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_PVP_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_PVP_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_PVP_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_PVP_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTO_VAR_TOT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_VAR_TOT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTO_VAR_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_VAR_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTO_VAR_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_VAR_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTO_VAR_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_VAR_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTO_VAR_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_VAR_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTO_VAR_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_VAR_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_COSTO_VAR_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_COSTO_VAR_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_COSTO_VAR_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_COSTO_VAR_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_LISTA_TOT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_LISTA_TOT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_LISTA_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_LISTA_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_LISTA_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_LISTA_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_LISTA_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_LISTA_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_LISTA_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_LISTA_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_LISTA_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_LISTA_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_PLISTA_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_PLISTA_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_PLISTA_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_PLISTA_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_VENTA_TOTAL",
+          "type": "decimal(18,3)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_VENTA_TOTAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_VENTA_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_VENTA_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_VENTA_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_VENTA_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_VENTA_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_VENTA_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_VENTA_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_VENTA_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PRECIO_VENTA_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PRECIO_VENTA_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_PRE_VENTA_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_PRE_VENTA_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_PRE_VENTA_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_PRE_VENTA_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_KG",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_KG de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_KG_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_KG_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_KG_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_KG_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_KG_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_KG_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_KG_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_KG_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_KG_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_KG_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_VENTA_KG_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_VENTA_KG_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_VENTA_KG_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_VENTA_KG_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_CAJ_REAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_CAJ_REAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_CAJ_REAL_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_CAJ_REAL_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_CAJ_REAL_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_CAJ_REAL_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_CAJ_REAL_MESANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_CAJ_REAL_MESANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_CAJ_REAL_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_CAJ_REAL_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_CAJ_REAL_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_CAJ_REAL_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_VENTA_CAJ_REAL_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_VENTA_CAJ_REAL_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_VENTA_CAJ_REAL_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_VENTA_CAJ_REAL_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_CAJ_EST",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_CAJ_EST de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_CAJ_EST_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_CAJ_EST_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_CAJ_EST_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_CAJ_EST_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_CAJ_EST_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_CAJ_EST_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_CAJ_EST_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_CAJ_EST_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_CAJ_EST_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_CAJ_EST_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_VENTA_CAJ_EST_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_VENTA_CAJ_EST_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_VENTA_CAJ_EST_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_VENTA_CAJ_EST_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTO_TOT_INVENT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_TOT_INVENT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_NOTA_CRED",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_NOTA_CRED de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_NOTA_CRED_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_NOTA_CRED_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_NOTA_CRED_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_NOTA_CRED_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_NOTA_CRED_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_NOTA_CRED_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_NOTA_CRED_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_NOTA_CRED_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_NOTA_CRED_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_NOTA_CRED_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_CANT_NOTA_CRED_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_CANT_NOTA_CRED_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_CANT_NOTA_CRED_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_CANT_NOTA_CRED_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "USD_NOTA_CRED",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USD_NOTA_CRED de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "USD_NOTA_CRED_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USD_NOTA_CRED_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "USD_NOTA_CRED_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USD_NOTA_CRED_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "USD_NOTA_CRED_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USD_NOTA_CRED_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "USD_NOTA_CRED_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USD_NOTA_CRED_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "USD_NOTA_CRED_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USD_NOTA_CRED_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_USD_NOTA_CRED_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_USD_NOTA_CRED_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_USD_NOTA_CRED_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_USD_NOTA_CRED_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_NOTA_DEB",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_NOTA_DEB de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_NOTA_DEB_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_NOTA_DEB_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_NOTA_DEB_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_NOTA_DEB_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_NOTA_DEB_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_NOTA_DEB_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_NOTA_DEB_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_NOTA_DEB_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_NOTA_DEB_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_NOTA_DEB_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_CANT_NOTA_DEB_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_CANT_NOTA_DEB_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_CANT_NOTA_DEB_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_CANT_NOTA_DEB_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "USD_NOTA_DEB",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USD_NOTA_DEB de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "USD_NOTA_DEB_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USD_NOTA_DEB_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "USD_NOTA_DEB_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USD_NOTA_DEB_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "USD_NOTA_DEB_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USD_NOTA_DEB_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "USD_NOTA_DEB_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USD_NOTA_DEB_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "USD_NOTA_DEB_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna USD_NOTA_DEB_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_USD_NOTA_DEB_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_USD_NOTA_DEB_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_USD_NOTA_DEB_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_USD_NOTA_DEB_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_KG",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_KG de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_KG_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_KG_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_KG_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_KG_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_KG_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_KG_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_KG_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_KG_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_KG_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_KG_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_DEV_KG_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_DEV_KG_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_DEV_KG_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_DEV_KG_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_CAJ_REAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_CAJ_REAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_CAJ_REAL_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_CAJ_REAL_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_CAJ_REAL_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_CAJ_REAL_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_CAJ_REAL_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_CAJ_REAL_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_CAJ_REAL_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_CAJ_REAL_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_CAJ_REAL_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_CAJ_REAL_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_DEV_CAJ_REAL_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_DEV_CAJ_REAL_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_DEV_CAJ_REAL_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_DEV_CAJ_REAL_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_CAJ_EST",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_CAJ_EST de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_CAJ_EST_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_CAJ_EST_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_CAJ_EST_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_CAJ_EST_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_CAJ_EST_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_CAJ_EST_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_CAJ_EST_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_CAJ_EST_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_CAJ_EST_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_CAJ_EST_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_DEV_CAJ_EST_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_DEV_CAJ_EST_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_DEV_CAJ_EST_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_DEV_CAJ_EST_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_COSTO_VAR",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_COSTO_VAR de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_COSTO_VAR_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_COSTO_VAR_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_COSTO_VAR_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_COSTO_VAR_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_COSTO_VAR_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_COSTO_VAR_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_COSTO_VAR_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_COSTO_VAR_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "DEV_COSTO_VAR_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna DEV_COSTO_VAR_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_DEV_COSTO_VAR_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_DEV_COSTO_VAR_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_DEV_COSTO_VAR_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_DEV_COSTO_VAR_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_KG",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_KG de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_KG_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_KG_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_KG_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_KG_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_KG_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_KG_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_KG_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_KG_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_KG_MES_ANIO3",
+          "type": "varchar(18)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_KG_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_ND_KG_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_ND_KG_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_ND_KG_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_ND_KG_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_CAJ_REAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_CAJ_REAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_CAJ_REAL_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_CAJ_REAL_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_CAJ_REAL_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_CAJ_REAL_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_CAJ_REAL_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_CAJ_REAL_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_CAJ_REAL_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_CAJ_REAL_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_CAJ_REAL_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_CAJ_REAL_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_ND_CAJ_REAL_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_ND_CAJ_REAL_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_ND_CAJ_REAL_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_ND_CAJ_REAL_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_CAJ_EST",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_CAJ_EST de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_CAJ_EST_MES1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_CAJ_EST_MES1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_CAJ_EST_MES2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_CAJ_EST_MES2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_CAJ_EST_MES_ANIO1",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_CAJ_EST_MES_ANIO1 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_CAJ_EST_MES_ANIO2",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_CAJ_EST_MES_ANIO2 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ND_CAJ_EST_MES_ANIO3",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ND_CAJ_EST_MES_ANIO3 de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_ND_CAJ_EST_ACTUAL",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_ND_CAJ_EST_ACTUAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ACUM_ND_CAJ_EST_ANT",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ACUM_ND_CAJ_EST_ANT de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VALOR_IVA",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VALOR_IVA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "INDICADOR_DPA",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna INDICADOR_DPA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "CANT_ENTREGADA",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANT_ENTREGADA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_SOLICITANTE",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_SOLICITANTE de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "NOMBRE_EMPLEADO",
+          "type": "varchar(25)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOMBRE_EMPLEADO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTO_KILO",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTO_KILO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTOVAR_KILO",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTOVAR_KILO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTOXUNIVENDIDAS",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTOXUNIVENDIDAS de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTOVARSIMUKILO",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTOVARSIMUKILO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTOSIMUXKILVENDIDOS",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTOSIMUXKILVENDIDOS de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VENTA_AUTOCONSUMO",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VENTA_AUTOCONSUMO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VALORFLETE",
+          "type": "decimal(19,10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VALORFLETE de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "VALORX",
+          "type": "decimal(19,10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VALORX de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTOMATPRIKIL",
+          "type": "decimal(19,10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTOMATPRIKIL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTOEMPENVKIL",
+          "type": "decimal(19,10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTOEMPENVKIL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "COSTOINSUKIL",
+          "type": "decimal(19,10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna COSTOINSUKIL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "PROMOCION",
+          "type": "decimal(19,10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna PROMOCION de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "SERVICIO",
+          "type": "decimal(19,10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna SERVICIO de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_SUPERVISOR",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_SUPERVISOR de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "INDICADOR_DPA_UC",
+          "type": "decimal(18,4)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna INDICADOR_DPA_UC de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "FPIVA",
+          "type": "decimal(19,10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FPIVA de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ID_JEFE_REGIONAL",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ID_JEFE_REGIONAL de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "UN_CON",
+          "type": "varchar(7)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UN_CON de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "MARGEN",
+          "type": "decimal(19,10)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna MARGEN de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "IDFECHATRDJ",
+          "type": "bigint(20)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna IDFECHATRDJ de FAC_VENTA_TOTAL"
+        },
+        {
+          "name": "FECHAORDENTRDJ",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHAORDENTRDJ de FAC_VENTA_TOTAL"
+        }
+      ]
+    },
+    {
+      "table_name": "DDM_ERP.FAC_V_MQRY_KARDEX_AGRICOLA",
+      "domain": "kardex",
+      "description": "Tabla FAC_V_MQRY_KARDEX_AGRICOLA sin descripción funcional explícita.",
+      "columns": [
+        {
+          "name": "CIA",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CIA de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "CODIGOCORTO",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CODIGOCORTO de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "ARTICULO",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ARTICULO de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "NOMBREARTICULO",
+          "type": "varchar(30)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NOMBREARTICULO de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "GLCLASS",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna GLCLASS de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "BODEGA",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna BODEGA de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "FECHA",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "TDOC",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TDOC de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "NDOC",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NDOC de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "NORDEN",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NORDEN de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "TORDEN",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TORDEN de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "CODPROVEEDOR",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CODPROVEEDOR de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "TIPOMOV",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna TIPOMOV de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "REFERENCIA",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna REFERENCIA de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "UNIDAD",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna UNIDAD de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "CANTIDAD",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANTIDAD de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "VALOR",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna VALOR de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "CUNIT",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CUNIT de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "ETL_TSTAMP",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna ETL_TSTAMP de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "NUMLOTE",
+          "type": "varchar(85)",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna NUMLOTE de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "FECHA_TRA",
+          "type": "datetime",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna FECHA_TRA de FAC_V_MQRY_KARDEX_AGRICOLA"
+        },
+        {
+          "name": "CANTIDAD_PRIMARIA",
+          "type": "double",
+          "nullable": "YES",
+          "key": null,
+          "description": "Columna CANTIDAD_PRIMARIA de FAC_V_MQRY_KARDEX_AGRICOLA"
+        }
+      ]
+    }
+  ]
+}

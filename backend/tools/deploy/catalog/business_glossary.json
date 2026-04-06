@@ -1,0 +1,161 @@
+{
+  "metrics": {
+    "ventas": [
+      "VENTA_AUTOCONSUMO",
+      "VENTA",
+      "USD"
+    ],
+    "costo": [
+      "COSTO",
+      "COSTOXKILO",
+      "VALOR"
+    ],
+    "cantidad": [
+      "CANT_VENDIDA",
+      "CANTIDAD",
+      "CANTIDAD_MIXTA",
+      "UNIDADES",
+      "TON"
+    ],
+    "presupuesto": [
+      "PPTO_VALOR",
+      "CANTIDAD_PRESUPUESTO_INICIAL"
+    ],
+    "saldo": [
+      "TRASPASO_SALDO",
+      "VALOR"
+    ]
+  },
+  "dimensions": {
+    "cliente": [
+      "ID_CLIENTE",
+      "COD_CLIENTE",
+      "NOM_CLIENTE",
+      "COD_CANAL"
+    ],
+    "producto": [
+      "ID_PRODUCTO",
+      "COD_CAT_CONTA",
+      "NOM_CAT_CONTA",
+      "COD_SCLASIF_MCIA",
+      "NOM_MATERIAL"
+    ],
+    "fecha": [
+      "DATE_CONTA",
+      "FECHA",
+      "MES",
+      "ANIO_FISCAL"
+    ],
+    "compania": [
+      "ID_COMPANIA",
+      "COD_COMPANIA",
+      "CCIA",
+      "CIA"
+    ],
+    "documento": [
+      "ID_DOCUMENTO",
+      "NOM_TIPO_DOCUMENTO",
+      "TDOC",
+      "GLCLASS"
+    ]
+  },
+  "domains": {
+    "ventas": [
+      "venta",
+      "ventas",
+      "facturacion",
+      "cliente",
+      "producto",
+      "canal"
+    ],
+    "finanzas": [
+      "estado de resultados",
+      "cuenta contable",
+      "saldo",
+      "traspaso"
+    ],
+    "presupuesto": [
+      "presupuesto",
+      "plantacion",
+      "material",
+      "origen",
+      "cultivo"
+    ],
+    "kardex": [
+      "kardex",
+      "bodega",
+      "articulo",
+      "movimiento",
+      "inventario"
+    ]
+  },
+  "entity_types": {
+    "marca": [
+      "MARCA"
+    ],
+    "familia": [
+      "FAMILIA"
+    ],
+    "empresa": [
+      "COMPANIA",
+      "EMPRESA",
+      "CIA"
+    ],
+    "unidad_negocio": [
+      "UNID_NEGOCIO",
+      "UNIDAD_NEGOCIO",
+      "NEGOCIO"
+    ],
+    "cuenta": [
+      "CUENTA",
+      "CTA"
+    ],
+    "cliente": [
+      "CLIENTE"
+    ],
+    "producto": [
+      "PRODUCTO",
+      "MATERIAL",
+      "ARTICULO"
+    ],
+    "plantacion": [
+      "PLANTACION"
+    ],
+    "canal": [
+      "CANAL"
+    ],
+    "ruta": [
+      "RUTA"
+    ],
+    "zona": [
+      "ZONA"
+    ],
+    "agencia": [
+      "AGENCIA"
+    ],
+    "material": [
+      "MATERIAL"
+    ],
+    "origen": [
+      "ORIGEN"
+    ]
+  },
+  "command_words": [
+    "consulta",
+    "dame",
+    "genera",
+    "generar",
+    "genere",
+    "mostrar",
+    "muestra",
+    "muestrame",
+    "muéstrame",
+    "necesito",
+    "obten",
+    "obtener",
+    "obtén",
+    "quiero",
+    "requiero",
+    "trae"
+  ]
+}

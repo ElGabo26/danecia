@@ -1,0 +1,134 @@
+{
+  "joins": [
+    {
+      "source_file": "FAC_VENTAS_TOTAL EEFF.txt",
+      "left_table": "DDM_ERP.FAC_VENTA_TOTAL",
+      "left_alias": "FVT",
+      "right_table": "DDM_ERP.DIM_PRODUCTO",
+      "right_alias": "DP",
+      "join_type": "LEFT JOIN",
+      "condition": "FVT.ID_PRODUCTO = DP.ID_PRODUCTO",
+      "reason": "Se usa para obtener categoría contable, familia, subclasificación y factores de peso para clasificar canales y calcular cantidades/costos."
+    },
+    {
+      "source_file": "FAC_VENTAS_TOTAL EEFF.txt",
+      "left_table": "DDM_ERP.FAC_VENTA_TOTAL",
+      "left_alias": "FVT",
+      "right_table": "DDM_ERP.DIM_TIPO_DOCUMENTO",
+      "right_alias": "DTD",
+      "join_type": "LEFT JOIN",
+      "condition": "FVT.ID_DOCUMENTO = DTD.ID_DOCUMENTO",
+      "reason": "Se usa en el bloque DANEC para clasificar ciertos documentos como exportaciones y apoyar la lógica de canal de venta."
+    },
+    {
+      "source_file": "FAC_VENTAS_TOTAL EEFF.txt",
+      "left_table": "DDM_ERP.FAC_VENTA_TOTAL",
+      "left_alias": "FVT",
+      "right_table": "DDM_ERP.DIM_CLIENTE",
+      "right_alias": "DC",
+      "join_type": "LEFT JOIN",
+      "condition": "FVT.ID_CLIENTE = DC.ID_CLIENTE",
+      "reason": "Se usa para filtrar movimientos válidos y apoyar la clasificación comercial según canal o tipo de identificación del cliente."
+    },
+    {
+      "source_file": "FAC_VENTAS_TOTAL EEFF.txt",
+      "left_table": "DDM_ERP.FAC_VENTA_TOTAL",
+      "left_alias": "FVT",
+      "right_table": "DDM_ERP.DIM_FECHA",
+      "right_alias": "DF",
+      "join_type": "LEFT JOIN",
+      "condition": "FVT.DATE_CONTA = DF.FECHA",
+      "reason": "Se usa para transformar la fecha contable en una fecha mensual (MES) para agregación."
+    },
+    {
+      "source_file": "FAC_VENTAS_TOTAL EEFF.txt",
+      "left_table": "DDM_ERP.FAC_VENTA_TOTAL",
+      "left_alias": "FVT",
+      "right_table": "DDM_ERP.DIM_UNIDAD_NEGOCIO",
+      "right_alias": "UN",
+      "join_type": "LEFT JOIN",
+      "condition": "FVT.ID_UNID_NEGOCIO = UN.ID_UNID_NEGOCIO",
+      "reason": "Se usa en el bloque AGRÍCOLAS para reclasificar compañía y apoyar la definición del canal de venta."
+    },
+    {
+      "source_file": "FAC_SGA_PRESUPUESTO_EXT.txt",
+      "left_table": "DDM_ERP.FAC_SGA_PRESUPUESTO_EXT",
+      "left_alias": "PPTO",
+      "right_table": "DDM_ERP.DIM_COMPANIA",
+      "right_alias": "DC",
+      "join_type": "LEFT JOIN",
+      "condition": "PPTO.ID_COMPANIA = DC.ID_COMPANIA",
+      "reason": "Tabla DIM_COMPANIA sin descripción funcional explícita."
+    },
+    {
+      "source_file": "FAC_SGA_PRESUPUESTO_EXT.txt",
+      "left_table": "DDM_ERP.FAC_SGA_PRESUPUESTO_EXT",
+      "left_alias": "PPTO",
+      "right_table": "DDM_ERP.DIM_PLANTACION",
+      "right_alias": "DP",
+      "join_type": "LEFT JOIN",
+      "condition": "PPTO.ID_PLANTACION = DP.ID_PLANTACION",
+      "reason": "Tabla DIM_PLANTACION sin descripción funcional explícita."
+    },
+    {
+      "source_file": "FAC_SGA_PRESUPUESTO_EXT.txt",
+      "left_table": "DDM_ERP.FAC_SGA_PRESUPUESTO_EXT",
+      "left_alias": "PPTO",
+      "right_table": "DDM_ERP.DIM_SGA_ORIGEN",
+      "right_alias": "DO",
+      "join_type": "LEFT JOIN",
+      "condition": "PPTO.ID_ORIGEN = DO.ID_ORIGEN",
+      "reason": "Tabla DIM_SGA_ORIGEN sin descripción funcional explícita."
+    },
+    {
+      "source_file": "FAC_SGA_PRESUPUESTO_EXT.txt",
+      "left_table": "DDM_ERP.FAC_SGA_PRESUPUESTO_EXT",
+      "left_alias": "PPTO",
+      "right_table": "DDM_ERP.DIM_SGA_MATERIAL",
+      "right_alias": "DM",
+      "join_type": "LEFT JOIN",
+      "condition": "PPTO.ID_MATERIAL = DM.ID_MATERIAL",
+      "reason": "Tabla DIM_SGA_MATERIAL sin descripción funcional explícita."
+    },
+    {
+      "source_file": "FAC_SGA_PRESUPUESTO_EXT.txt",
+      "left_table": "DDM_ERP.FAC_SGA_PRESUPUESTO_EXT",
+      "left_alias": "PPTO",
+      "right_table": "DDM_ERP.DIM_SGA_TIPO_DOCUMENTO",
+      "right_alias": "DTD",
+      "join_type": "LEFT JOIN",
+      "condition": "PPTO.ID_TIPO_DOCUMENTO =DTD.ID_TIPO_DOCUMENTO",
+      "reason": "Tabla DIM_SGA_TIPO_DOCUMENTO sin descripción funcional explícita."
+    },
+    {
+      "source_file": "FAC_SGA_PRESUPUESTO_EXT.txt",
+      "left_table": "DDM_ERP.FAC_SGA_PRESUPUESTO_EXT",
+      "left_alias": "PPTO",
+      "right_table": "DDM_ERP.DIM_ESTADO",
+      "right_alias": "DE",
+      "join_type": "LEFT JOIN",
+      "condition": "PPTO.ID_ESTADO_CULTIVO = DE.ID_ESTADO",
+      "reason": "Tabla DIM_ESTADO sin descripción funcional explícita."
+    },
+    {
+      "source_file": "FAC_SGA_PRESUPUESTO_EXT.txt",
+      "left_table": "DDM_ERP.FAC_SGA_PRESUPUESTO_EXT",
+      "left_alias": "PPTO",
+      "right_table": "DDM_ERP.DIM_SGA_TIPO_CLASIFICACION",
+      "right_alias": "DTC",
+      "join_type": "LEFT JOIN",
+      "condition": "PPTO.ID_TIPO_CLASIFICACION = DTC.ID_TIPO_CLASIFICACION",
+      "reason": "Tabla DIM_SGA_TIPO_CLASIFICACION sin descripción funcional explícita."
+    },
+    {
+      "source_file": "FAC_V_MQRY_KARDEX_AGRICOLA.txt",
+      "left_table": "DDM_ERP.FAC_V_MQRY_KARDEX_AGRICOLA",
+      "left_alias": "KA",
+      "right_table": "DDM_ERP.DIM_PRODUCTO",
+      "right_alias": "DP",
+      "join_type": "INNER JOIN",
+      "condition": "KA.CODIGOCORTO = DP.ID_PRODUCTO",
+      "reason": "Se usa para obtener categoría contable, familia, subclasificación y factores de peso para clasificar canales y calcular cantidades/costos."
+    }
+  ]
+}

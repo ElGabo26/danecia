@@ -5,7 +5,7 @@ import json
 import pandas as pd
 
 from tools.DataService import DataService
-from tools.makeResponse import getResponse
+from tools.deploy.sql_service import run_sql_generation_flow
 from tools.makeConsulta import getData
 
 app = Flask(__name__)
@@ -50,46 +50,39 @@ def analizar():
             print(pregunta)
 
             yield sse_event({"stage": "llm_sql", "message": "Generando consulta SQL"})
-            r1 = getResponse(pregunta, client, MODELO_LOCAL, 0.1)
-
-            if not r1:
-                r1 = "NO SELECT;"
-                yield sse_event(
-                    {
-                        "stage": "llm_sql",
-                        "message": "No se generó SQL válida, se usará valor por defecto",
-                    }
-                )
-
+            r0 = run_sql_generation_flow(pregunta,MODELO_LOCAL,MODELO_RESPONSE,True)
+            r1=r0['sql']
             yield sse_event({"stage": "db", "message": "Consultando base de datos"})
             d = getData(service, r1)
             limit = 0
+            if not isinstance(d, pd.DataFrame):
+                while limit <= 3 and not isinstance(d, pd.DataFrame):
+                    yield sse_event(
+                        {
+                            "stage": "correccion",
+                            "message": f"Corrigiendo consulta. Intento {limit + 1}",
+                        }
+                    )
 
-            while limit <= 3 and not isinstance(d, pd.DataFrame):
-                yield sse_event(
-                    {
-                        "stage": "correccion",
-                        "message": f"Corrigiendo consulta. Intento {limit + 1}",
-                    }
-                )
+                    pregunta1 = f"""Corrige tu respuesta tomando en cuenta el siguiente error:
+    {d}"""
+                    r0 = run_sql_generation_flow(pregunta,MODELO_LOCAL,MODELO_RESPONSE,True)
+                    r1=r0['sql']
+                    print(r1)
 
-                pregunta1 = f"""Corrige tu respuesta tomando en cuenta el siguiente error:
-{d}"""
-                r1 = getResponse(pregunta1, client, MODELO_LOCAL, 0.1)
-                print(r1)
-
-                yield sse_event(
-                    {"stage": "db", "message": "Reintentando consulta a la base de datos"}
-                )
-                d = getData(service, r1)
-                limit += 1
+                    yield sse_event(
+                        {"stage": "db", "message": "Reintentando consulta a la base de datos"}
+                    )
+                    d = getData(service, r1)
+                    limit += 1
+            
 
             if not isinstance(d, pd.DataFrame):
                 resultado = "No se han encontrado datos"
                 yield sse_event(
                     {"stage": "fin", "message": resultado, "resultado": resultado}
                 )
-                return
+                return 
 
             print(d.shape)
 
