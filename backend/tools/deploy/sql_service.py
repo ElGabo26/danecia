@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional
 
-from src.sql_rag_pipeline import build_client, generate_sql, repair_sql, validate_sql
+from tools.deploy.src.sql_rag_pipeline import build_client, generate_sql, repair_sql, validate_sql
 
 
 def run_sql_generation_flow(
