@@ -66,7 +66,7 @@ def analizar():
 
                     pregunta1 = f"""Corrige tu respuesta tomando en cuenta el siguiente error:
     {d}"""
-                    r0 = run_sql_generation_flow(pregunta,MODELO_LOCAL,MODELO_RESPONSE,True)
+                    r0 = run_sql_generation_flow(pregunta1,MODELO_LOCAL,MODELO_RESPONSE,True)
                     r1=r0['sql']
                     print(r1)
 
