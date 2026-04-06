@@ -21,6 +21,6 @@ def getResponse(pregunta,client,modelName,temperature:float):
         print(e)
         t1, t0=0,0
         print(e)
-        r="DESCRIBE DDM_ERP.DIM_UNIDAD_NEGOCIO;"
+        r=" ;"
     print(t1-t0)
     return r
