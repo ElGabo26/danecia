@@ -88,7 +88,7 @@ def analizar():
                         {"role": "system", "content": data_text},
                         {"role": "user", "content": final_prompt},
                     ],
-                    temperature=0.1,
+                    temperature=0.0,
                 )
                 result = response.choices[0].message.content
             except Exception:
@@ -98,6 +98,7 @@ def analizar():
 
         except Exception as e:
             yield sse_event({"stage": "error", "message": f"Error inesperado en backend: {str(e)}"})
+            yield sse_event({"hola"})
 
     return Response(
         generate(),
