@@ -16,28 +16,9 @@ def run_sql_generation_flow(
     client = build_client(base_url=base_url, api_key=api_key)
     result = generate_sql(question=question, model=model, detector_model=detector_model or model, client=client)
     validation = validate_sql(result["sql"], result.get("validation_context"), question=question, client=client, model=model)
-
-    repaired_sql = None
-    repaired_validation = None
     no_sql_reason = result.get("no_sql_reason", "")
-
-    if autorepair and not validation["valid"] and result["sql"] != "NO_SQL":
-        repaired_sql = repair_sql(
-            question=question,
-            bad_sql=result["sql"],
-            validation_errors=validation["errors"],
-            model=model,
-            detector_model=detector_model or model,
-            client=client,
-        )
-        repaired_validation = validate_sql(repaired_sql, result.get("validation_context"), question=question, client=client, model=model)
-        if repaired_sql == "NO_SQL":
-            no_sql_reason = (repaired_validation or {}).get("no_sql_reason", "") or "La corrección automática no logró producir un SQL seguro."
-    elif result["sql"] == "NO_SQL":
-        no_sql_reason = result.get("no_sql_reason", "") or validation.get("no_sql_reason", "")
-
-    final_sql = repaired_sql if repaired_sql and repaired_validation and repaired_validation["valid"] else result["sql"]
-    final_validation = repaired_validation if repaired_validation and repaired_validation["valid"] else validation
+    final_sql = result["sql"]
+    final_validation =  validation
 
     return {
         "ok": final_validation["valid"],
