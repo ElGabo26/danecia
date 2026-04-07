@@ -3,7 +3,7 @@
     {
       "domain": "global",
       "name": "only_select",
-      "rule": "Solo consultas SELECT. Si no es posible responder, devolver NO_SQL."
+      "rule": "Solo consultas SELECT."
     },
     {
       "domain": "global",
