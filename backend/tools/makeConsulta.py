@@ -13,5 +13,4 @@ def getData(service:DataService,result):
         data=service.get_data(query)
         return data
     except Exception as  e:
-        print(type(e))
         return e

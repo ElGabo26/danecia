@@ -44,7 +44,7 @@ def analizar():
 
             r0 = run_sql_generation_flow(pregunta, MODELO_LOCAL, MODELO_RESPONSE)
             r1 = r0.get('sql', '')
-            print(r1)
+            print(r1,'HOOOOLA')
             yield sse_event({"stage": "db", "message": "Consultando base de datos"})
             d = getData(service, r1)
             print(d)
@@ -64,6 +64,7 @@ def analizar():
 
             if not isinstance(d, pd.DataFrame):
                 print(d)
+                print(r1)
                 resultado = "No se han encontrado datos"
                 yield sse_event({"stage": "fin", "message": resultado, "resultado": resultado})
                 return
