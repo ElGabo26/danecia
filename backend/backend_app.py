@@ -44,7 +44,7 @@ def analizar():
 
             r0 = run_sql_generation_flow(pregunta, MODELO_LOCAL, MODELO_RESPONSE)
             r1 = r0.get('sql', '')
-            print(r1,'HOOOOLA')
+            print(r1)
             yield sse_event({"stage": "db", "message": "Consultando base de datos"})
             d = getData(service, r1)
             print(d)
@@ -55,7 +55,8 @@ def analizar():
                     "stage": "correccion",
                     "message": f"Corrigiendo consulta. Intento {attempts + 1}",
                 })
-                pregunta1 = f"""Corrige tu respuesta tomando en cuenta el siguiente error:\n{d}"""
+                pregunta1 = f"""Corrige tu respuesta {r1} tomando en cuenta el siguiente error:\n{d}"""
+                print(pregunta1)
                 r0 = run_sql_generation_flow(pregunta1, MODELO_LOCAL, MODELO_RESPONSE)
                 r1 = r0.get('sql', '')
                 yield sse_event({"stage": "db", "message": "Reintentando consulta a la base de datos"})
