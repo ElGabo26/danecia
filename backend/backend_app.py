@@ -42,7 +42,7 @@ def analizar():
             yield sse_event({"stage": "inicio", "message": "Solicitud recibida"})
             yield sse_event({"stage": "llm_sql", "message": "Generando consulta SQL"})
 
-            r0 = run_sql_generation_flow(pregunta, MODELO_LOCAL, MODELO_RESPONSE, True)
+            r0 = run_sql_generation_flow(pregunta, MODELO_LOCAL, MODELO_RESPONSE)
             r1 = r0.get('sql', '')
             print(r1)
             yield sse_event({"stage": "db", "message": "Consultando base de datos"})
@@ -97,7 +97,7 @@ def analizar():
             yield sse_event({"stage": "fin", "message": "Proceso completado", "resultado": result})
 
         except Exception as e:
-            yield sse_event({"stage": "error", "message": "hola"})
+            yield sse_event({"stage": "error", "message": f"Error inesperado en backend: {str(e)}"})
             
 
     return Response(
