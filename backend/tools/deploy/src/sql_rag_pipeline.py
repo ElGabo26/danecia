@@ -154,7 +154,7 @@ def generate_sql(question: str, model: str = DEFAULT_ENTITY_MODEL, client: Optio
     client = client or build_client()
     context = get_context(question=question, client=client, detector_model=detector_model or model, max_chars=3000)
     prompt = build_prompt(question, context, max_chars=MAX_PROMPT_CHARS)
-    sql = _llm_generate(prompt, model=model, client=client, system_prompt="Devuelve únicamente SQL o NO_SQL.")
+    sql = _llm_generate(prompt, model=model, client=client, system_prompt="Devuelve únicamente código SQL")
 
     
     return {
