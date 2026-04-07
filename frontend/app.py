@@ -193,6 +193,24 @@ def get_chat(chat_id):
     return jsonify({"ok": True, "chat": chat})
 
 
+@app.route("/api/chats/<chat_id>", methods=["PATCH"])
+def update_chat(chat_id):
+    data = load_history()
+    chat = find_chat_by_id(data, chat_id)
+    if chat is None:
+        return jsonify({"ok": False, "error": "Chat no encontrado"}), 404
+
+    payload = request.get_json(silent=True) or {}
+    title = str(payload.get("title", "")).strip()
+
+    if not title:
+        return jsonify({"ok": False, "error": "El título no puede estar vacío"}), 400
+
+    chat["title"] = title[:120]
+    save_history(data)
+    return jsonify({"ok": True, "chat": chat})
+
+
 @app.route("/api/chats/<chat_id>", methods=["DELETE"])
 def delete_chat(chat_id):
     data = load_history()
@@ -274,16 +292,16 @@ def send_message(chat_id):
 
         except requests.exceptions.Timeout:
             final_answer = "Error: el backend tardó demasiado en responder."
-            yield f"data: {json.dumps({'stage': 'error', 'message': final_answer}, ensure_ascii=False)}\n\n"
+            yield f"data: {json.dumps({'stage': 'error', 'message': final_answer}, ensure_ascii=False)}\\n\\n"
         except requests.exceptions.ConnectionError as e:
             final_answer = f"Error: no se pudo conectar con el backend en {BACKEND_URL}. Detalle: {e}"
-            yield f"data: {json.dumps({'stage': 'error', 'message': final_answer}, ensure_ascii=False)}\n\n"
+            yield f"data: {json.dumps({'stage': 'error', 'message': final_answer}, ensure_ascii=False)}\\n\\n"
         except requests.exceptions.HTTPError as e:
             final_answer = f"Error HTTP del backend: {str(e)}"
-            yield f"data: {json.dumps({'stage': 'error', 'message': final_answer}, ensure_ascii=False)}\n\n"
+            yield f"data: {json.dumps({'stage': 'error', 'message': final_answer}, ensure_ascii=False)}\\n\\n"
         except Exception as e:
             final_answer = f"Error inesperado: {str(e)}"
-            yield f"data: {json.dumps({'stage': 'error', 'message': final_answer}, ensure_ascii=False)}\n\n"
+            yield f"data: {json.dumps({'stage': 'error', 'message': final_answer}, ensure_ascii=False)}\\n\\n"
         finally:
             if backend_response is not None:
                 backend_response.close()

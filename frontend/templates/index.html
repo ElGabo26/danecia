@@ -29,10 +29,30 @@
 
             <nav class="history-list" id="historyList">
                 {% for chat in chats %}
-                <a href="/?chat_id={{ chat.id }}" class="history-item {% if chat.id == active_chat.id %}active{% endif %}">
-                    <div class="history-title">{{ chat.title }}</div>
-                    <div class="history-preview">{{ chat.preview }}</div>
-                </a>
+                <div class="history-item {% if chat.id == active_chat.id %}active{% endif %}" data-chat-id="{{ chat.id }}">
+                    <a href="/?chat_id={{ chat.id }}" class="history-link">
+                        <div class="history-title-row">
+                            <div class="history-title" data-role="chat-title" title="Doble clic para editar">{{ chat.title }}</div>
+                            <input
+                                class="history-title-input"
+                                data-role="chat-title-input"
+                                type="text"
+                                value="{{ chat.title }}"
+                                maxlength="120"
+                                aria-label="Editar título del chat"
+                            >
+                            <button
+                                type="button"
+                                class="history-delete-btn"
+                                data-action="delete-chat"
+                                data-chat-id="{{ chat.id }}"
+                                aria-label="Borrar chat"
+                                title="Borrar chat"
+                            >🗑</button>
+                        </div>
+                        <div class="history-preview">{{ chat.preview }}</div>
+                    </a>
+                </div>
                 {% endfor %}
             </nav>
         </aside>
@@ -79,16 +99,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatArea = document.getElementById('chatArea');
     const newChatBtn = document.getElementById('newChatBtn');
     const chatTitle = document.getElementById('chatTitle');
+    const historyList = document.getElementById('historyList');
     let currentChatId = {{ active_chat.id|tojson }};
 
-    if (!form || !input || !chatArea || !newChatBtn || !chatTitle) {
-        console.error('Faltan elementos del DOM:', {
-            form,
-            input,
-            chatArea,
-            newChatBtn,
-            chatTitle
-        });
+    if (!form || !input || !chatArea || !newChatBtn || !chatTitle || !historyList) {
+        console.error('Faltan elementos del DOM.');
         return;
     }
 
@@ -167,6 +182,85 @@ document.addEventListener('DOMContentLoaded', () => {
         return events;
     }
 
+    function setEditingState(item, editing) {
+        if (!item) return;
+        item.classList.toggle('editing', editing);
+    }
+
+    async function saveChatTitle(chatId, rawTitle, titleEl, inputEl) {
+        const title = rawTitle.trim();
+        const previousTitle = titleEl.dataset.originalTitle || titleEl.textContent.trim();
+
+        if (!title) {
+            inputEl.value = previousTitle;
+            setEditingState(inputEl.closest('.history-item'), false);
+            return;
+        }
+
+        try {
+            const res = await fetch(`/api/chats/${chatId}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title })
+            });
+
+            const data = await res.json();
+            if (!res.ok || !data.ok) {
+                throw new Error(data.error || 'No fue posible actualizar el título.');
+            }
+
+            titleEl.textContent = data.chat.title;
+            titleEl.dataset.originalTitle = data.chat.title;
+            inputEl.value = data.chat.title;
+
+            if (chatId === currentChatId) {
+                chatTitle.textContent = data.chat.title;
+            }
+        } catch (error) {
+            inputEl.value = previousTitle;
+            console.error(error);
+            alert(error.message || 'No fue posible actualizar el título.');
+        } finally {
+            setEditingState(inputEl.closest('.history-item'), false);
+        }
+    }
+
+    function enableTitleEditing(item) {
+        if (!item) return;
+        const titleEl = item.querySelector('[data-role="chat-title"]');
+        const inputEl = item.querySelector('[data-role="chat-title-input"]');
+        if (!titleEl || !inputEl) return;
+
+        titleEl.dataset.originalTitle = titleEl.textContent.trim();
+        inputEl.value = titleEl.textContent.trim();
+        setEditingState(item, true);
+
+        requestAnimationFrame(() => {
+            inputEl.focus();
+            inputEl.select();
+        });
+    }
+
+    async function deleteChat(chatId) {
+        const confirmed = window.confirm('¿Deseas borrar este chat completo?');
+        if (!confirmed) return;
+
+        try {
+            const res = await fetch(`/api/chats/${chatId}`, { method: 'DELETE' });
+            const data = await res.json();
+
+            if (!res.ok || !data.ok) {
+                throw new Error(data.error || 'No se pudo borrar el chat.');
+            }
+
+            const redirectChatId = data.active_chat_id;
+            window.location.href = `/?chat_id=${redirectChatId}`;
+        } catch (error) {
+            console.error(error);
+            alert(error.message || 'No se pudo borrar el chat.');
+        }
+    }
+
     input.addEventListener('input', () => autoResize(input));
 
     newChatBtn.addEventListener('click', async () => {
@@ -175,6 +269,62 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!data.ok) return;
         window.location.href = `/?chat_id=${data.chat.id}`;
     });
+
+    historyList.addEventListener('click', async (event) => {
+        const deleteBtn = event.target.closest('[data-action="delete-chat"]');
+        if (deleteBtn) {
+            event.preventDefault();
+            event.stopPropagation();
+            await deleteChat(deleteBtn.dataset.chatId);
+            return;
+        }
+
+        const titleEl = event.target.closest('[data-role="chat-title"]');
+        if (titleEl && titleEl.closest('.history-item')?.classList.contains('editing')) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    });
+
+    historyList.addEventListener('dblclick', (event) => {
+        const titleEl = event.target.closest('[data-role="chat-title"]');
+        if (!titleEl) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const item = titleEl.closest('.history-item');
+        enableTitleEditing(item);
+    });
+
+    historyList.addEventListener('keydown', async (event) => {
+        const inputEl = event.target.closest('[data-role="chat-title-input"]');
+        if (!inputEl) return;
+
+        const item = inputEl.closest('.history-item');
+        const titleEl = item.querySelector('[data-role="chat-title"]');
+        const chatId = item.dataset.chatId;
+
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            await saveChatTitle(chatId, inputEl.value, titleEl, inputEl);
+        } else if (event.key === 'Escape') {
+            inputEl.value = titleEl.dataset.originalTitle || titleEl.textContent.trim();
+            setEditingState(item, false);
+        }
+    });
+
+    historyList.addEventListener('blur', async (event) => {
+        const inputEl = event.target.closest('[data-role="chat-title-input"]');
+        if (!inputEl) return;
+
+        const item = inputEl.closest('.history-item');
+        if (!item.classList.contains('editing')) return;
+
+        const titleEl = item.querySelector('[data-role="chat-title"]');
+        const chatId = item.dataset.chatId;
+        await saveChatTitle(chatId, inputEl.value, titleEl, inputEl);
+    }, true);
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
