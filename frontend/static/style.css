@@ -483,3 +483,77 @@ body {
         font-size: 24px;
     }
 }
+
+
+/* Historial de chats: enlace, edición y borrado */
+.history-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.history-title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.history-title {
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
+    cursor: text;
+}
+
+.history-title-input {
+    display: none;
+    flex: 1;
+    min-width: 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 10px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: #ffffff;
+    outline: none;
+}
+
+.history-title-input:focus {
+    border-color: rgba(229, 59, 59, 0.45);
+    box-shadow: 0 0 0 3px rgba(229, 59, 59, 0.10);
+}
+
+.history-delete-btn {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.history-delete-btn:hover {
+    background: #fff1f2;
+    color: var(--brand-red);
+    border-color: rgba(229, 59, 59, 0.28);
+}
+
+.history-item.editing .history-title {
+    display: none;
+}
+
+.history-item.editing .history-title-input {
+    display: block;
+}
+
+.history-item.editing .history-preview {
+    opacity: 0.72;
+}

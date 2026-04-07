@@ -72,7 +72,7 @@ def build_prompt(question: str, context: Dict[str, Any], max_chars: int = MAX_PR
         entity_rule = "No se detectaron entidades categóricas explícitas; no uses LIKE ni filtros de texto semejantes."
 
     base = (
-        "Genera solo SQL MySQL/SingleStore o NO_SQL. Solo SELECT. No inventes tablas, columnas ni joins. "
+        "Genera solo SQL MySQL/SingleStore. Solo SELECT. No inventes tablas, columnas ni joins. "
         f"Siempre haz JOIN con DDM_ERP.DIM_FECHA y filtra con {context['date_filter_sql']} cuando el dominio use fechas de negocio. "
         f"{entity_rule} Usa columnas NOM_/DESC_ para mostrar nombres conocidos. "
         "Si el pedido es de ventas, evita alias AUTOCONSUMO salvo petición explícita; usa VENTAS o TOTAL_VENTAS. "
