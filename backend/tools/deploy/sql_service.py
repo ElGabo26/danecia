@@ -9,7 +9,6 @@ def run_sql_generation_flow(
     question: str,
     model: str = "qwen2.5-coder:3b",
     detector_model="llama3-chatqa:latest",
-    autorepair: bool = True,
     base_url: str = "http://localhost:11434/v1",
     api_key: str = "ollama",
 ) -> Dict[str, Any]:
