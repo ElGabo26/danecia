@@ -97,8 +97,8 @@ def analizar():
             yield sse_event({"stage": "fin", "message": "Proceso completado", "resultado": result})
 
         except Exception as e:
-            yield sse_event({"stage": "error", "message": f"Error inesperado en backend: {str(e)}"})
-            yield sse_event({"hola"})
+            yield sse_event({"stage": "error", "message": "hola"})
+            
 
     return Response(
         generate(),
