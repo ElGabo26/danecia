@@ -2901,7 +2901,7 @@
           "type": "double",
           "nullable": "YES",
           "key": "MUL",
-          "description": "Columna CODITEM de FAC_COSTO_MARGEN"
+          "description": "Columna CODITEM representa el ID del producto, comparable conla columna ID_PRODUCTO, de la tabla DIM_PRODUCTO"
         },
         {
           "name": "FECHA",
