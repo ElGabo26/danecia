@@ -80,9 +80,11 @@ def build_prompt(question: str, context: Dict[str, Any], max_chars: int = MAX_PR
     )
     prompt = f"{base}\nCTX:{context['context_text']}\nQ:{question}\nSQL:"
     if len(prompt) > max_chars:
+        print("contextoexcedido")
         excess = len(prompt) - max_chars
         reduced_ctx = context["context_text"][:-excess - 3] + "..." if excess + 3 < len(context["context_text"]) else context["context_text"][: max(0, max_chars - len(base) - len(question) - 20)]
         prompt = f"{base}\nCTX:{reduced_ctx}\nQ:{question}\nSQL:"
+    print(prompt[:max_chars])
     return prompt[:max_chars]
 
 
@@ -154,7 +156,7 @@ def generate_sql(question: str, model: str = DEFAULT_ENTITY_MODEL, client: Optio
     client = client or build_client()
     context = get_context(question=question, client=client, detector_model=detector_model or model, max_chars=2200)
     prompt = build_prompt(question, context, max_chars=MAX_PROMPT_CHARS)
-    sql = _llm_generate(prompt, model=model, client=client, system_prompt="Devuelve únicamente SQL o NO_SQL.")
+    sql = _llm_generate(prompt, model=model, client=client, system_prompt="Devuelve únicamente SQL")
     sql = _sanitize_sales_aliases(sql, question, context["explicit_autoconsumo"])
     
     return {
