@@ -3692,7 +3692,7 @@
           "type": "bigint(20)",
           "nullable": "YES",
           "key": null,
-          "description": "Columna ID_UNID_NEGOCIO de FAC_VENTA_TOTAL"
+          "description": "Columna que  describe el  tipo de unidad de negocio ACEITES Y MANTECAS, LINEA  DE ASEO  Y LIMPIEZA,indica el tipo de producto FAC_VENTA_TOTAL"
         },
         {
           "name": "ID_UNIDAD",

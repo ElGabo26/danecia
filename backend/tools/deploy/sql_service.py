@@ -15,7 +15,7 @@ def run_sql_generation_flow(
 ) -> Dict[str, Any]:
     client = build_client(base_url=base_url, api_key=api_key)
     result = generate_sql(question=question, model=model, detector_model=detector_model or model, client=client)
-    validation = validate_sql(result["sql"], result.get("validation_context"))
+    validation = validate_sql(result["sql"], result.get("validation_context"), question=question, client=client, model=model)
 
     repaired_sql = None
     repaired_validation = None
@@ -30,7 +30,7 @@ def run_sql_generation_flow(
             detector_model=detector_model or model,
             client=client,
         )
-        repaired_validation = validate_sql(repaired_sql, result.get("validation_context"))
+        repaired_validation = validate_sql(repaired_sql, result.get("validation_context"), question=question, client=client, model=model)
         if repaired_sql == "NO_SQL":
             no_sql_reason = (repaired_validation or {}).get("no_sql_reason", "") or "La corrección automática no logró producir un SQL seguro."
     elif result["sql"] == "NO_SQL":
