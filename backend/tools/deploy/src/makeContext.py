@@ -12,7 +12,8 @@ def get_context(question: str, client: Optional[object] = None, detector_model: 
     """Construye el contexto desde catálogo, whitelist, reglas, glosario y ejemplos.
 
     Retorna un paquete listo para prompt y validación.
-    Ahora también agrega las descripciones de las columnas seleccionadas de las tablas del dominio.
+    Las descripciones de columnas seleccionadas de las tablas del dominio se inyectan
+    como bloque prioritario y nunca se recortan por el límite de caracteres.
     """
     base_dir = Path(__file__).resolve().parent.parent
     catalog_dir = base_dir / "catalog"
@@ -110,7 +111,7 @@ def get_context(question: str, client: Optional[object] = None, detector_model: 
     search_terms = [e["value"] for e in detected_entities]
 
     # 4) Filtro temporal por defecto
-    date_filter_sql = f"DF.FECHA BETWEEN '2025-01-01' AND '{current_date}'"
+    date_filter_sql = f"DF.FECHA BETWEEN '{'2025-01-01'}' AND '{current_date}'"
 
     # 5) Selección de tablas
     def table_score(table: Dict[str, Any]) -> int:
@@ -182,31 +183,47 @@ def get_context(question: str, client: Optional[object] = None, detector_model: 
 
     preferred_name_columns = {}
     allowed_like_columns = []
-    selected_column_descriptions = {}
     metric_set = {m.upper() for m in metrics}
     dimension_set = {d.upper() for d in dimensions}
+    selected_column_descriptions = []
+
+    def _norm_description(v: Any) -> str:
+        txt = re.sub(r"\s+", " ", str(v or "")).strip()
+        return txt if txt and txt.lower() not in {"nan", "none", "null"} else "Sin descripción"
+
+    def _is_domain_table(table: Dict[str, Any]) -> bool:
+        table_domain = str(table.get("domain", "")).lower()
+        tname = table["table_name"].upper()
+        if domain in table_domain:
+            return True
+        if domain == "ventas" and tname.endswith("FAC_VENTA_TOTAL"):
+            return True
+        if domain == "finanzas" and "FAC_ESTRESULTADOS" in tname:
+            return True
+        if domain == "presupuesto" and tname.endswith("FAC_SGA_PRESUPUESTO_EXT"):
+            return True
+        if domain == "kardex" and tname.endswith("FAC_V_MQRY_KARDEX_AGRICOLA"):
+            return True
+        return False
+
     for table in selected_tables:
         tname = table["table_name"].upper()
-        all_columns = table.get("columns", [])
+        cols = [str(c["name"]).upper() for c in table.get("columns", [])]
         preferred_name_columns[tname] = [
-            str(c["name"]).upper() for c in all_columns
+            str(c["name"]).upper() for c in table.get("columns", [])
             if str(c["name"]).upper().startswith(("NOM_", "DESC_"))
         ][:12]
 
-        keep_cols = preferred_name_columns[tname][:4]
-        keep_cols += [str(c["name"]).upper() for c in all_columns if str(c["name"]).upper() in metric_set][:3]
-        keep_cols += [str(c["name"]).upper() for c in all_columns if str(c["name"]).upper() in dimension_set][:3]
-        keep_cols = list(dict.fromkeys([c for c in keep_cols if c]))[:8]
+        selected_col_names = preferred_name_columns[tname][:4]
+        selected_col_names += [c for c in cols if c in metric_set][:3]
+        selected_col_names += [c for c in cols if c in dimension_set][:3]
+        selected_col_names = list(dict.fromkeys([c for c in selected_col_names if c]))[:8]
 
-        if domain in str(table.get("domain", "")).lower() or tname.endswith("DIM_FECHA"):
-            descriptions = []
-            for col in all_columns:
-                cname = str(col.get("name", "")).upper()
-                if cname in keep_cols:
-                    cdesc = str(col.get("description", "") or "Sin descripción")
-                    descriptions.append({"name": cname, "description": cdesc})
-            if descriptions:
-                selected_column_descriptions[tname] = descriptions
+        if _is_domain_table(table):
+            desc_map = {str(c.get("name", "")).upper(): _norm_description(c.get("description", "")) for c in table.get("columns", [])}
+            for cname in selected_col_names:
+                if cname in desc_map:
+                    selected_column_descriptions.append(f"{tname}.{cname}={desc_map[cname]}")
 
     for entity in detected_entities:
         allowed_like_columns.extend([ref.split(".")[-1] for ref in entity["columns"]])
@@ -222,35 +239,44 @@ def get_context(question: str, client: Optional[object] = None, detector_model: 
         ranked_examples.append((score, ex))
     examples = [ex for score, ex in sorted(ranked_examples, key=lambda x: x[0], reverse=True)[:2] if score > 0]
 
-    # 7) Contexto compacto con descripción de columnas seleccionadas
+    # 7) Contexto compacto con bloque prioritario de descripciones
     table_bits = []
-    column_desc_bits = []
     for table in selected_tables:
         tname = table["table_name"].upper()
         cols = [str(c["name"]).upper() for c in table.get("columns", [])]
-        keep_cols = preferred_name_columns[tname][:4] + [c for c in cols if c.upper() in metric_set][:3] + [c for c in cols if c.upper() in dimension_set][:3]
+        keep_cols = preferred_name_columns[tname][:4] + [c for c in cols if c in metric_set][:3] + [c for c in cols if c in dimension_set][:3]
         keep_cols = list(dict.fromkeys([c for c in keep_cols if c]))[:8]
         if keep_cols:
             table_bits.append(f"{tname}[{','.join(keep_cols)}]")
         else:
             table_bits.append(tname)
-        if tname in selected_column_descriptions:
-            desc_fragments = [f"{item['name']}:{item['description']}" for item in selected_column_descriptions[tname][:6]]
-            if desc_fragments:
-                column_desc_bits.append(f"{tname}=>{' | '.join(desc_fragments)}")
-
     join_bits = [f"{j['left_table']}->{j['right_table']} ON {j['condition']}" for j in selected_joins[:8]]
     example_bits = [re.sub(r"\s+", " ", ex.get("sql", ""))[:220] for ex in examples]
     entity_bits = [f"{e['entity_type']}:{e['value']}=>{','.join(c.split('.')[-1] for c in e['columns'][:3])}" for e in detected_entities] or ["sin_entidades_explicitas"]
 
-    context_text = (
-        f"dom={domain}; fechas={date_filter_sql}; tablas={' | '.join(table_bits)}; "
-        f"desc_cols={' || '.join(column_desc_bits)}; joins={' | '.join(join_bits)}; "
+    priority_block = ""
+    if selected_column_descriptions:
+        priority_block = "col_desc=" + " | ".join(selected_column_descriptions)
+
+    secondary_block = (
+        f"dom={domain}; fechas={date_filter_sql}; tablas={' | '.join(table_bits)}; joins={' | '.join(join_bits)}; "
         f"entidades={' | '.join(entity_bits)}; reglas={' | '.join(selected_rules[:6])}; ejemplos={' | '.join(example_bits)}"
     )
-    context_text = re.sub(r"\s+", " ", context_text).strip()
-    if len(context_text) > max_chars:
-        context_text = context_text[: max_chars - 3] + "..."
+
+    priority_block = re.sub(r"\s+", " ", priority_block).strip()
+    secondary_block = re.sub(r"\s+", " ", secondary_block).strip()
+
+    if priority_block:
+        reserved = len(priority_block) + 3
+        if reserved >= max_chars:
+            context_text = priority_block if not secondary_block else priority_block + "; " + secondary_block
+        else:
+            available = max_chars - reserved
+            if len(secondary_block) > available:
+                secondary_block = secondary_block[: max(0, available - 3)] + "..."
+            context_text = priority_block + ("; " + secondary_block if secondary_block else "")
+    else:
+        context_text = secondary_block[: max_chars - 3] + "..." if len(secondary_block) > max_chars else secondary_block
 
     return {
         "domain": domain,

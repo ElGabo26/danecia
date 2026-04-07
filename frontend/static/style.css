@@ -63,8 +63,7 @@ body {
 
 .new-chat-btn,
 .topbar-btn,
-.send-btn,
-.history-delete-btn {
+.send-btn {
     border: none;
     cursor: pointer;
     font: inherit;
@@ -87,8 +86,7 @@ body {
 
 .new-chat-btn:hover,
 .send-btn:hover,
-.topbar-btn:hover,
-.history-delete-btn:hover {
+.topbar-btn:hover {
     transform: translateY(-1px);
 }
 
@@ -108,18 +106,13 @@ body {
 }
 
 .history-item {
+    text-decoration: none;
     color: inherit;
     background: #fff;
     border: 1px solid var(--border);
     border-radius: 16px;
-    transition: 0.2s ease;
-}
-
-.history-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
     padding: 14px;
+    transition: 0.2s ease;
 }
 
 .history-item:hover,
@@ -128,66 +121,16 @@ body {
     border-color: rgba(229, 59, 59, 0.22);
 }
 
-.history-title-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: start;
-    gap: 8px;
-    margin-bottom: 6px;
-}
-
-.history-title,
-.history-title-input {
+.history-title {
     font-size: 14px;
     font-weight: 600;
-    min-width: 0;
-}
-
-.history-title {
-    line-height: 1.35;
-    word-break: break-word;
-}
-
-.history-title-input {
-    display: none;
-    width: 100%;
-    border: 1px solid rgba(229, 59, 59, 0.35);
-    border-radius: 10px;
-    padding: 8px 10px;
-    outline: none;
-    background: #fff;
-    color: var(--text-primary);
-}
-
-.history-item.editing .history-link {
-    pointer-events: none;
-}
-
-.history-item.editing .history-title {
-    display: none;
-}
-
-.history-item.editing .history-title-input {
-    display: block;
-}
-
-.history-delete-btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: #fff;
-    color: var(--brand-red);
-    border: 1px solid rgba(229, 59, 59, 0.18);
-    display: inline-grid;
-    place-items: center;
-    flex-shrink: 0;
+    margin-bottom: 6px;
 }
 
 .history-preview {
     font-size: 13px;
     color: var(--text-secondary);
     line-height: 1.4;
-    word-break: break-word;
 }
 
 .sidebar-footer {
@@ -397,5 +340,146 @@ body {
 
     .send-btn {
         width: 100%;
+    }
+}
+
+.login-shell {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 32px 16px;
+}
+
+.login-card {
+    width: min(720px, 100%);
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    padding: 28px;
+}
+
+.login-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.login-brand-logo {
+    width: 98px;
+}
+
+.login-copy h2 {
+    margin: 0 0 8px;
+    font-size: 28px;
+}
+
+.login-copy p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.login-section {
+    margin-top: 22px;
+}
+
+.user-picker-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+}
+
+.user-select,
+.user-input {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+    font: inherit;
+    color: var(--text-primary);
+    background: #fff;
+    outline: none;
+}
+
+.user-select:focus,
+.user-input:focus {
+    border-color: rgba(229, 59, 59, 0.45);
+    box-shadow: 0 0 0 3px rgba(229, 59, 59, 0.08);
+}
+
+.compact-btn {
+    width: auto;
+    padding-inline: 20px;
+}
+
+.login-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0 4px;
+    color: var(--text-secondary);
+}
+
+.login-divider::before,
+.login-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+.login-note {
+    min-height: 24px;
+    margin: 18px 0 0;
+    color: var(--text-secondary);
+}
+
+.login-note.error {
+    color: #b91c1c;
+}
+
+.user-session-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+    background: #fffaf9;
+}
+
+.user-session-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.user-session-name {
+    margin-top: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    word-break: break-word;
+}
+
+.switch-user-btn {
+    white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+    .user-picker-row {
+        grid-template-columns: 1fr;
+    }
+
+    .login-card {
+        padding: 22px 18px;
+        border-radius: 22px;
+    }
+
+    .login-copy h2 {
+        font-size: 24px;
     }
 }

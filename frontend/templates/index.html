@@ -20,6 +20,14 @@
                 </div>
             </div>
 
+            <div class="user-session-card">
+                <div>
+                    <div class="user-session-label">Usuario activo</div>
+                    <div class="user-session-name">{{ username }}</div>
+                </div>
+                <button class="topbar-btn switch-user-btn" type="button" id="switchUserBtn">Cambiar</button>
+            </div>
+
             <button class="new-chat-btn" type="button" id="newChatBtn">
                 <span>＋</span>
                 Nuevo chat
@@ -30,7 +38,7 @@
             <nav class="history-list" id="historyList">
                 {% for chat in chats %}
                 <div class="history-item {% if chat.id == active_chat.id %}active{% endif %}" data-chat-id="{{ chat.id }}">
-                    <a href="/?chat_id={{ chat.id }}" class="history-link">
+                    <a href="/chat?chat_id={{ chat.id }}" class="history-link">
                         <div class="history-title-row">
                             <div class="history-title" data-role="chat-title" title="Doble clic para editar">{{ chat.title }}</div>
                             <input
@@ -61,6 +69,7 @@
             <header class="topbar">
                 <div>
                     <h2 id="chatTitle">{{ active_chat.title }}</h2>
+                    <p>Conversación privada del usuario {{ username }}</p>
                 </div>
             </header>
 
@@ -86,7 +95,7 @@
                         <textarea id="promptInput" name="prompt" rows="1" placeholder="Escribe tu prompt aquí..."></textarea>
                         <button type="submit" class="send-btn">Enviar</button>
                     </div>
-                    <div class="prompt-hint">El historial se guarda en JSON en el frontend.</div>
+                    <div class="prompt-hint">Los chats se guardan por usuario. Un usuario no puede ver el historial de otro.</div>
                 </form>
             </section>
         </main>
@@ -98,11 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('promptInput');
     const chatArea = document.getElementById('chatArea');
     const newChatBtn = document.getElementById('newChatBtn');
+    const switchUserBtn = document.getElementById('switchUserBtn');
     const chatTitle = document.getElementById('chatTitle');
     const historyList = document.getElementById('historyList');
     let currentChatId = {{ active_chat.id|tojson }};
 
-    if (!form || !input || !chatArea || !newChatBtn || !chatTitle || !historyList) {
+    if (!form || !input || !chatArea || !newChatBtn || !chatTitle || !historyList || !switchUserBtn) {
         console.error('Faltan elementos del DOM.');
         return;
     }
@@ -254,10 +264,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const redirectChatId = data.active_chat_id;
-            window.location.href = `/?chat_id=${redirectChatId}`;
+            window.location.href = `/chat?chat_id=${redirectChatId}`;
         } catch (error) {
             console.error(error);
             alert(error.message || 'No se pudo borrar el chat.');
+        }
+    }
+
+    async function switchUser() {
+        try {
+            const res = await fetch('/logout', { method: 'POST' });
+            const data = await res.json();
+            if (!res.ok || !data.ok) {
+                throw new Error(data.error || 'No fue posible cambiar de usuario.');
+            }
+            window.location.href = data.redirect || '/';
+        } catch (error) {
+            console.error(error);
+            alert(error.message || 'No fue posible cambiar de usuario.');
         }
     }
 
@@ -267,8 +291,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const res = await fetch('/api/chats', { method: 'POST' });
         const data = await res.json();
         if (!data.ok) return;
-        window.location.href = `/?chat_id=${data.chat.id}`;
+        window.location.href = `/chat?chat_id=${data.chat.id}`;
     });
+
+    switchUserBtn.addEventListener('click', switchUser);
 
     historyList.addEventListener('click', async (event) => {
         const deleteBtn = event.target.closest('[data-action="delete-chat"]');
@@ -335,12 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = '';
         autoResize(input);
 
-        const assistantRow = addMessage(
-            'assistant',
-            'Asistente Danec',
-            'Ahora',
-            'Iniciando proceso...'
-        );
+        const assistantRow = addMessage('assistant', 'Asistente Danec', 'Ahora', 'Iniciando proceso...');
 
         try {
             const res = await fetch(`/api/chats/${currentChatId}/message`, {
@@ -350,10 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!res.ok) {
-                updateMessage(
-                    assistantRow,
-                    `Error del servidor: ${res.status} ${res.statusText}`
-                );
+                updateMessage(assistantRow, `Error del servidor: ${res.status} ${res.statusText}`);
                 return;
             }
 
@@ -363,10 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await res.json();
 
                 if (!data.ok) {
-                    updateMessage(
-                        assistantRow,
-                        data.error || 'Ocurrió un error.'
-                    );
+                    updateMessage(assistantRow, data.error || 'Ocurrió un error.');
                     return;
                 }
 
@@ -406,23 +421,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         if (stage === 'fin') {
-                            updateMessage(
-                                assistantRow,
-                                finalResult || event.resultado || message,
-                                'Ahora'
-                            );
+                            updateMessage(assistantRow, finalResult || event.resultado || message, 'Ahora');
                         } else if (stage === 'error') {
-                            updateMessage(
-                                assistantRow,
-                                `Error: ${message}`,
-                                'Ahora'
-                            );
+                            updateMessage(assistantRow, `Error: ${message}`, 'Ahora');
                         } else {
-                            updateMessage(
-                                assistantRow,
-                                `${stageLabel}...\n${message}`,
-                                'Ahora'
-                            );
+                            updateMessage(assistantRow, `${stageLabel}...\n${message}`, 'Ahora');
                         }
                     }
                 }
@@ -441,10 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         } catch (error) {
-            updateMessage(
-                assistantRow,
-                'No fue posible conectar con el frontend o backend.'
-            );
+            updateMessage(assistantRow, 'No fue posible conectar con el frontend o backend.');
             console.error(error);
         }
     });

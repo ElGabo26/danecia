@@ -1,11 +1,22 @@
 import json
 import os
+import re
 import uuid
 from datetime import datetime
 from pathlib import Path
 
 import requests
-from flask import Flask, Response, jsonify, render_template, request, stream_with_context
+from flask import (
+    Flask,
+    Response,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    session,
+    stream_with_context,
+    url_for,
+)
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
@@ -18,25 +29,38 @@ FRONTEND_HOST = os.getenv("FRONTEND_HOST", "0.0.0.0")
 FRONTEND_PORT = int(os.getenv("FRONTEND_PORT", "8000"))
 REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "300"))
 STREAM_CONNECT_TIMEOUT = int(os.getenv("STREAM_CONNECT_TIMEOUT", "30"))
+SECRET_KEY = os.getenv("SECRET_KEY", "danec-demo-secret")
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
+app.config["SECRET_KEY"] = SECRET_KEY
 
 
+# ------------------------------
+# Helpers generales
+# ------------------------------
 def current_time_str() -> str:
     return datetime.now().strftime("%H:%M")
 
 
-def create_default_history() -> dict:
-    return {"active_chat_id": None, "chats": []}
+def normalize_username(raw: str) -> str:
+    clean = re.sub(r"\s+", " ", str(raw or "").strip())
+    return clean[:60]
 
 
-def save_history(data: dict) -> None:
-    with open(CHAT_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+def user_key(username: str) -> str:
+    return normalize_username(username).casefold()
 
 
 def create_chat(title: str = "Nuevo chat") -> dict:
     return {"id": str(uuid.uuid4()), "title": title, "preview": "", "messages": []}
+
+
+def create_default_user_history() -> dict:
+    return {"active_chat_id": None, "chats": []}
+
+
+def create_default_store() -> dict:
+    return {"users": {}}
 
 
 def normalize_message(msg) -> dict:
@@ -62,14 +86,14 @@ def normalize_chat(chat) -> dict:
 
     return {
         "id": chat.get("id", str(uuid.uuid4())),
-        "title": chat.get("title", "Nuevo chat"),
-        "preview": chat.get("preview", ""),
+        "title": str(chat.get("title", "Nuevo chat"))[:120],
+        "preview": str(chat.get("preview", ""))[:240],
         "messages": [normalize_message(msg) for msg in raw_messages],
     }
 
 
-def normalize_history(data) -> dict:
-    default_data = create_default_history()
+def normalize_user_history(data) -> dict:
+    default_data = create_default_user_history()
     if data is None:
         return default_data
 
@@ -94,48 +118,119 @@ def normalize_history(data) -> dict:
     return default_data
 
 
-def load_history() -> dict:
-    default_data = create_default_history()
+def migrate_legacy_store(raw_data) -> dict:
+    if isinstance(raw_data, dict) and isinstance(raw_data.get("users"), dict):
+        store = create_default_store()
+        for _, payload in raw_data["users"].items():
+            username = normalize_username(payload.get("username", ""))
+            if not username:
+                continue
+            store["users"][user_key(username)] = {
+                "username": username,
+                "history": normalize_user_history(payload.get("history")),
+            }
+        return store
+
+    # Compatibilidad con estructura antigua de un solo historial
+    if isinstance(raw_data, list) or (isinstance(raw_data, dict) and "chats" in raw_data):
+        legacy_history = normalize_user_history(raw_data)
+        username = "General"
+        return {
+            "users": {
+                user_key(username): {
+                    "username": username,
+                    "history": legacy_history,
+                }
+            }
+        }
+
+    return create_default_store()
+
+
+def load_store() -> dict:
+    default_store = create_default_store()
     if not CHAT_FILE.exists():
-        save_history(default_data)
-        return default_data
+        save_store(default_store)
+        return default_store
 
     try:
         with open(CHAT_FILE, "r", encoding="utf-8") as f:
             raw_data = json.load(f)
-        data = normalize_history(raw_data)
-        save_history(data)
-        return data
+        store = migrate_legacy_store(raw_data)
+        save_store(store)
+        return store
     except Exception:
-        save_history(default_data)
-        return default_data
+        save_store(default_store)
+        return default_store
 
 
-def get_active_chat(data: dict) -> dict:
-    if not isinstance(data, dict):
-        data = create_default_history()
+def save_store(store: dict) -> None:
+    with open(CHAT_FILE, "w", encoding="utf-8") as f:
+        json.dump(store, f, ensure_ascii=False, indent=2)
 
-    chats = data.get("chats", [])
-    active_id = data.get("active_chat_id")
+
+def list_users(store: dict) -> list[dict]:
+    users = []
+    for key, payload in store.get("users", {}).items():
+        users.append({
+            "key": key,
+            "username": payload.get("username", ""),
+            "chat_count": len(payload.get("history", {}).get("chats", [])),
+        })
+    return sorted(users, key=lambda x: x["username"].casefold())
+
+
+def get_user_record(store: dict, username: str, create_if_missing: bool = False):
+    username = normalize_username(username)
+    if not username:
+        return None
+
+    key = user_key(username)
+    record = store.get("users", {}).get(key)
+    if record is None and create_if_missing:
+        record = {"username": username, "history": create_default_user_history()}
+        store.setdefault("users", {})[key] = record
+    return record
+
+
+def get_current_username() -> str | None:
+    return normalize_username(session.get("username", "")) or None
+
+
+def require_user():
+    username = get_current_username()
+    if not username:
+        return None, redirect(url_for("login_page"))
+
+    store = load_store()
+    record = get_user_record(store, username, create_if_missing=False)
+    if record is None:
+        session.pop("username", None)
+        return None, redirect(url_for("login_page"))
+
+    return {"store": store, "record": record, "username": username}, None
+
+
+def get_active_chat(history: dict) -> dict:
+    chats = history.get("chats", [])
+    active_id = history.get("active_chat_id")
 
     if not chats:
         new_chat = create_chat()
-        data["chats"] = [new_chat]
-        data["active_chat_id"] = new_chat["id"]
-        save_history(data)
+        history["chats"] = [new_chat]
+        history["active_chat_id"] = new_chat["id"]
         return new_chat
 
     for chat in chats:
         if chat.get("id") == active_id:
             return chat
 
-    data["active_chat_id"] = chats[0]["id"]
-    save_history(data)
+    history["active_chat_id"] = chats[0]["id"]
     return chats[0]
 
 
-def find_chat_by_id(data: dict, chat_id: str):
-    for chat in data.get("chats", []):
+def find_chat_by_id(history: dict, chat_id: str):
+    for chat in history.get("chats", []):
         if chat.get("id") == chat_id:
             return chat
     return None
@@ -150,98 +245,182 @@ def parse_sse_payload(raw_line: str):
         return None
 
 
+# ------------------------------
+# Vistas de usuario
+# ------------------------------
 @app.route("/", methods=["GET"])
-def index():
-    data = load_history()
+def login_page():
+    store = load_store()
+    return render_template("login.html", users=list_users(store), current_username=get_current_username())
+
+
+@app.route("/select-user", methods=["POST"])
+def select_user():
+    payload = request.get_json(silent=True) or request.form or {}
+    username = normalize_username(payload.get("username", ""))
+
+    if not username:
+        return jsonify({"ok": False, "error": "Debe ingresar un usuario."}), 400
+
+    store = load_store()
+    get_user_record(store, username, create_if_missing=True)
+    save_store(store)
+    session["username"] = username
+    return jsonify({"ok": True, "username": username, "redirect": url_for("chat_home")})
+
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    session.pop("username", None)
+    return jsonify({"ok": True, "redirect": url_for("login_page")})
+
+
+@app.route("/chat", methods=["GET"])
+def chat_home():
+    ctx, redirect_response = require_user()
+    if redirect_response:
+        return redirect_response
+
+    history = ctx["record"]["history"]
     requested_chat_id = request.args.get("chat_id", "").strip()
     if requested_chat_id:
-        target = find_chat_by_id(data, requested_chat_id)
+        target = find_chat_by_id(history, requested_chat_id)
         if target is not None:
-            data["active_chat_id"] = requested_chat_id
-            save_history(data)
+            history["active_chat_id"] = requested_chat_id
+            save_store(ctx["store"])
 
-    active_chat = get_active_chat(data)
-    return render_template("index.html", chats=data.get("chats", []), active_chat=active_chat)
+    active_chat = get_active_chat(history)
+    save_store(ctx["store"])
+
+    return render_template(
+        "index.html",
+        chats=history.get("chats", []),
+        active_chat=active_chat,
+        username=ctx["username"],
+    )
+
+
+# ------------------------------
+# API chats por usuario
+# ------------------------------
+@app.route("/api/session", methods=["GET"])
+def get_session_info():
+    username = get_current_username()
+    return jsonify({"ok": True, "username": username})
+
+
+@app.route("/api/users", methods=["GET"])
+def get_users():
+    store = load_store()
+    return jsonify({"ok": True, "users": list_users(store)})
 
 
 @app.route("/api/chats", methods=["GET"])
-def list_chats():
-    data = load_history()
-    active_chat = get_active_chat(data)
-    return jsonify({"ok": True, "chats": data.get("chats", []), "active_chat_id": active_chat.get("id")})
+def list_chats_route():
+    ctx, redirect_response = require_user()
+    if redirect_response:
+        return jsonify({"ok": False, "error": "Sesión no iniciada."}), 401
+
+    history = ctx["record"]["history"]
+    active_chat = get_active_chat(history)
+    save_store(ctx["store"])
+    return jsonify({
+        "ok": True,
+        "username": ctx["username"],
+        "chats": history.get("chats", []),
+        "active_chat_id": active_chat.get("id"),
+    })
 
 
 @app.route("/api/chats", methods=["POST"])
 def new_chat():
-    data = load_history()
+    ctx, redirect_response = require_user()
+    if redirect_response:
+        return jsonify({"ok": False, "error": "Sesión no iniciada."}), 401
+
+    history = ctx["record"]["history"]
     chat = create_chat()
-    data["chats"].insert(0, chat)
-    data["active_chat_id"] = chat["id"]
-    save_history(data)
+    history["chats"].insert(0, chat)
+    history["active_chat_id"] = chat["id"]
+    save_store(ctx["store"])
     return jsonify({"ok": True, "chat": chat, "active_chat_id": chat["id"]})
 
 
 @app.route("/api/chats/<chat_id>", methods=["GET"])
 def get_chat(chat_id):
-    data = load_history()
-    chat = find_chat_by_id(data, chat_id)
+    ctx, redirect_response = require_user()
+    if redirect_response:
+        return jsonify({"ok": False, "error": "Sesión no iniciada."}), 401
+
+    history = ctx["record"]["history"]
+    chat = find_chat_by_id(history, chat_id)
     if chat is None:
         return jsonify({"ok": False, "error": "Chat no encontrado"}), 404
 
-    data["active_chat_id"] = chat_id
-    save_history(data)
+    history["active_chat_id"] = chat_id
+    save_store(ctx["store"])
     return jsonify({"ok": True, "chat": chat})
 
 
 @app.route("/api/chats/<chat_id>", methods=["PATCH"])
 def update_chat(chat_id):
-    data = load_history()
-    chat = find_chat_by_id(data, chat_id)
+    ctx, redirect_response = require_user()
+    if redirect_response:
+        return jsonify({"ok": False, "error": "Sesión no iniciada."}), 401
+
+    history = ctx["record"]["history"]
+    chat = find_chat_by_id(history, chat_id)
     if chat is None:
         return jsonify({"ok": False, "error": "Chat no encontrado"}), 404
 
     payload = request.get_json(silent=True) or {}
     title = str(payload.get("title", "")).strip()
-
     if not title:
         return jsonify({"ok": False, "error": "El título no puede estar vacío"}), 400
 
     chat["title"] = title[:120]
-    save_history(data)
+    save_store(ctx["store"])
     return jsonify({"ok": True, "chat": chat})
 
 
 @app.route("/api/chats/<chat_id>", methods=["DELETE"])
 def delete_chat(chat_id):
-    data = load_history()
-    chats = data.get("chats", [])
-    target = find_chat_by_id(data, chat_id)
+    ctx, redirect_response = require_user()
+    if redirect_response:
+        return jsonify({"ok": False, "error": "Sesión no iniciada."}), 401
+
+    history = ctx["record"]["history"]
+    chats = history.get("chats", [])
+    target = find_chat_by_id(history, chat_id)
     if target is None:
         return jsonify({"ok": False, "error": "Chat no encontrado"}), 404
 
-    data["chats"] = [chat for chat in chats if chat.get("id") != chat_id]
+    history["chats"] = [chat for chat in chats if chat.get("id") != chat_id]
+    if not history["chats"]:
+        new_chat_obj = create_chat()
+        history["chats"] = [new_chat_obj]
+        history["active_chat_id"] = new_chat_obj["id"]
+    elif history.get("active_chat_id") == chat_id:
+        history["active_chat_id"] = history["chats"][0]["id"]
 
-    if not data["chats"]:
-        new_chat = create_chat()
-        data["chats"] = [new_chat]
-        data["active_chat_id"] = new_chat["id"]
-    elif data.get("active_chat_id") == chat_id:
-        data["active_chat_id"] = data["chats"][0]["id"]
-
-    save_history(data)
+    save_store(ctx["store"])
     return jsonify({
         "ok": True,
         "deleted_chat_id": chat_id,
-        "active_chat_id": data["active_chat_id"],
-        "chats": data["chats"],
+        "active_chat_id": history["active_chat_id"],
+        "chats": history["chats"],
     })
 
 
 @app.route("/api/chats/<chat_id>/message", methods=["POST"])
 @app.route("/api/chats/<chat_id>/messages", methods=["POST"])
 def send_message(chat_id):
-    data = load_history()
-    chat = find_chat_by_id(data, chat_id)
+    ctx, redirect_response = require_user()
+    if redirect_response:
+        return jsonify({"ok": False, "error": "Sesión no iniciada."}), 401
+
+    history = ctx["record"]["history"]
+    chat = find_chat_by_id(history, chat_id)
     if chat is None:
         return jsonify({"ok": False, "error": "Chat no encontrado"}), 404
 
@@ -264,8 +443,10 @@ def send_message(chat_id):
         chat["title"] = prompt[:40] + ("..." if len(prompt) > 40 else "")
 
     chat["preview"] = prompt[:80] + ("..." if len(prompt) > 80 else "")
-    data["active_chat_id"] = chat_id
-    save_history(data)
+    history["active_chat_id"] = chat_id
+    save_store(ctx["store"])
+
+    username = ctx["username"]
 
     def generate():
         final_answer = None
@@ -307,13 +488,16 @@ def send_message(chat_id):
                 backend_response.close()
 
             if final_answer:
-                refreshed = load_history()
-                refreshed_chat = find_chat_by_id(refreshed, chat_id)
-                if refreshed_chat is not None:
-                    refreshed_chat["messages"].append(
-                        {"role": "assistant", "content": final_answer, "time": current_time_str()}
-                    )
-                    save_history(refreshed)
+                refreshed_store = load_store()
+                refreshed_record = get_user_record(refreshed_store, username, create_if_missing=False)
+                if refreshed_record is not None:
+                    refreshed_history = refreshed_record["history"]
+                    refreshed_chat = find_chat_by_id(refreshed_history, chat_id)
+                    if refreshed_chat is not None:
+                        refreshed_chat["messages"].append(
+                            {"role": "assistant", "content": final_answer, "time": current_time_str()}
+                        )
+                        save_store(refreshed_store)
 
     return Response(
         stream_with_context(generate()),
@@ -328,7 +512,12 @@ def send_message(chat_id):
 
 @app.route("/health", methods=["GET"])
 def health():
-    return jsonify({"status": "ok", "service": "frontend", "backend_url": BACKEND_URL})
+    return jsonify({
+        "status": "ok",
+        "service": "frontend",
+        "backend_url": BACKEND_URL,
+        "current_user": get_current_username(),
+    })
 
 
 if __name__ == "__main__":

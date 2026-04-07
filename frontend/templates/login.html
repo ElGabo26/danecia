@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo Danec | Selección de usuario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="login-shell">
+        <div class="login-card">
+            <div class="login-brand">
+                <img src="{{ url_for('static', filename='danecLogo.png') }}" alt="Grupo Danec" class="brand-logo login-brand-logo">
+                <div>
+                    <p class="brand-kicker">Asistente corporativo</p>
+                    <h1>Grupo Danec</h1>
+                </div>
+            </div>
+
+            <div class="login-copy">
+                <h2>Seleccione un usuario</h2>
+                <p>Puede elegir un usuario existente o crear uno nuevo. Cada usuario verá únicamente sus propios chats.</p>
+            </div>
+
+            <div class="login-section">
+                <label for="existingUser" class="prompt-label">Usuarios existentes</label>
+                <div class="user-picker-row">
+                    <select id="existingUser" class="user-select">
+                        <option value="">Seleccione un usuario</option>
+                        {% for user in users %}
+                        <option value="{{ user.username }}" {% if current_username == user.username %}selected{% endif %}>
+                            {{ user.username }}{% if user.chat_count %} ({{ user.chat_count }} chats){% endif %}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <button type="button" class="send-btn" id="accessUserBtn">Ingresar</button>
+                </div>
+            </div>
+
+            <div class="login-divider"><span>o</span></div>
+
+            <div class="login-section">
+                <label for="newUserInput" class="prompt-label">Crear usuario</label>
+                <div class="user-picker-row">
+                    <input id="newUserInput" class="user-input" type="text" maxlength="60" placeholder="Escriba el nombre del usuario">
+                    <button type="button" class="new-chat-btn compact-btn" id="createUserBtn">Crear usuario</button>
+                </div>
+            </div>
+
+            <p class="login-note" id="loginMessage"></p>
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const existingUser = document.getElementById('existingUser');
+    const newUserInput = document.getElementById('newUserInput');
+    const accessUserBtn = document.getElementById('accessUserBtn');
+    const createUserBtn = document.getElementById('createUserBtn');
+    const loginMessage = document.getElementById('loginMessage');
+
+    function setMessage(text, isError = false) {
+        loginMessage.textContent = text || '';
+        loginMessage.classList.toggle('error', isError);
+    }
+
+    async function openUser(username) {
+        const clean = (username || '').trim();
+        if (!clean) {
+            setMessage('Debe seleccionar o escribir un usuario.', true);
+            return;
+        }
+
+        try {
+            setMessage('Abriendo usuario...');
+            const res = await fetch('/select-user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: clean })
+            });
+            const data = await res.json();
+            if (!res.ok || !data.ok) {
+                throw new Error(data.error || 'No fue posible abrir el usuario.');
+            }
+            window.location.href = data.redirect || '/chat';
+        } catch (error) {
+            setMessage(error.message || 'No fue posible abrir el usuario.', true);
+        }
+    }
+
+    accessUserBtn.addEventListener('click', () => openUser(existingUser.value));
+    createUserBtn.addEventListener('click', () => openUser(newUserInput.value));
+
+    existingUser.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') openUser(existingUser.value);
+    });
+
+    newUserInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') openUser(newUserInput.value);
+    });
+});
+</script>
+</body>
+</html>
