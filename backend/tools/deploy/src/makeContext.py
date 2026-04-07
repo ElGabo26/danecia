@@ -11,12 +11,8 @@ from typing import Any, Dict, Optional
 def get_context(question: str, client: Optional[object] = None, detector_model: str = "qwen2.5-coder:3b", max_chars: int = 2200) -> Dict[str, Any]:
     """Construye el contexto desde catálogo, whitelist, reglas, glosario y ejemplos.
 
-    Retorna un paquete listo para prompt y validación:
-    {
-      domain, context_text, selected_tables, selected_joins, selected_rules,
-      examples, search_terms, detected_entities, allowed_like_columns,
-      preferred_name_columns, date_filter_sql, explicit_autoconsumo
-    }
+    Retorna un paquete listo para prompt y validación.
+    Ahora también agrega las descripciones de las columnas seleccionadas de las tablas del dominio.
     """
     base_dir = Path(__file__).resolve().parent.parent
     catalog_dir = base_dir / "catalog"
@@ -114,7 +110,7 @@ def get_context(question: str, client: Optional[object] = None, detector_model: 
     search_terms = [e["value"] for e in detected_entities]
 
     # 4) Filtro temporal por defecto
-    date_filter_sql = f"DF.FECHA BETWEEN '{'2025-01-01'}' AND '{current_date}'"
+    date_filter_sql = f"DF.FECHA BETWEEN '2025-01-01' AND '{current_date}'"
 
     # 5) Selección de tablas
     def table_score(table: Dict[str, Any]) -> int:
@@ -186,12 +182,32 @@ def get_context(question: str, client: Optional[object] = None, detector_model: 
 
     preferred_name_columns = {}
     allowed_like_columns = []
+    selected_column_descriptions = {}
+    metric_set = {m.upper() for m in metrics}
+    dimension_set = {d.upper() for d in dimensions}
     for table in selected_tables:
         tname = table["table_name"].upper()
+        all_columns = table.get("columns", [])
         preferred_name_columns[tname] = [
-            str(c["name"]).upper() for c in table.get("columns", [])
+            str(c["name"]).upper() for c in all_columns
             if str(c["name"]).upper().startswith(("NOM_", "DESC_"))
         ][:12]
+
+        keep_cols = preferred_name_columns[tname][:4]
+        keep_cols += [str(c["name"]).upper() for c in all_columns if str(c["name"]).upper() in metric_set][:3]
+        keep_cols += [str(c["name"]).upper() for c in all_columns if str(c["name"]).upper() in dimension_set][:3]
+        keep_cols = list(dict.fromkeys([c for c in keep_cols if c]))[:8]
+
+        if domain in str(table.get("domain", "")).lower() or tname.endswith("DIM_FECHA"):
+            descriptions = []
+            for col in all_columns:
+                cname = str(col.get("name", "")).upper()
+                if cname in keep_cols:
+                    cdesc = str(col.get("description", "") or "Sin descripción")
+                    descriptions.append({"name": cname, "description": cdesc})
+            if descriptions:
+                selected_column_descriptions[tname] = descriptions
+
     for entity in detected_entities:
         allowed_like_columns.extend([ref.split(".")[-1] for ref in entity["columns"]])
     allowed_like_columns = sorted(dict.fromkeys(allowed_like_columns))
@@ -206,23 +222,30 @@ def get_context(question: str, client: Optional[object] = None, detector_model: 
         ranked_examples.append((score, ex))
     examples = [ex for score, ex in sorted(ranked_examples, key=lambda x: x[0], reverse=True)[:2] if score > 0]
 
-    # 7) Contexto compacto
+    # 7) Contexto compacto con descripción de columnas seleccionadas
     table_bits = []
+    column_desc_bits = []
     for table in selected_tables:
         tname = table["table_name"].upper()
         cols = [str(c["name"]).upper() for c in table.get("columns", [])]
-        keep_cols = preferred_name_columns[tname][:4] + [c for c in cols if c.upper() in {m.upper() for m in metrics}][:3] + [c for c in cols if c.upper() in {d.upper() for d in dimensions}][:3]
+        keep_cols = preferred_name_columns[tname][:4] + [c for c in cols if c.upper() in metric_set][:3] + [c for c in cols if c.upper() in dimension_set][:3]
         keep_cols = list(dict.fromkeys([c for c in keep_cols if c]))[:8]
         if keep_cols:
             table_bits.append(f"{tname}[{','.join(keep_cols)}]")
         else:
             table_bits.append(tname)
+        if tname in selected_column_descriptions:
+            desc_fragments = [f"{item['name']}:{item['description']}" for item in selected_column_descriptions[tname][:6]]
+            if desc_fragments:
+                column_desc_bits.append(f"{tname}=>{' | '.join(desc_fragments)}")
+
     join_bits = [f"{j['left_table']}->{j['right_table']} ON {j['condition']}" for j in selected_joins[:8]]
     example_bits = [re.sub(r"\s+", " ", ex.get("sql", ""))[:220] for ex in examples]
     entity_bits = [f"{e['entity_type']}:{e['value']}=>{','.join(c.split('.')[-1] for c in e['columns'][:3])}" for e in detected_entities] or ["sin_entidades_explicitas"]
 
     context_text = (
-        f"dom={domain}; fechas={date_filter_sql}; tablas={' | '.join(table_bits)}; joins={' | '.join(join_bits)}; "
+        f"dom={domain}; fechas={date_filter_sql}; tablas={' | '.join(table_bits)}; "
+        f"desc_cols={' || '.join(column_desc_bits)}; joins={' | '.join(join_bits)}; "
         f"entidades={' | '.join(entity_bits)}; reglas={' | '.join(selected_rules[:6])}; ejemplos={' | '.join(example_bits)}"
     )
     context_text = re.sub(r"\s+", " ", context_text).strip()
@@ -240,6 +263,7 @@ def get_context(question: str, client: Optional[object] = None, detector_model: 
         "detected_entities": detected_entities,
         "allowed_like_columns": allowed_like_columns,
         "preferred_name_columns": preferred_name_columns,
+        "selected_column_descriptions": selected_column_descriptions,
         "date_filter_sql": date_filter_sql,
         "explicit_autoconsumo": explicit_autoconsumo,
         "metrics": metrics,
