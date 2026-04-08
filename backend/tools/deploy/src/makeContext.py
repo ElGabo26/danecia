@@ -111,7 +111,7 @@ def get_context(question: str, client: Optional[object] = None, detector_model: 
     search_terms = [e["value"] for e in detected_entities]
 
     # 4) Filtro temporal por defecto
-    date_filter_sql = f"DF.FECHA BETWEEN '{'2025-01-01'}' AND '{current_date}'"
+    
 
     # 5) Selección de tablas
     def table_score(table: Dict[str, Any]) -> int:
