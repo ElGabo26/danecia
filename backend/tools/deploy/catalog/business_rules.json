@@ -3,7 +3,7 @@
     {
       "domain": "global",
       "name": "only_select",
-      "rule": "Solo consultas SELECT."
+      "rule": "Solo consultas SELECT. Si no es posible responder, devolver NO_SQL."
     },
     {
       "domain": "global",
@@ -54,6 +54,11 @@
       "domain": "global",
       "name": "gated_similarity_search",
       "rule": "La búsqueda por semejanza con UPPER(columna) LIKE solo se permite cuando el detector identifica una entidad categórica explícita; usar MAYÚSCULAS y solo columnas NOM_ o DESC_ candidatas."
+    },
+    {
+      "domain": "global",
+      "name": "prefer_value_enriched_descriptions",
+      "rule": "Cuando una columna tenga descripción basada en valores observados, priorizar esa descripción para decidir filtros categóricos y columnas NOM_/DESC_ asociadas."
     }
   ]
 }
