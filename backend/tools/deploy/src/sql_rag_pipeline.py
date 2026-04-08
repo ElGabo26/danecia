@@ -215,7 +215,6 @@ def repair_sql(question: str, bad_sql: str, validation_errors: List[str], model:
         entity_rule = "sin entidades explícitas; no uses LIKE"
     prompt = (
         "Corrige el SQL usando solo el contexto. Solo SELECT. "
-        f"Usa {context['date_filter_sql']} cuando la pregunta requiera fechas. "
         f"{entity_rule}. Usa columnas NOM_/DESC_ para nombres legibles. "
         "La búsqueda semejante solo aplica cuando hay entidad categórica explícita y debe usar MAYÚSCULAS. "
         "Si es un informe de ventas, no uses aliases AUTOCONSUMO salvo petición explícita. "

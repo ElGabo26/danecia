@@ -259,7 +259,7 @@ def get_context(question: str, client: Optional[object] = None, detector_model: 
         priority_block = "col_desc=" + " | ".join(selected_column_descriptions)
 
     secondary_block = (
-        f"dom={domain}; fechas={date_filter_sql}; tablas={' | '.join(table_bits)}; joins={' | '.join(join_bits)}; "
+        f"dom={domain}; tablas={' | '.join(table_bits)}; joins={' | '.join(join_bits)}; "
         f"entidades={' | '.join(entity_bits)}; reglas={' | '.join(selected_rules[:6])}; ejemplos={' | '.join(example_bits)}"
     )
 
@@ -290,7 +290,6 @@ def get_context(question: str, client: Optional[object] = None, detector_model: 
         "allowed_like_columns": allowed_like_columns,
         "preferred_name_columns": preferred_name_columns,
         "selected_column_descriptions": selected_column_descriptions,
-        "date_filter_sql": date_filter_sql,
         "explicit_autoconsumo": explicit_autoconsumo,
         "metrics": metrics,
         "dimensions": dimensions,
