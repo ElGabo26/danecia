@@ -35,6 +35,7 @@ def analizar():
     payload = request.get_json(silent=True) or {}
     pregunta = payload.get("prompt") or request.form.get("prompt") or request.values.get("prompt") or "General"
     pregunta = str(pregunta).strip() or "General"
+    pregunta = pregunta.upper()
 
     @stream_with_context
     def generate():

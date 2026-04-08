@@ -73,7 +73,8 @@ def build_prompt(question: str, context: Dict[str, Any], max_chars: int = MAX_PR
 
     base = (
         "Genera solo SQL MySQL/SingleStore. Solo SELECT. No inventes tablas, columnas ni joins. "
-        f"Siempre haz JOIN con DDM_ERP.DIM_FECHA y filtra con {context['date_filter_sql']} cuando el dominio use fechas de negocio. "
+        f"Si existe en la lista  de Joins permitidos realiza JOIN con DIM_FECHA, en otro caso utiliza las  columnas, mes  y anio  ppara  filtar los valores"
+        "Los meses y  anios  siempre son numero enteros"
         f"{entity_rule} Usa columnas NOM_/DESC_ para mostrar nombres conocidos. "
         "Si el pedido es de ventas, evita alias AUTOCONSUMO salvo petición explícita; usa VENTAS o TOTAL_VENTAS. "
         "Si el contexto no alcanza, responde NO_SQL."
