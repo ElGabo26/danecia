@@ -155,7 +155,7 @@ def _review_sql_with_llm(sql: str, question: str, context: Dict[str, Any], clien
 
 def generate_sql(question: str, model: str = DEFAULT_ENTITY_MODEL, client: Optional[object] = None, temperature: float = 0.0, detector_model: Optional[str] = None) -> Dict[str, Any]:
     client = client or build_client()
-    context = get_context(question=question, client=client, detector_model=detector_model or model, max_chars=2200)
+    context = get_context(question=question, client=client, detector_model=detector_model or model, max_chars=3000)
     prompt = build_prompt(question, context, max_chars=MAX_PROMPT_CHARS)
     sql = _llm_generate(prompt, model=model, client=client, system_prompt="Devuelve únicamente SQL")
     sql = _sanitize_sales_aliases(sql, question, context["explicit_autoconsumo"])

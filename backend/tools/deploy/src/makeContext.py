@@ -46,8 +46,7 @@ def get_context(question: str, client: Optional[object] = None, detector_model: 
 
     metrics = sorted({col for word, cols in business_glossary.get("metrics", {}).items() if word in q_low for col in cols})
     dimensions = sorted({col for word, cols in business_glossary.get("dimensions", {}).items() if word in q_low for col in cols})
-    if not metrics and domain == "ventas":
-        metrics = ["VENTA_AUTOCONSUMO"]
+    
 
     # 2) Índice de columnas NOM_/DESC_ por tipo de entidad a partir del catálogo
     entity_column_index = {k: [] for k in business_glossary.get("entity_types", {})}
@@ -121,8 +120,6 @@ def get_context(question: str, client: Optional[object] = None, detector_model: 
         desc = str(table.get("description", "")).lower()
         if domain in str(table.get("domain", "")).lower():
             score += 20
-        if tname.endswith("DIM_FECHA"):
-            score += 35
         if domain == "ventas" and tname.endswith("FAC_VENTA_TOTAL"):
             score += 18
         if domain == "finanzas" and "FAC_ESTRESULTADOS" in tname:
