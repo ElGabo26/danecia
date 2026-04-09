@@ -155,7 +155,11 @@ def makeContextCorrection(
 
     def extract_tables(query: str) -> List[str]:
         tables: List[str] = []
-        for tbl, _alias in re.findall(r"(?:FROM|JOIN)\s+([A-Z0-9_\.]+)(?:\s+(?:AS\s+)?[A-Z0-9_]+)?", query, re.IGNORECASE):
+        for tbl in re.findall(
+            r"(?:FROM|JOIN)\s+([A-Z0-9_\.]+)(?:\s+(?:AS\s+)?[A-Z0-9_]+)?",
+            query,
+            re.IGNORECASE
+        ):
             full = table_full_name(tbl)
             if full and full not in tables:
                 tables.append(full)
