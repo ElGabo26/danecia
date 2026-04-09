@@ -184,9 +184,11 @@ def correct_sql(
     client = client or build_client()
 
     error_text = str(error)
+    print(error_text, "HOLLAA")
+    
     context = makeContextCorrection(sql, error_text)
     prompt = context["context_text"]
-
+    print("PROMPT GENERADO")
     corrected_sql = _llm_generate(
         prompt,
         model=model,
