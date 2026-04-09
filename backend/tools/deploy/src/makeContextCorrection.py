@@ -39,18 +39,19 @@ def makeContextCorrection(
         - correction_context
         - context_text
     """
-    base_dir = Path(__file__).resolve().parent
+    base_dir = Path(__file__).resolve().parent.parent
+    base_dir=base_dir /"catalog"
 
     if schema_catalog_path is None:
         cand = [
-            base_dir / "catalog" / "schema_catalog.json",
+            base_dir / "schema_catalog.json",
         ]
         schema_catalog_path = next((str(p) for p in cand if p.exists()), None)
 
     if join_whitelist_path is None:
         cand = [
             base_dir / "join_whitelist.json",
-            base_dir / "catalog" / "join_whitelist.json",
+            
         ]
         join_whitelist_path = next((str(p) for p in cand if p.exists()), None)
 
