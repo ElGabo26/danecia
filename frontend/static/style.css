@@ -63,7 +63,9 @@ body {
 
 .new-chat-btn,
 .topbar-btn,
-.send-btn {
+.send-btn,
+.feedback-toggle-btn,
+.feedback-submit-btn {
     border: none;
     cursor: pointer;
     font: inherit;
@@ -86,7 +88,9 @@ body {
 
 .new-chat-btn:hover,
 .send-btn:hover,
-.topbar-btn:hover {
+.topbar-btn:hover,
+.feedback-toggle-btn:hover,
+.feedback-submit-btn:hover {
     transform: translateY(-1px);
 }
 
@@ -106,7 +110,6 @@ body {
 }
 
 .history-item {
-    text-decoration: none;
     color: inherit;
     background: #fff;
     border: 1px solid var(--border);
@@ -121,33 +124,66 @@ body {
     border-color: rgba(229, 59, 59, 0.22);
 }
 
+.history-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.history-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
 .history-title {
+    flex: 1;
     font-size: 14px;
     font-weight: 600;
-    margin-bottom: 6px;
+    min-width: 0;
+    word-break: break-word;
+}
+
+.history-title-input {
+    display: none;
+    flex: 1;
+    min-width: 0;
+    border: 1px solid rgba(229, 59, 59, 0.28);
+    background: #fff;
+    border-radius: 10px;
+    padding: 8px 10px;
+    font: inherit;
+    color: var(--text-primary);
+}
+
+.history-item.editing .history-title {
+    display: none;
+}
+
+.history-item.editing .history-title-input {
+    display: block;
+}
+
+.history-delete-btn {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.history-delete-btn:hover {
+    background: #fee2e2;
+    border-color: rgba(229, 59, 59, 0.28);
 }
 
 .history-preview {
     font-size: 13px;
     color: var(--text-secondary);
     line-height: 1.4;
-}
-
-.sidebar-footer {
-    margin-top: auto;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--text-secondary);
-    font-size: 13px;
-    padding: 10px 8px;
-}
-
-.status-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 999px;
-    background: #22c55e;
 }
 
 .main-panel {
@@ -175,15 +211,6 @@ body {
 .topbar p {
     margin: 6px 0 0;
     color: var(--text-secondary);
-}
-
-.topbar-btn {
-    background: white;
-    color: var(--text-primary);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 16px;
-    font-weight: 600;
 }
 
 .chat-area {
@@ -246,6 +273,81 @@ body {
     white-space: pre-wrap;
 }
 
+.feedback-box {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+
+.feedback-toggle-btn {
+    background: #fff5f5;
+    color: var(--brand-red-dark);
+    border: 1px solid rgba(229, 59, 59, 0.18);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-weight: 600;
+}
+
+.feedback-panel {
+    margin-top: 14px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+}
+
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.feedback-label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.feedback-form select,
+.feedback-form textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    padding: 10px 12px;
+    font: inherit;
+    color: var(--text-primary);
+    resize: vertical;
+}
+
+.feedback-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.feedback-submit-btn {
+    background: var(--brand-red);
+    color: #fff;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-weight: 700;
+}
+
+.feedback-submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.feedback-status {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
 .prompt-panel {
     padding: 16px 24px 26px;
     background: linear-gradient(180deg, rgba(245,247,251,0) 0%, rgba(245,247,251,1) 20%);
@@ -295,13 +397,6 @@ body {
     font-weight: 700;
 }
 
-.prompt-hint {
-    margin-top: 10px;
-    color: var(--text-secondary);
-    font-size: 13px;
-    padding-left: 4px;
-}
-
 @media (max-width: 980px) {
     .app-shell {
         grid-template-columns: 1fr;
@@ -333,227 +428,15 @@ body {
         font-size: 22px;
     }
 
-    .prompt-box {
+    .prompt-box,
+    .feedback-actions {
         flex-direction: column;
         align-items: stretch;
     }
 
-    .send-btn {
+    .send-btn,
+    .feedback-submit-btn,
+    .feedback-toggle-btn {
         width: 100%;
     }
-}
-
-.login-shell {
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 32px 16px;
-}
-
-.login-card {
-    width: min(720px, 100%);
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 28px;
-    box-shadow: var(--shadow);
-    padding: 28px;
-}
-
-.login-brand {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 20px;
-}
-
-.login-brand-logo {
-    width: 98px;
-}
-
-.login-copy h2 {
-    margin: 0 0 8px;
-    font-size: 28px;
-}
-
-.login-copy p {
-    margin: 0;
-    color: var(--text-secondary);
-    line-height: 1.6;
-}
-
-.login-section {
-    margin-top: 22px;
-}
-
-.user-picker-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 12px;
-}
-
-.user-select,
-.user-input {
-    width: 100%;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 14px 16px;
-    font: inherit;
-    color: var(--text-primary);
-    background: #fff;
-    outline: none;
-}
-
-.user-select:focus,
-.user-input:focus {
-    border-color: rgba(229, 59, 59, 0.45);
-    box-shadow: 0 0 0 3px rgba(229, 59, 59, 0.08);
-}
-
-.compact-btn {
-    width: auto;
-    padding-inline: 20px;
-}
-
-.login-divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 24px 0 4px;
-    color: var(--text-secondary);
-}
-
-.login-divider::before,
-.login-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-}
-
-.login-note {
-    min-height: 24px;
-    margin: 18px 0 0;
-    color: var(--text-secondary);
-}
-
-.login-note.error {
-    color: #b91c1c;
-}
-
-.user-session-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 14px;
-    background: #fffaf9;
-}
-
-.user-session-label {
-    font-size: 12px;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-}
-
-.user-session-name {
-    margin-top: 4px;
-    font-size: 16px;
-    font-weight: 700;
-    word-break: break-word;
-}
-
-.switch-user-btn {
-    white-space: nowrap;
-}
-
-@media (max-width: 640px) {
-    .user-picker-row {
-        grid-template-columns: 1fr;
-    }
-
-    .login-card {
-        padding: 22px 18px;
-        border-radius: 22px;
-    }
-
-    .login-copy h2 {
-        font-size: 24px;
-    }
-}
-
-
-/* Historial de chats: enlace, edición y borrado */
-.history-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-}
-
-.history-title-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    margin-bottom: 6px;
-}
-
-.history-title {
-    flex: 1;
-    min-width: 0;
-    word-break: break-word;
-    cursor: text;
-}
-
-.history-title-input {
-    display: none;
-    flex: 1;
-    min-width: 0;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 8px 10px;
-    font: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-primary);
-    background: #ffffff;
-    outline: none;
-}
-
-.history-title-input:focus {
-    border-color: rgba(229, 59, 59, 0.45);
-    box-shadow: 0 0 0 3px rgba(229, 59, 59, 0.10);
-}
-
-.history-delete-btn {
-    flex: 0 0 auto;
-    width: 32px;
-    height: 32px;
-    display: inline-grid;
-    place-items: center;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background: #ffffff;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.history-delete-btn:hover {
-    background: #fff1f2;
-    color: var(--brand-red);
-    border-color: rgba(229, 59, 59, 0.28);
-}
-
-.history-item.editing .history-title {
-    display: none;
-}
-
-.history-item.editing .history-title-input {
-    display: block;
-}
-
-.history-item.editing .history-preview {
-    opacity: 0.72;
 }

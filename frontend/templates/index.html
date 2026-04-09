@@ -20,14 +20,6 @@
                 </div>
             </div>
 
-            <div class="user-session-card">
-                <div>
-                    <div class="user-session-label">Usuario activo</div>
-                    <div class="user-session-name">{{ username }}</div>
-                </div>
-                <button class="topbar-btn switch-user-btn" type="button" id="switchUserBtn">Cambiar</button>
-            </div>
-
             <button class="new-chat-btn" type="button" id="newChatBtn">
                 <span>＋</span>
                 Nuevo chat
@@ -38,7 +30,7 @@
             <nav class="history-list" id="historyList">
                 {% for chat in chats %}
                 <div class="history-item {% if chat.id == active_chat.id %}active{% endif %}" data-chat-id="{{ chat.id }}">
-                    <a href="/chat?chat_id={{ chat.id }}" class="history-link">
+                    <a href="/?chat_id={{ chat.id }}" class="history-link">
                         <div class="history-title-row">
                             <div class="history-title" data-role="chat-title" title="Doble clic para editar">{{ chat.title }}</div>
                             <input
@@ -69,12 +61,16 @@
             <header class="topbar">
                 <div>
                     <h2 id="chatTitle">{{ active_chat.title }}</h2>
-                    <p>Conversación privada del usuario {{ username }}</p>
+                    <p>Usuario activo: {{ username }}</p>
                 </div>
             </header>
 
             <section class="chat-area" id="chatArea">
+                {% set ns = namespace(last_user='') %}
                 {% for msg in active_chat.messages %}
+                    {% if msg.role == 'user' %}
+                        {% set ns.last_user = msg.content %}
+                    {% endif %}
                 <article class="message-row {{ msg.role }}">
                     <div class="avatar">{{ 'GD' if msg.role == 'assistant' else 'TÚ' }}</div>
                     <div class="message-card">
@@ -83,6 +79,51 @@
                             <time>{{ msg.time }}</time>
                         </div>
                         <p>{{ msg.content }}</p>
+
+                        {% if msg.role == 'assistant' %}
+                        <div
+                            class="feedback-box"
+                            data-feedback-box
+                            data-chat-id="{{ active_chat.id }}"
+                            data-username="{{ username }}"
+                            data-question="{{ ns.last_user|e }}"
+                            data-response="{{ msg.content|e }}"
+                        >
+                            <button type="button" class="feedback-toggle-btn" data-action="toggle-feedback">
+                                Retroalimentación
+                            </button>
+                            <div class="feedback-panel" hidden>
+                                <form class="feedback-form" data-feedback-form>
+                                    <label class="feedback-label">
+                                        Dominio de la pregunta
+                                        <select name="domain" required>
+                                            <option value="">Seleccione un dominio</option>
+                                            <option value="Ventas">Ventas</option>
+                                            <option value="Presupuestos">Presupuestos</option>
+                                            <option value="Estados financieros">Estados financieros</option>
+                                            <option value="Cuentas por cobrar">Cuentas por cobrar</option>
+                                            <option value="Otros">Otros</option>
+                                        </select>
+                                    </label>
+
+                                    <label class="feedback-label">
+                                        Error o mejora encontrada
+                                        <textarea name="issue" rows="3" required placeholder="Describa el error o mejora encontrada"></textarea>
+                                    </label>
+
+                                    <label class="feedback-label">
+                                        Ejemplo respuesta
+                                        <textarea name="suggested_response" rows="3" required placeholder="Escriba un ejemplo de respuesta esperada"></textarea>
+                                    </label>
+
+                                    <div class="feedback-actions">
+                                        <button type="submit" class="feedback-submit-btn">Guardar retroalimentación</button>
+                                        <span class="feedback-status" data-feedback-status></span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                 </article>
                 {% endfor %}
@@ -95,7 +136,6 @@
                         <textarea id="promptInput" name="prompt" rows="1" placeholder="Escribe tu prompt aquí..."></textarea>
                         <button type="submit" class="send-btn">Enviar</button>
                     </div>
-                    
                 </form>
             </section>
         </main>
@@ -107,19 +147,82 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('promptInput');
     const chatArea = document.getElementById('chatArea');
     const newChatBtn = document.getElementById('newChatBtn');
-    const switchUserBtn = document.getElementById('switchUserBtn');
     const chatTitle = document.getElementById('chatTitle');
     const historyList = document.getElementById('historyList');
+    const username = {{ username|tojson }};
     let currentChatId = {{ active_chat.id|tojson }};
 
-    if (!form || !input || !chatArea || !newChatBtn || !chatTitle || !historyList || !switchUserBtn) {
+    if (!form || !input || !chatArea || !newChatBtn || !chatTitle || !historyList) {
         console.error('Faltan elementos del DOM.');
         return;
     }
 
-    function addMessage(role, author, time, content) {
+    function escapeHtml(value) {
+        return String(value || '')
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#39;');
+    }
+
+    function createFeedbackMarkup({ chatId, username, question = '', response = '' }) {
+        return `
+            <div
+                class="feedback-box"
+                data-feedback-box
+                data-chat-id="${escapeHtml(chatId)}"
+                data-username="${escapeHtml(username)}"
+                data-question="${escapeHtml(question)}"
+                data-response="${escapeHtml(response)}"
+            >
+                <button type="button" class="feedback-toggle-btn" data-action="toggle-feedback">
+                    Retroalimentación
+                </button>
+                <div class="feedback-panel" hidden>
+                    <form class="feedback-form" data-feedback-form>
+                        <label class="feedback-label">
+                            Dominio de la pregunta
+                            <select name="domain" required>
+                                <option value="">Seleccione un dominio</option>
+                                <option value="Ventas">Ventas</option>
+                                <option value="Presupuestos">Presupuestos</option>
+                                <option value="Estados financieros">Estados financieros</option>
+                                <option value="Cuentas por cobrar">Cuentas por cobrar</option>
+                                <option value="Otros">Otros</option>
+                            </select>
+                        </label>
+                        <label class="feedback-label">
+                            Error o mejora encontrada
+                            <textarea name="issue" rows="3" required placeholder="Describa el error o mejora encontrada"></textarea>
+                        </label>
+                        <label class="feedback-label">
+                            Ejemplo respuesta
+                            <textarea name="suggested_response" rows="3" required placeholder="Escriba un ejemplo de respuesta esperada"></textarea>
+                        </label>
+                        <div class="feedback-actions">
+                            <button type="submit" class="feedback-submit-btn">Guardar retroalimentación</button>
+                            <span class="feedback-status" data-feedback-status></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+    }
+
+    function addMessage(role, author, time, content, options = {}) {
         const row = document.createElement('article');
         row.className = `message-row ${role}`;
+
+        const feedbackMarkup = role === 'assistant'
+            ? createFeedbackMarkup({
+                chatId: currentChatId,
+                username,
+                question: options.question || '',
+                response: options.response || content || ''
+            })
+            : '';
+
         row.innerHTML = `
             <div class="avatar">${role === 'assistant' ? 'GD' : 'TÚ'}</div>
             <div class="message-card">
@@ -128,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <time>${time}</time>
                 </div>
                 <p></p>
+                ${feedbackMarkup}
             </div>
         `;
         row.querySelector('p').textContent = content;
@@ -142,6 +246,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (p) p.textContent = content;
         if (timeEl) timeEl.textContent = time;
         chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    function updateFeedbackMetadata(row, question, response) {
+        const feedbackBox = row.querySelector('[data-feedback-box]');
+        if (!feedbackBox) return;
+        feedbackBox.dataset.question = question || '';
+        feedbackBox.dataset.response = response || '';
     }
 
     function autoResize(el) {
@@ -264,24 +375,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const redirectChatId = data.active_chat_id;
-            window.location.href = `/chat?chat_id=${redirectChatId}`;
+            window.location.href = `/?chat_id=${redirectChatId}`;
         } catch (error) {
             console.error(error);
             alert(error.message || 'No se pudo borrar el chat.');
-        }
-    }
-
-    async function switchUser() {
-        try {
-            const res = await fetch('/logout', { method: 'POST' });
-            const data = await res.json();
-            if (!res.ok || !data.ok) {
-                throw new Error(data.error || 'No fue posible cambiar de usuario.');
-            }
-            window.location.href = data.redirect || '/';
-        } catch (error) {
-            console.error(error);
-            alert(error.message || 'No fue posible cambiar de usuario.');
         }
     }
 
@@ -291,10 +388,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const res = await fetch('/api/chats', { method: 'POST' });
         const data = await res.json();
         if (!data.ok) return;
-        window.location.href = `/chat?chat_id=${data.chat.id}`;
+        window.location.href = `/?chat_id=${data.chat.id}`;
     });
-
-    switchUserBtn.addEventListener('click', switchUser);
 
     historyList.addEventListener('click', async (event) => {
         const deleteBtn = event.target.closest('[data-action="delete-chat"]');
@@ -327,20 +422,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const inputEl = event.target.closest('[data-role="chat-title-input"]');
         if (!inputEl) return;
 
-        const item = inputEl.closest('.history-item');
-        const titleEl = item.querySelector('[data-role="chat-title"]');
-        const chatId = item.dataset.chatId;
-
         if (event.key === 'Enter') {
             event.preventDefault();
-            await saveChatTitle(chatId, inputEl.value, titleEl, inputEl);
+            const item = inputEl.closest('.history-item');
+            const titleEl = item.querySelector('[data-role="chat-title"]');
+            await saveChatTitle(item.dataset.chatId, inputEl.value, titleEl, inputEl);
         } else if (event.key === 'Escape') {
-            inputEl.value = titleEl.dataset.originalTitle || titleEl.textContent.trim();
+            const item = inputEl.closest('.history-item');
+            inputEl.value = item.querySelector('[data-role="chat-title"]').dataset.originalTitle || item.querySelector('[data-role="chat-title"]').textContent.trim();
             setEditingState(item, false);
         }
     });
 
-    historyList.addEventListener('blur', async (event) => {
+    historyList.addEventListener('focusout', async (event) => {
         const inputEl = event.target.closest('[data-role="chat-title-input"]');
         if (!inputEl) return;
 
@@ -352,6 +446,69 @@ document.addEventListener('DOMContentLoaded', () => {
         await saveChatTitle(chatId, inputEl.value, titleEl, inputEl);
     }, true);
 
+    chatArea.addEventListener('click', (event) => {
+        const toggleBtn = event.target.closest('[data-action="toggle-feedback"]');
+        if (!toggleBtn) return;
+
+        const box = toggleBtn.closest('[data-feedback-box]');
+        const panel = box?.querySelector('.feedback-panel');
+        if (!panel) return;
+
+        const isHidden = panel.hasAttribute('hidden');
+        if (isHidden) {
+            panel.removeAttribute('hidden');
+            toggleBtn.textContent = 'Ocultar retroalimentación';
+        } else {
+            panel.setAttribute('hidden', 'hidden');
+            toggleBtn.textContent = 'Retroalimentación';
+        }
+    });
+
+    chatArea.addEventListener('submit', async (event) => {
+        const feedbackForm = event.target.closest('[data-feedback-form]');
+        if (!feedbackForm) return;
+        event.preventDefault();
+
+        const box = feedbackForm.closest('[data-feedback-box]');
+        const statusEl = feedbackForm.querySelector('[data-feedback-status]');
+        const submitBtn = feedbackForm.querySelector('.feedback-submit-btn');
+        const formData = new FormData(feedbackForm);
+
+        const payload = {
+            username: box?.dataset.username || username || 'General',
+            chat_id: box?.dataset.chatId || currentChatId,
+            question: box?.dataset.question || '',
+            model_response: box?.dataset.response || '',
+            domain: (formData.get('domain') || '').toString().trim(),
+            issue: (formData.get('issue') || '').toString().trim(),
+            suggested_response: (formData.get('suggested_response') || '').toString().trim()
+        };
+
+        try {
+            submitBtn.disabled = true;
+            if (statusEl) statusEl.textContent = 'Guardando...';
+
+            const res = await fetch('/api/feedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+
+            if (!res.ok || !data.ok) {
+                throw new Error(data.error || 'No fue posible guardar la retroalimentación.');
+            }
+
+            feedbackForm.reset();
+            if (statusEl) statusEl.textContent = 'Retroalimentación guardada.';
+        } catch (error) {
+            console.error(error);
+            if (statusEl) statusEl.textContent = error.message || 'No fue posible guardar la retroalimentación.';
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const prompt = input.value.trim();
@@ -361,7 +518,13 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = '';
         autoResize(input);
 
-        const assistantRow = addMessage('assistant', 'Asistente Danec', 'Ahora', 'Iniciando proceso...');
+        const assistantRow = addMessage(
+            'assistant',
+            'Asistente Danec',
+            'Ahora',
+            'Iniciando proceso...',
+            { question: prompt, response: '' }
+        );
 
         try {
             const res = await fetch(`/api/chats/${currentChatId}/message`, {
@@ -371,7 +534,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!res.ok) {
-                updateMessage(assistantRow, `Error del servidor: ${res.status} ${res.statusText}`);
+                const errorText = `Error del servidor: ${res.status} ${res.statusText}`;
+                updateMessage(assistantRow, errorText);
+                updateFeedbackMetadata(assistantRow, prompt, errorText);
                 return;
             }
 
@@ -381,16 +546,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await res.json();
 
                 if (!data.ok) {
-                    updateMessage(assistantRow, data.error || 'Ocurrió un error.');
+                    const errorText = data.error || 'Ocurrió un error.';
+                    updateMessage(assistantRow, errorText);
+                    updateFeedbackMetadata(assistantRow, prompt, errorText);
                     return;
                 }
 
                 chatTitle.textContent = data.chat?.title || chatTitle.textContent;
-                updateMessage(
-                    assistantRow,
-                    data.assistant_message?.content || 'Sin respuesta del backend.',
-                    data.assistant_message?.time || 'Ahora'
-                );
+                const finalText = data.assistant_message?.content || 'Sin respuesta del backend.';
+                updateMessage(assistantRow, finalText, data.assistant_message?.time || 'Ahora');
+                updateFeedbackMetadata(assistantRow, prompt, finalText);
                 return;
             }
 
@@ -421,9 +586,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         if (stage === 'fin') {
-                            updateMessage(assistantRow, finalResult || event.resultado || message, 'Ahora');
+                            const finalText = finalResult || event.resultado || message;
+                            updateMessage(assistantRow, finalText, 'Ahora');
+                            updateFeedbackMetadata(assistantRow, prompt, finalText);
                         } else if (stage === 'error') {
-                            updateMessage(assistantRow, `Error: ${message}`, 'Ahora');
+                            const errorText = `Error: ${message}`;
+                            updateMessage(assistantRow, errorText, 'Ahora');
+                            updateFeedbackMetadata(assistantRow, prompt, errorText);
                         } else {
                             updateMessage(assistantRow, `${stageLabel}...\n${message}`, 'Ahora');
                         }
@@ -435,16 +604,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const events = parseSSEChunk(buffer);
                 for (const event of events) {
                     if (event.stage === 'fin') {
-                        updateMessage(
-                            assistantRow,
-                            event.resultado || event.message || 'Proceso completado',
-                            'Ahora'
-                        );
+                        const finalText = event.resultado || event.message || 'Proceso completado';
+                        updateMessage(assistantRow, finalText, 'Ahora');
+                        updateFeedbackMetadata(assistantRow, prompt, finalText);
                     }
                 }
             }
         } catch (error) {
-            updateMessage(assistantRow, 'No fue posible conectar con el frontend o backend.');
+            const errorText = 'No fue posible conectar con el frontend o backend.';
+            updateMessage(assistantRow, errorText);
+            updateFeedbackMetadata(assistantRow, prompt, errorText);
             console.error(error);
         }
     });
