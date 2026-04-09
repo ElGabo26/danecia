@@ -7,7 +7,7 @@ from flask_cors import CORS
 from openai import OpenAI
 
 from tools.DataService import DataService
-from tools.deploy.sql_service import run_sql_generation_flow
+from tools.deploy.sql_service import run_sql_generation_flow, run_correct_sql_generation_flow
 from tools.makeConsulta import getData
 
 
@@ -57,9 +57,7 @@ def analizar():
                     "stage": "correccion",
                     "message": f"Corrigiendo consulta",
                 })
-                pregunta1 = f"""Corrige tu respuesta {r1} tomando en cuenta el siguiente error:\n{d}"""
-                print(pregunta1)
-                r0 = run_sql_generation_flow(pregunta1, MODELO_LOCAL, MODELO_RESPONSE)
+                r0 = run_correct_sql_generation_flow(pregunta,)
                 r1 = r0.get('sql', '')
                 yield sse_event({"stage": "db", "message": "Reintentando consulta a la base de datos"})
                 d = getData(service, r1)

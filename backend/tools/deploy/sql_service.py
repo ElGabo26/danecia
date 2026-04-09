@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional
 
-from tools.deploy.src.sql_rag_pipeline import build_client, generate_sql, repair_sql, validate_sql
+from tools.deploy.src.sql_rag_pipeline import build_client, generate_sql, correct_sql
 
 
 def run_sql_generation_flow(
@@ -29,14 +29,16 @@ def run_sql_generation_flow(
 
 def run_correct_sql_generation_flow(
     question: str,
+    sql:str,
+    error:str,
     model: str = "qwen2.5-coder:3b",
     detector_model="llama3-chatqa:latest",
     base_url: str = "http://localhost:11434/v1",
     api_key: str = "ollama",
 ) -> Dict[str, Any]:
-    client = build_client(base_url=base_url, api_key=api_key)
-    result = generate_sql(question=question, model=model, detector_model=detector_model or model, client=client)
     
+    client = build_client(base_url=base_url, api_key=api_key)
+    result = correct_sql(question,sql,error,model,client)
 
     return {
         "sql": result["sql"],

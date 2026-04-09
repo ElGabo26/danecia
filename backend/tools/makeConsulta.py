@@ -11,6 +11,8 @@ def getData(service:DataService,result):
         query=None
     try:
         data=service.get_data(query)
+        if data.shape[0]==0:
+            return "Empty dataSet"
         return data
     except Exception as  e:
         return e
