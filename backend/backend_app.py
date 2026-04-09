@@ -57,7 +57,7 @@ def analizar():
                     "stage": "correccion",
                     "message": f"Corrigiendo consulta",
                 })
-                r0 = run_correct_sql_generation_flow(pregunta,)
+                r0 = run_correct_sql_generation_flow(pregunta,r1,d)
                 r1 = r0.get('sql', '')
                 yield sse_event({"stage": "db", "message": "Reintentando consulta a la base de datos"})
                 d = getData(service, r1)
