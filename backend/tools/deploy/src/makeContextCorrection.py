@@ -62,6 +62,7 @@ def makeContextCorrection(
         valores_rag_json_path = next((str(p) for p in cand if p.exists()), None)
 
     if not schema_catalog_path:
+        print(base_dir)
         raise FileNotFoundError("No se encontró schema_catalog.json o schema_catalog_updated.json")
     if not join_whitelist_path:
         raise FileNotFoundError("No se encontró join_whitelist.json")
