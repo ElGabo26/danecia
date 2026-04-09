@@ -43,8 +43,6 @@ def makeContextCorrection(
 
     if schema_catalog_path is None:
         cand = [
-            base_dir / "schema_catalog.json",
-            base_dir / "schema_catalog.json",
             base_dir / "catalog" / "schema_catalog.json",
         ]
         schema_catalog_path = next((str(p) for p in cand if p.exists()), None)
