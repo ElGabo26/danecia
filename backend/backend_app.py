@@ -63,7 +63,7 @@ def analizar():
                 d = getData(service, r1)
                 attempts += 1
 
-            if not isinstance(d, pd.DataFrame):
+            if d.shape[0]==0:
                 print(d)
                 print(r1)
                 resultado = "No se han encontrado datos"
