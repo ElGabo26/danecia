@@ -191,6 +191,7 @@ def correct_sql(
     context = makeContextCorrection(sql, error_text)
     prompt = context["context_text"]
     print("PROMPT GENERADO")
+    print(prompt)
     corrected_sql = _llm_generate(
         prompt,
         model=model,
