@@ -186,6 +186,8 @@ def correct_sql(
     error_text = str(error)
     
     print("ingreso al context")
+    print(error_text)
+    print(sql)
     context = makeContextCorrection(sql, error_text)
     prompt = context["context_text"]
     print("PROMPT GENERADO")
