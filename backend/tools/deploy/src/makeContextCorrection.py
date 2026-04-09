@@ -43,7 +43,7 @@ def makeContextCorrection(
 
     if schema_catalog_path is None:
         cand = [
-            base_dir / "schema_catalog_updated.json",
+            base_dir / "schema_catalog.json",
             base_dir / "schema_catalog.json",
             base_dir / "catalog" / "schema_catalog.json",
         ]

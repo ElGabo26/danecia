@@ -10,6 +10,7 @@ from tools.DataService import DataService
 from tools.deploy.sql_service import run_sql_generation_flow
 from tools.makeConsulta import getData
 
+
 app = Flask(__name__)
 CORS(app)
 
@@ -21,7 +22,7 @@ client = OpenAI(
 
 MODELO_LOCAL = os.getenv("MODELO_LOCAL", "qwen2.5-coder:3b")
 MODELO_RESPONSE = os.getenv("MODELO_RESPONSE", "llama3-chatqa:latest")
-MAX_SQL_RETRIES = int(os.getenv("MAX_SQL_RETRIES", "3"))
+MAX_SQL_RETRIES = int(os.getenv("MAX_SQL_RETRIES", 1))
 
 service = DataService()
 
@@ -54,7 +55,7 @@ def analizar():
             while attempts < MAX_SQL_RETRIES and not isinstance(d, pd.DataFrame):
                 yield sse_event({
                     "stage": "correccion",
-                    "message": f"Corrigiendo consulta. Intento {attempts + 1}",
+                    "message": f"Corrigiendo consulta",
                 })
                 pregunta1 = f"""Corrige tu respuesta {r1} tomando en cuenta el siguiente error:\n{d}"""
                 print(pregunta1)

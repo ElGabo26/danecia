@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from .makeContext import get_context
+from .makeContextCorrection import makeContextCorrection
 
 MAX_PROMPT_CHARS = 3000
 DEFAULT_ENTITY_MODEL = "qwen2.5-coder:3b"
@@ -159,6 +160,27 @@ def generate_sql(question: str, model: str = DEFAULT_ENTITY_MODEL, client: Optio
     prompt = build_prompt(question, context, max_chars=MAX_PROMPT_CHARS)
     sql = _llm_generate(prompt, model=model, client=client, system_prompt="Devuelve únicamente SQL")
     sql = _sanitize_sales_aliases(sql, question, context["explicit_autoconsumo"])
+    
+    return {
+        "question": question,
+        "context": context["context_text"],
+        "prompt": prompt,
+        "prompt_chars": len(prompt),
+        "selected_tables": context["selected_tables"],
+        "search_terms": context["search_terms"],
+        "detected_entities": context["detected_entities"],
+        "validation_context": context,
+        "sql": sql,
+        
+    }
+    
+def correct_sql(question: str, sql:str ,error:str,model: str = DEFAULT_ENTITY_MODEL, 
+                client: Optional[object] = None) -> Dict[str, Any]:
+    client = client or build_client()
+    context = makeContextCorrection(sql,error)
+    prompt=context['context_text']
+    sql = _llm_generate(prompt, model=model, client=client, system_prompt="Devuelve únicamente SQL")
+    
     
     return {
         "question": question,
