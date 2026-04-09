@@ -46,7 +46,7 @@ def analizar():
 
             r0 = run_sql_generation_flow(pregunta, MODELO_LOCAL, MODELO_RESPONSE)
             r1 = r0.get('sql', '')
-            print(r1)
+            print(r1,"HOLAAAAA")
             yield sse_event({"stage": "db", "message": "Consultando base de datos"})
             d = getData(service, r1)
             print(d)
