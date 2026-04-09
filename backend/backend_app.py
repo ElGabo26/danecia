@@ -69,7 +69,7 @@ def analizar():
                 api_key=OLLAMA_API_KEY,
             )
             sql_query = str(generation.get("sql", "")).strip()
-
+            print(sql_query)
             if not sql_query:
                 raise ValueError("El generador SQL no retornó una consulta válida.")
 
