@@ -79,8 +79,7 @@ def makeContextCorrection(
 
     sql = sql_query.strip()
     sql_norm = re.sub(r"\s+", " ", sql).strip()
-    sql_up = sql_norm.upper()
-    err_low = (error_message or "").lower()
+   
 
     # ---------- Índices ----------
     table_catalog: Dict[str, Dict[str, Any]] = {}
