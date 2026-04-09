@@ -174,9 +174,10 @@ def generate_sql(question: str, model: str = DEFAULT_ENTITY_MODEL, client: Optio
         
     }
     
-def correct_sql(question: str, sql:str ,error:str,model: str = DEFAULT_ENTITY_MODEL, 
+def correct_sql(question: str, sql:str ,error,model: str = DEFAULT_ENTITY_MODEL, 
                 client: Optional[object] = None) -> Dict[str, Any]:
     client = client or build_client()
+    print(type(error))
     context = makeContextCorrection(sql,error)
     prompt=context['context_text']
     sql = _llm_generate(prompt, model=model, client=client, system_prompt="Devuelve únicamente SQL")

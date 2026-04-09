@@ -49,7 +49,7 @@ def analizar():
             print(r1, type(r1))
             yield sse_event({"stage": "db", "message": "Consultando base de datos"})
             d = getData(service, r1)
-            print(d[0])
+            print(d)
             attempts = 0
 
             while attempts < MAX_SQL_RETRIES and not isinstance(d, pd.DataFrame):
