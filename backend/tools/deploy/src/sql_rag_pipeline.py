@@ -174,28 +174,37 @@ def generate_sql(question: str, model: str = DEFAULT_ENTITY_MODEL, client: Optio
         
     }
     
-def correct_sql(question: str, sql:str ,error,model: str = DEFAULT_ENTITY_MODEL, 
-                client: Optional[object] = None) -> Dict[str, Any]:
+def correct_sql(
+    question: str,
+    sql: str,
+    error,
+    model: str = DEFAULT_ENTITY_MODEL,
+    client: Optional[object] = None
+) -> Dict[str, Any]:
     client = client or build_client()
-    print(type(error))
-    context = makeContextCorrection(sql,error)
-    prompt=context['context_text']
-    sql = _llm_generate(prompt, model=model, client=client, system_prompt="Devuelve únicamente SQL")
-    
-    
+
+    error_text = str(error)
+    context = makeContextCorrection(sql, error_text)
+    prompt = context["context_text"]
+
+    corrected_sql = _llm_generate(
+        prompt,
+        model=model,
+        client=client,
+        system_prompt="Devuelve únicamente SQL"
+    )
+
     return {
         "question": question,
         "context": context["context_text"],
         "prompt": prompt,
         "prompt_chars": len(prompt),
-        "selected_tables": context["selected_tables"],
-        "search_terms": context["search_terms"],
-        "detected_entities": context["detected_entities"],
+        "selected_tables": context["tables_used"],
+        "search_terms": [],
+        "detected_entities": [],
         "validation_context": context,
-        "sql": sql,
-        
+        "sql": corrected_sql,
     }
-
 
 def validate_sql(sql: str, validation_context: Optional[Dict[str, Any]] = None, question: str = "", client: Optional[object] = None, model: str = DEFAULT_ENTITY_MODEL) -> Dict[str, Any]:
     context = validation_context or {}
