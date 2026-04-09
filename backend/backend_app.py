@@ -69,7 +69,7 @@ def analizar():
                 api_key=OLLAMA_API_KEY,
             )
             sql_query = str(generation.get("sql", "")).strip()
-            print(sql_query)
+            
             if not sql_query:
                 raise ValueError("El generador SQL no retornó una consulta válida.")
 
@@ -84,7 +84,7 @@ def analizar():
                     "stage": "correccion",
                     "message": f"Corrigiendo consulta: {last_error_message}",
                 })
-
+                print(type(sql_query))
                 correction = run_correct_sql_generation_flow(
                     question=pregunta,
                     sql=sql_query,
