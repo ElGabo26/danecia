@@ -111,7 +111,7 @@ def construir_prompt_contexto(contexto: Dict[str, Any], max_columnas_por_tabla: 
 
 def makeContext(question,limit):
     base = Path(".")
-    catalogo = cargar_jsonl(str(base / "dominios_catalogo.jsonl"))
+    catalogo = cargar_jsonl("./dominioss_catalogo.jsonl")
     dominio0=identificar_dominio(question,catalogo)
     dominio=dominio0["dominio_predicho"]
     if not dominio:
