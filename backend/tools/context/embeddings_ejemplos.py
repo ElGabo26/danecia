@@ -5,7 +5,7 @@ import numpy as np
 from numpy.linalg import norm
 from sentence_transformers import SentenceTransformer
 
-
+ROOT="/ia/deploy/danecia/backend/tools/context"
 def cargar_jsonl(path_jsonl: str) -> List[Dict[str, Any]]:
     registros = []
     with open(path_jsonl, "r", encoding="utf-8") as f:
@@ -108,8 +108,8 @@ def similitud_coseno(v1: np.ndarray, v2: np.ndarray) -> float:
 
 def buscar_match_pregunta(
     pregunta_consulta: str,
-    index_npz: str = "./preguntas_index.npz",
-    meta_json: str = "./preguntas_meta.json",
+    index_npz: str = ROOT+"/preguntas_index.npz",
+    meta_json: str = ROOT+"preguntas_meta.json",
     model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
     top_k: int = 3
 ) -> Dict[str, Any]:
