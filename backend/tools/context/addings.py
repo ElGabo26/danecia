@@ -1,6 +1,6 @@
 import json
 from typing import List, Dict, Any, Optional
-
+ROOT="/ia/deploy/danecia/backend/tools/context"
 
 def cargar_jsonl(path_jsonl: str) -> List[Dict[str, Any]]:
     registros = []
@@ -134,10 +134,10 @@ def _join_menciona_tablas(join_registro: Dict[str, Any], tablas_objetivo: List[s
 def extraer_contexto_dominio_tablas(
     dominio: str,
     tablas_objetivo: List[str],
-    path_tablas_jsonl: str ="tablas.jsonl",
-    path_whitelist_joins_jsonl: str="whitelist_joins.jsonl",
-    path_reglas_jsonl: str= "Reglas.jsonl",
-    path_metricas_jsonl: Optional[str] = "metricas.jsonl"
+    path_tablas_jsonl: str =ROOT+"/tablas.jsonl",
+    path_whitelist_joins_jsonl: str=ROOT+"/whitelist_joins.jsonl",
+    path_reglas_jsonl: str= ROOT+"/Reglas.jsonl",
+    path_metricas_jsonl: Optional[str] = ROOT+"/metricas.jsonl"
 ) -> Dict[str, Any]:
     """
     Extrae métricas, joins y columnas por tabla para un dominio y una lista de tablas.
