@@ -5,7 +5,7 @@ import re
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Dict, List, Optional
-from context.makeContext import makeContext
+from .context.makeContext import makeContext
 
 MAX_PROMPT_CHARS = 3000
 DEFAULT_ENTITY_MODEL = "qwen2.5-coder:3b"
