@@ -7,7 +7,7 @@ from flask_cors import CORS
 from openai import OpenAI
 
 from tools.DataService import DataService
-from tools.deploy.sql_service import run_sql_generation_flow
+from tools.makeprompt import generate_sql
 from tools.makeConsulta import getData
 
 app = Flask(__name__)
@@ -43,7 +43,7 @@ def analizar():
             yield sse_event({"stage": "inicio", "message": "Solicitud recibida"})
             yield sse_event({"stage": "llm_sql", "message": "Generando consulta SQL"})
 
-            r0 = run_sql_generation_flow(pregunta, MODELO_LOCAL, MODELO_RESPONSE)
+            r0 = generate_sql(pregunta)
             r1 = r0.get('sql', '')
             print(r1)
             yield sse_event({"stage": "db", "message": "Consultando base de datos"})

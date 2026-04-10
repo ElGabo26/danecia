@@ -1,0 +1,2715 @@
+[
+  {
+    "idx": 0,
+    "pregunta": "¿Cuál fue la venta total por canal en 2025?",
+    "registro_completo": {
+      "id": "ventas_001",
+      "dominio": "ventas",
+      "pregunta": "¿Cuál fue la venta total por canal en 2025?",
+      "intencion": "agregacion",
+      "metricas": [
+        "venta"
+      ],
+      "dimensiones": [
+        "canal",
+        "anio"
+      ],
+      "respuesta_ejemplo": "La venta total por canal en 2025 se obtiene agrupando ventas por canal y sumando el valor de venta."
+    }
+  },
+  {
+    "idx": 1,
+    "pregunta": "¿Cuál fue el costo y la venta por categoría contable y mes?",
+    "registro_completo": {
+      "id": "ventas_002",
+      "dominio": "ventas",
+      "pregunta": "¿Cuál fue el costo y la venta por categoría contable y mes?",
+      "intencion": "comparacion",
+      "metricas": [
+        "costo",
+        "venta"
+      ],
+      "dimensiones": [
+        "cod_cat_conta",
+        "mes"
+      ],
+      "respuesta_ejemplo": "Se agrupa por categoría contable y mes, calculando la suma del costo y la venta."
+    }
+  },
+  {
+    "idx": 2,
+    "pregunta": "¿Cuántas toneladas se vendieron por producto y compañía?",
+    "registro_completo": {
+      "id": "ventas_003",
+      "dominio": "ventas",
+      "pregunta": "¿Cuántas toneladas se vendieron por producto y compañía?",
+      "intencion": "agregacion",
+      "metricas": [
+        "ton"
+      ],
+      "dimensiones": [
+        "producto",
+        "compania"
+      ],
+      "respuesta_ejemplo": "Se suman las cantidades convertidas a toneladas y se agrupan por producto y compañía."
+    }
+  },
+  {
+    "idx": 3,
+    "pregunta": "¿Qué canal de venta tuvo mayor facturación?",
+    "registro_completo": {
+      "id": "ventas_004",
+      "dominio": "ventas",
+      "pregunta": "¿Qué canal de venta tuvo mayor facturación?",
+      "intencion": "ranking",
+      "metricas": [
+        "venta"
+      ],
+      "dimensiones": [
+        "canal_venta"
+      ],
+      "respuesta_ejemplo": "Se ordenan los canales por venta descendente y se identifica el mayor."
+    }
+  },
+  {
+    "idx": 4,
+    "pregunta": "¿Cuál es el presupuesto inicial por material y plantación?",
+    "registro_completo": {
+      "id": "presupuestos_001",
+      "dominio": "presupuestos",
+      "pregunta": "¿Cuál es el presupuesto inicial por material y plantación?",
+      "intencion": "agregacion",
+      "metricas": [
+        "cantidad_presupuesto_inicial"
+      ],
+      "dimensiones": [
+        "material",
+        "plantacion"
+      ],
+      "respuesta_ejemplo": "Se agrupa por material y plantación y se suma la cantidad de presupuesto inicial."
+    }
+  },
+  {
+    "idx": 5,
+    "pregunta": "¿Qué cantidad presupuestada existe por tipo de documento y estado?",
+    "registro_completo": {
+      "id": "presupuestos_002",
+      "dominio": "presupuestos",
+      "pregunta": "¿Qué cantidad presupuestada existe por tipo de documento y estado?",
+      "intencion": "agregacion",
+      "metricas": [
+        "cantidad"
+      ],
+      "dimensiones": [
+        "tipo_documento",
+        "estado"
+      ],
+      "respuesta_ejemplo": "Se agrupa por tipo de documento y estado y se suma la cantidad."
+    }
+  },
+  {
+    "idx": 6,
+    "pregunta": "¿Cuál es el presupuesto por origen y clasificación?",
+    "registro_completo": {
+      "id": "presupuestos_003",
+      "dominio": "presupuestos",
+      "pregunta": "¿Cuál es el presupuesto por origen y clasificación?",
+      "intencion": "comparacion",
+      "metricas": [
+        "cantidad",
+        "cantidad_presupuesto_inicial"
+      ],
+      "dimensiones": [
+        "origen",
+        "clasificacion"
+      ],
+      "respuesta_ejemplo": "Se agrupa por origen y clasificación para comparar cantidades presupuestadas."
+    }
+  },
+  {
+    "idx": 7,
+    "pregunta": "¿Cuáles fueron las principales variaciones en ingresos por ventas del período y qué cuentas explican el cambio?",
+    "registro_completo": {
+      "id": "finanzas_001",
+      "dominio": "finanzas",
+      "Pregunta": "¿Cuáles fueron las principales variaciones en ingresos por ventas del período y qué cuentas explican el cambio?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%venta%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%ingreso por ventas%'\nORDER BY valor_periodo DESC;"
+    }
+  },
+  {
+    "idx": 8,
+    "pregunta": "¿Qué impacto tuvieron las cuentas de descuento ventas, devolución ventas, bonificación y bonificación en venta sobre el ingreso neto?",
+    "registro_completo": {
+      "id": "finanzas_002",
+      "dominio": "finanzas",
+      "Pregunta": "¿Qué impacto tuvieron las cuentas de descuento ventas, devolución ventas, bonificación y bonificación en venta sobre el ingreso neto?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%descuento%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%devolucion%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%bonificacion%';"
+    }
+  },
+  {
+    "idx": 9,
+    "pregunta": "¿Cuáles fueron las cuentas que más presionaron el costo de producción en el período?",
+    "registro_completo": {
+      "id": "finanzas_003",
+      "dominio": "finanzas",
+      "Pregunta": "¿Cuáles fueron las cuentas que más presionaron el costo de producción en el período?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%costo de produccion%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%produccion%'\nORDER BY valor_periodo DESC;"
+    }
+  },
+  {
+    "idx": 10,
+    "pregunta": "¿Cómo evolucionaron los componentes de producción entre CIF, MOD y MOI?",
+    "registro_completo": {
+      "id": "finanzas_004",
+      "dominio": "finanzas",
+      "Pregunta": "¿Cómo evolucionaron los componentes de producción entre CIF, MOD y MOI?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        },
+        {
+          "nombre": "CAT27",
+          "descripcion": "Código jerárquico contable o analítico."
+        },
+        {
+          "nombre": "D_CAT27",
+          "descripcion": "Descripción de la categoría CAT27."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA, COMPANIA, ANIO_FISCAL, NOMBRE_CUENTA,\n    ENE_ACT, FEB_ACT, MAR_ACT, ABR_ACT, MAY_ACT, JUN_ACT,\n    JUL_ACT, AGO_ACT, SEP_ACT, OCT_ACT, NOV_ACT, DIC_ACT\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%cif%'\n   OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%mod%'\n   OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%moi%';"
+    }
+  },
+  {
+    "idx": 11,
+    "pregunta": "¿Qué impacto tuvieron en el costo de producción las cuentas de remuneración nómina, aporte seguro social y beneficios sociales?",
+    "registro_completo": {
+      "id": "finanzas_005",
+      "dominio": "finanzas",
+      "Pregunta": "¿Qué impacto tuvieron en el costo de producción las cuentas de remuneración nómina, aporte seguro social y beneficios sociales?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%remuneracion%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%nomina%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%seguro social%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%beneficios sociales%';"
+    }
+  },
+  {
+    "idx": 12,
+    "pregunta": "¿Se observa una presión relevante en materiales e insumos, como combustible, suministro y material o envases y empaques?",
+    "registro_completo": {
+      "id": "finanzas_006",
+      "dominio": "finanzas",
+      "Pregunta": "¿Se observa una presión relevante en materiales e insumos, como combustible, suministro y material o envases y empaques?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%combustible%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%suministro%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%material%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%envases%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%empaques%';"
+    }
+  },
+  {
+    "idx": 13,
+    "pregunta": "¿Cuáles fueron los principales impulsores de los gastos de ventas locales y de exportaciones?",
+    "registro_completo": {
+      "id": "finanzas_007",
+      "dominio": "finanzas",
+      "Pregunta": "¿Cuáles fueron los principales impulsores de los gastos de ventas locales y de exportaciones?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%gasto de ventas%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%ventas locales%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%exportaciones%'\nORDER BY valor_periodo DESC;"
+    }
+  },
+  {
+    "idx": 14,
+    "pregunta": "¿Qué peso tuvieron las cuentas de fletes, publicidad, otros de personal y remuneraciones dentro de gastos de ventas?",
+    "registro_completo": {
+      "id": "finanzas_008",
+      "dominio": "finanzas",
+      "Pregunta": "¿Qué peso tuvieron las cuentas de fletes, publicidad, otros de personal y remuneraciones dentro de gastos de ventas?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%flete%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%publicidad%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%otros de personal%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%remuneracion%';"
+    }
+  },
+  {
+    "idx": 15,
+    "pregunta": "¿Los gastos comerciales están creciendo al mismo ritmo que las ventas o están perdiendo eficiencia?",
+    "registro_completo": {
+      "id": "finanzas_009",
+      "dominio": "finanzas",
+      "Pregunta": "¿Los gastos comerciales están creciendo al mismo ritmo que las ventas o están perdiendo eficiencia?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    ANIO_FISCAL,\n    SUM(CASE WHEN LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%venta%' THEN\n        COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n        COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n        COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0)\n        ELSE 0 END) AS ventas_periodo,\n    SUM(CASE WHEN LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%gasto comercial%'\n              OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%gasto de ventas%' THEN\n        COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n        COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n        COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0)\n        ELSE 0 END) AS gastos_comerciales_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nGROUP BY ANIO_FISCAL\nORDER BY ANIO_FISCAL;"
+    }
+  },
+  {
+    "idx": 16,
+    "pregunta": "¿Qué impacto tuvieron cuentas como promoción autoconsumo, hospedaje, gastos de viaje y atenciones a empleados/accionistas?",
+    "registro_completo": {
+      "id": "finanzas_010",
+      "dominio": "finanzas",
+      "Pregunta": "¿Qué impacto tuvieron cuentas como promoción autoconsumo, hospedaje, gastos de viaje y atenciones a empleados/accionistas?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%promocion autoconsumo%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%hospedaje%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%gasto de viaje%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%atenciones%';"
+    }
+  },
+  {
+    "idx": 17,
+    "pregunta": "¿Qué cuentas explican el incremento o reducción de los gastos de administración?",
+    "registro_completo": {
+      "id": "finanzas_011",
+      "dominio": "finanzas",
+      "Pregunta": "¿Qué cuentas explican el incremento o reducción de los gastos de administración?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%gasto de administracion%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%administracion%'\nORDER BY valor_periodo DESC;"
+    }
+  },
+  {
+    "idx": 18,
+    "pregunta": "¿Qué peso tienen en administración las cuentas de honorarios profesionales, arrendamientos, energía eléctrica, seguros e impuestos?",
+    "registro_completo": {
+      "id": "finanzas_012",
+      "dominio": "finanzas",
+      "Pregunta": "¿Qué peso tienen en administración las cuentas de honorarios profesionales, arrendamientos, energía eléctrica, seguros e impuestos?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%honorario%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%arrendamiento%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%energia electrica%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%seguro%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%impuesto%';"
+    }
+  },
+  {
+    "idx": 19,
+    "pregunta": "¿Cómo evolucionaron los gastos administrativos relacionados con personal, como jubilación patronal, atención médica e impuesto renta asumido?",
+    "registro_completo": {
+      "id": "finanzas_013",
+      "dominio": "finanzas",
+      "Pregunta": "¿Cómo evolucionaron los gastos administrativos relacionados con personal, como jubilación patronal, atención médica e impuesto renta asumido?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA, COMPANIA, ANIO_FISCAL, NOMBRE_CUENTA,\n    ENE_ACT, FEB_ACT, MAR_ACT, ABR_ACT, MAY_ACT, JUN_ACT,\n    JUL_ACT, AGO_ACT, SEP_ACT, OCT_ACT, NOV_ACT, DIC_ACT\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%jubilacion patronal%'\n   OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%atencion medica%'\n   OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%impuesto renta asumido%';"
+    }
+  },
+  {
+    "idx": 20,
+    "pregunta": "¿Cómo evolucionaron los gastos financieros, especialmente en intereses por préstamo, comisiones bancarias, cash management e instrumentos financieros?",
+    "registro_completo": {
+      "id": "finanzas_014",
+      "dominio": "finanzas",
+      "Pregunta": "¿Cómo evolucionaron los gastos financieros, especialmente en intereses por préstamo, comisiones bancarias, cash management e instrumentos financieros?",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA, COMPANIA, ANIO_FISCAL, NOMBRE_CUENTA,\n    ENE_ACT, FEB_ACT, MAR_ACT, ABR_ACT, MAY_ACT, JUN_ACT,\n    JUL_ACT, AGO_ACT, SEP_ACT, OCT_ACT, NOV_ACT, DIC_ACT\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%interes%'\n   OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%comision bancaria%'\n   OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%cash management%'\n   OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%instrumento financiero%';"
+    }
+  },
+  {
+    "idx": 21,
+    "pregunta": "Utilidad Neta por empresa del mes de febrero",
+    "registro_completo": {
+      "id": "finanzas_015",
+      "dominio": "finanzas",
+      "Pregunta": "Utilidad Neta por empresa del mes de febrero",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    CCIA, COMPANIA, ANIO_FISCAL,\n    SUM(COALESCE(FEB_ACT,0)) AS utilidad_neta_febrero\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%utilidad neta%'\nGROUP BY CCIA, COMPANIA, ANIO_FISCAL\nORDER BY ANIO_FISCAL, CCIA;"
+    }
+  },
+  {
+    "idx": 22,
+    "pregunta": "Ebitda por empresa y consolidado",
+    "registro_completo": {
+      "id": "finanzas_016",
+      "dominio": "finanzas",
+      "Pregunta": "Ebitda por empresa y consolidado",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    COALESCE(CCIA, 'CONSOLIDADO') AS CCIA,\n    COALESCE(COMPANIA, 'CONSOLIDADO') AS COMPANIA,\n    ANIO_FISCAL,\n    SUM(COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n        COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n        COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0)) AS ebitda_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%ebitda%'\nGROUP BY ROLLUP(CCIA, COMPANIA, ANIO_FISCAL);"
+    }
+  },
+  {
+    "idx": 23,
+    "pregunta": "rentabilidad por canal",
+    "registro_completo": {
+      "id": "finanzas_017",
+      "dominio": "finanzas",
+      "Pregunta": "rentabilidad por canal",
+      "Tablas": [
+        "DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL"
+      ],
+      "columnas": [
+        {
+          "nombre": "CCIA",
+          "descripcion": "Código de compañía."
+        },
+        {
+          "nombre": "COMPANIA",
+          "descripcion": "Nombre o descripción de la compañía."
+        },
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal del registro."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Unidad de negocio asociada."
+        },
+        {
+          "nombre": "NOMBRE_CUENTA",
+          "descripcion": "Nombre descriptivo de la cuenta contable."
+        },
+        {
+          "nombre": "ID_CUENTA",
+          "descripcion": "Identificador de la cuenta contable."
+        },
+        {
+          "nombre": "SUBLIBRO",
+          "descripcion": "Sublibro asociado a la cuenta contable."
+        },
+        {
+          "nombre": "TRASPASO_SALDO",
+          "descripcion": "Saldo inicial trasladado al inicio del ejercicio."
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "Valor del mes enero."
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "Valor del mes febrero."
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "Valor del mes marzo."
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "Valor del mes abril."
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "Valor del mes mayo."
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "Valor del mes junio."
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "Valor del mes julio."
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "Valor del mes agosto."
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "Valor del mes septiembre."
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "Valor del mes octubre."
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "Valor del mes noviembre."
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "Valor del mes diciembre."
+        },
+        {
+          "nombre": "ETL_TSTAMP",
+          "descripcion": "Marca de tiempo de carga ETL."
+        },
+        {
+          "nombre": "UNDNEGOCIO",
+          "descripcion": "Se usa como aproximación analítica del canal cuando no existe una columna explícita de canal."
+        }
+      ],
+      "time_columns": [
+        {
+          "nombre": "ANIO_FISCAL",
+          "descripcion": "Año fiscal"
+        },
+        {
+          "nombre": "ENE_ACT",
+          "descripcion": "enero"
+        },
+        {
+          "nombre": "FEB_ACT",
+          "descripcion": "febrero"
+        },
+        {
+          "nombre": "MAR_ACT",
+          "descripcion": "marzo"
+        },
+        {
+          "nombre": "ABR_ACT",
+          "descripcion": "abril"
+        },
+        {
+          "nombre": "MAY_ACT",
+          "descripcion": "mayo"
+        },
+        {
+          "nombre": "JUN_ACT",
+          "descripcion": "junio"
+        },
+        {
+          "nombre": "JUL_ACT",
+          "descripcion": "julio"
+        },
+        {
+          "nombre": "AGO_ACT",
+          "descripcion": "agosto"
+        },
+        {
+          "nombre": "SEP_ACT",
+          "descripcion": "septiembre"
+        },
+        {
+          "nombre": "OCT_ACT",
+          "descripcion": "octubre"
+        },
+        {
+          "nombre": "NOV_ACT",
+          "descripcion": "noviembre"
+        },
+        {
+          "nombre": "DIC_ACT",
+          "descripcion": "diciembre"
+        }
+      ],
+      "joins": [],
+      "sql": "SELECT\n    UNDNEGOCIO AS canal_aproximado,\n    ANIO_FISCAL,\n    SUM(COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n        COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n        COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0)) AS rentabilidad_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nGROUP BY UNDNEGOCIO, ANIO_FISCAL\nORDER BY ANIO_FISCAL, canal_aproximado;"
+    }
+  }
+]
