@@ -122,7 +122,7 @@ def makeContext(question,limit):
     promptContext=construir_prompt_contexto(context)
     instrucciones="teniendo en  cuenta este contexto \n"
     if ejemplo:
-        return {"context_text":instrucciones + promptContext + f"en base a  este  ejemplo {ejemplo}"}
+        return {"context_text":instrucciones +  f"en base a  este  ejemplo {ejemplo}"}
     return {"context_text":instrucciones + promptContext}
     
     
