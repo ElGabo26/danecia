@@ -60,9 +60,6 @@ def generate_sql(question: str, model: str = DEFAULT_ENTITY_MODEL, client: Optio
         "context": context["context_text"],
         "prompt": prompt,
         "prompt_chars": len(prompt),
-        "selected_tables": context["selected_tables"],
-        "search_terms": context["search_terms"],
-        "detected_entities": context["detected_entities"],
         "validation_context": context,
         "sql": sql,
         
