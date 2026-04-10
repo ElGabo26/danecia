@@ -50,7 +50,7 @@ def build_prompt(question: str, context: Dict[str, Any], max_chars: int = MAX_PR
 
 def generate_sql(question: str, model: str = DEFAULT_ENTITY_MODEL, client: Optional[object] = None, temperature: float = 0.0, detector_model: Optional[str] = None) -> Dict[str, Any]:
     client = client or build_client()
-    context = makeContext(question=question, max_chars=3000)
+    context = makeContext(question=question, limit=3000)
     prompt = build_prompt(question, context, max_chars=MAX_PROMPT_CHARS)
     sql = _llm_generate(prompt, model=model, client=client, system_prompt=" ")
     
