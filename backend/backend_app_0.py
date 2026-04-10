@@ -79,9 +79,10 @@ def analizar():
                     temperature=0.0,
                 )
                 result = response.choices[0].message.content
-                print(result)
+                print(result,'holi')
             except Exception:
                 result = data_text
+                print(result)
                 
             print(result)
             yield sse_event({"stage": "fin", "message": result, "resultado": result})
