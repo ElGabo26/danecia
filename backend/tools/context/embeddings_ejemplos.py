@@ -170,6 +170,7 @@ def buscar_match_pregunta(
         })
 
     mejor = resultados[0] if resultados else None
+    print(mejor)
 
     return {
         "pregunta_consulta": pregunta_consulta,
