@@ -81,6 +81,7 @@ def analizar():
                 result = response.choices[0].message.content
             except Exception:
                 result = data_text
+            print(result)
 
             yield sse_event({"stage": "fin", "message": result, "resultado": result})
 
