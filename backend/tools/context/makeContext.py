@@ -1,6 +1,6 @@
-from embeddings_ejemplos import buscar_match_pregunta, buscar_tablas
-from identificar_dominio import identificar_dominio, cargar_jsonl
-from addings  import extraer_contexto_dominio_tablas
+from .embeddings_ejemplos import buscar_match_pregunta, buscar_tablas
+from .identificar_dominio import identificar_dominio, cargar_jsonl
+from .addings  import extraer_contexto_dominio_tablas
 from pathlib import Path
 
 from typing import Dict, Any, List
