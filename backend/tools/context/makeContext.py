@@ -121,8 +121,8 @@ def makeContext(question,limit):
     context=extraer_contexto_dominio_tablas(dominio,tablas)
     promptContext=construir_prompt_contexto(context)
     instrucciones="teniendo en  cuenta este contexto \n"
-    if ejemplo:
-        return {"context_text":instrucciones +  f"replica  este  ejemplo {ejemplo}"}
+    if ejemplo["registro_recuperado"]:
+        return {"context_text":instrucciones +  f"replica  este  ejemplo {ejemplo["registro_recuperado"]}"}
     return {"context_text":instrucciones + promptContext}
     
     
