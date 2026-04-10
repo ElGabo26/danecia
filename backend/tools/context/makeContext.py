@@ -4,7 +4,7 @@ from .addings  import extraer_contexto_dominio_tablas
 from pathlib import Path
 
 from typing import Dict, Any, List
-
+ROOT="/ia/deploy/danecia/backend/tools/context"
 
 def construir_prompt_contexto(contexto: Dict[str, Any], max_columnas_por_tabla: int = 20, max_joins: int = 10, max_metricas: int = 10) -> str:
     """
@@ -117,7 +117,7 @@ def makeContext(question,limit):
     if not dominio:
         return None
     ejemplo=buscar_match_pregunta(question)["pregunta_consulta"]
-    tablas = buscar_tablas("./dominios.jsonl",dominio)
+    tablas = buscar_tablas(ROOT+"/dominios.jsonl",dominio)
     context=extraer_contexto_dominio_tablas(dominio,tablas)
     promptContext=construir_prompt_contexto(context)
     instrucciones="teniendo en  cuenta este contexto \n"
