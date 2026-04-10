@@ -192,5 +192,5 @@ def buscar_tablas(
 if __name__ == "__main__":
     # Ejemplo de uso:
     # 1) Construir embeddings desde el JSONL
-    print(buscar_tablas("dominios.jsonl",'finanzas'))
+    print(buscar_tablas("./dominios.jsonl",'finanzas'))
     

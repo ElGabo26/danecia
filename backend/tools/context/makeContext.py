@@ -117,7 +117,7 @@ def makeContext(question,limit):
     if not dominio:
         return None
     ejemplo=buscar_match_pregunta(question)["pregunta_consulta"]
-    tablas = buscar_tablas("dominios.jsonl",dominio)
+    tablas = buscar_tablas("./dominios.jsonl",dominio)
     context=extraer_contexto_dominio_tablas(dominio,tablas)
     promptContext=construir_prompt_contexto(context)
     instrucciones="teniendo en  cuenta este contexto \n"
