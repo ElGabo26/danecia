@@ -79,7 +79,7 @@ def analizar():
                     temperature=0.0,
                 )
                 result = response.choices[0].message.content
-                print(result,'holi')
+                print(type(result),'holi')
             except Exception:
                 result = data_text
                 print(result)
