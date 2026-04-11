@@ -34,9 +34,6 @@ def _llm_generate(prompt: str, model: str, client: object, system_prompt: str) -
 def build_prompt(question: str, context: Dict[str, Any], max_chars: int = MAX_PROMPT_CHARS) -> str:
     base = (
         "Genera solo SQL MySQL/SingleStore. Solo SELECT. No inventes tablas, columnas ni joins. "
-        f"Si existe en la lista  de Joins permitidos realiza JOIN con DIM_FECHA, en otro caso utiliza las  columnas, mes  y anio  ppara  filtar los valores"
-        "Los meses y  anios  siempre son numero enteros"
-        f"Usa columnas NOM_/DESC_ para mostrar nombres conocidos. "
     )
     prompt = f"{base}\nCTX:{context['context_text']}\nQ:{question}\nSQL:"
     if len(prompt) > max_chars:
@@ -65,39 +62,3 @@ def generate_sql(question: str, model: str = DEFAULT_ENTITY_MODEL, client: Optio
         
     }
     
-def correct_sql(
-    question: str,
-    sql: str,
-    error,
-    model: str = DEFAULT_ENTITY_MODEL,
-    client: Optional[object] = None
-) -> Dict[str, Any]:
-    client = client or build_client()
-
-    error_text = str(error)
-    
-    print("ingreso al context")
-    print(error_text)
-    print(sql)
-    context = makeContextCorrection(sql, error_text)
-    prompt = context["context_text"]
-    print("PROMPT GENERADO")
-    print(prompt)
-    corrected_sql = _llm_generate(
-        prompt,
-        model=model,
-        client=client,
-        system_prompt="Devuelve únicamente SQL"
-    )
-
-    return {
-        "question": question,
-        "context": context["context_text"],
-        "prompt": prompt,
-        "prompt_chars": len(prompt),
-        "selected_tables": context["tables_used"],
-        "search_terms": [],
-        "detected_entities": [],
-        "validation_context": context,
-        "sql": corrected_sql,
-    }

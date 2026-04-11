@@ -122,12 +122,12 @@ def makeContext(question,limit):
     promptContext=construir_prompt_contexto(context)
     instrucciones="teniendo en  cuenta este contexto \n"
     if ejemplo["registro_recuperado"]:
-        result= {"context_text":instrucciones +  f"replica  este  ejemplo \n {ejemplo["registro_recuperado"]},toma en  cuenta que debes usara estas columnas para el tiempo {ejemplo["time_columns"]}"}
+        context_text=instrucciones +  f"replica  este  ejemplo \n {ejemplo["registro_recuperado"]},toma en  cuenta que debes usara estas columnas para el tiempo {ejemplo["time_columns"]}"
     else:
-        result={"context_text":instrucciones + promptContext}
+        context_text=instrucciones + promptContext
     
-    result="".join(c for c in result if c not in ["[","]","{","}","  "])
-    return result
+    context_text="".join(c for c in context_text if c not in ["[","]","{","}","  "])
+    return {'context_text':context_text}
     
     
     
