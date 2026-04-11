@@ -39,56 +39,56 @@ def analizar():
 
     @stream_with_context
     def generate():
+        #try:
+        yield sse_event({"stage": "inicio", "message": "Solicitud recibida"})
+        yield sse_event({"stage": "llm_sql", "message": "Generando consulta SQL"})
+
+        r0 = generate_sql(pregunta)
+        r1 = r0.get('sql', '')
+        print(r1)
+        yield sse_event({"stage": "db", "message": "Consultando base de datos"})
+        d = getData(service, r1)
+        print(d)
+        
+        if not isinstance(d, pd.DataFrame):
+
+            resultado = f"Datos no  encontrados, se  generó la  siguiente consulta: \n {r1}"
+            yield sse_event({"stage": "fin", "message": resultado, "resultado": resultado})
+            return
+
+        yield sse_event({
+            "stage": "datos",
+            "message": f"Datos obtenidos correctamente: {d.shape[0]} filas y {d.shape[1]} columnas",
+        })
+
+        data_text = d.to_json(orient="records", force_ascii=False)
+        final_prompt = (
+            f"Responde la siguiente pregunta:\n{pregunta}\n"
+            f"Solo en base a los siguientes datos adjuntos: {data_text}"
+        )
+
+        yield sse_event({"stage": "respuesta_final", "message": "Generando respuesta final"})
+
         try:
-            yield sse_event({"stage": "inicio", "message": "Solicitud recibida"})
-            yield sse_event({"stage": "llm_sql", "message": "Generando consulta SQL"})
-
-            r0 = generate_sql(pregunta)
-            r1 = r0.get('sql', '')
-            print(r1)
-            yield sse_event({"stage": "db", "message": "Consultando base de datos"})
-            d = getData(service, r1)
-            print(d)
-            
-            if not isinstance(d, pd.DataFrame):
-
-                resultado = f"Datos no  encontrados, se  generó la  siguiente consulta: \n {r1}"
-                yield sse_event({"stage": "fin", "message": resultado, "resultado": resultado})
-                return
-
-            yield sse_event({
-                "stage": "datos",
-                "message": f"Datos obtenidos correctamente: {d.shape[0]} filas y {d.shape[1]} columnas",
-            })
-
-            data_text = d.to_json(orient="records", force_ascii=False)
-            final_prompt = (
-                f"Responde la siguiente pregunta:\n{pregunta}\n"
-                f"Solo en base a los siguientes datos adjuntos: {data_text}"
+            response = client.chat.completions.create(
+                model=MODELO_RESPONSE,
+                messages=[
+                    {"role": "system", "content": data_text},
+                    {"role": "user", "content": final_prompt},
+                ],
+                temperature=0.0,
             )
-
-            yield sse_event({"stage": "respuesta_final", "message": "Generando respuesta final"})
-
-            try:
-                response = client.chat.completions.create(
-                    model=MODELO_RESPONSE,
-                    messages=[
-                        {"role": "system", "content": data_text},
-                        {"role": "user", "content": final_prompt},
-                    ],
-                    temperature=0.0,
-                )
-                result = response.choices[0].message.content
-                print(type(result),'holi')
-            except Exception:
-                result = data_text
-                print(result)
-                
+            result = response.choices[0].message.content
+            print(type(result),'holi')
+        except Exception:
+            result = data_text
             print(result)
-            yield sse_event({"stage": "fin", "message": result, "resultado": result})
+            
+        print(result)
+        yield sse_event({"stage": "fin", "message": result, "resultado": result})
 
-        except Exception as e:
-            yield sse_event({"stage": "error", "message": f"Error inesperado en backend: {str(e)}"})
+        #except Exception as e:
+        #    yield sse_event({"stage": "error", "message": f"Error inesperado en backend: {str(e)}"})
             
 
     return Response(
