@@ -16,7 +16,7 @@ CORS(app)
 client = OpenAI(
     base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/v1"),
     api_key=os.getenv("OLLAMA_API_KEY", "ollama"),
-    timeout=float(os.getenv("OLLAMA_TIMEOUT", "300")),
+    
 )
 
 MODELO_LOCAL = os.getenv("MODELO_LOCAL", "qwen2.5-coder:3b")
