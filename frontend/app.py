@@ -264,11 +264,21 @@ def find_chat_by_id(history: dict, chat_id: str):
     return None
 
 
-def parse_sse_payload(raw_line: str):
-    if not raw_line.startswith("data:"):
+def parse_sse_event(event_lines: list[str]):
+    """
+    Procesa un evento SSE completo.
+    Un evento SSE termina con una línea vacía.
+    """
+    data_lines = []
+    for raw_line in event_lines:
+        if raw_line.startswith("data:"):
+            data_lines.append(raw_line[5:].strip())
+
+    if not data_lines:
         return None
+
     try:
-        return json.loads(raw_line[5:].strip())
+        return json.loads("\n".join(data_lines))
     except Exception:
         return None
 
@@ -491,6 +501,8 @@ def send_message(chat_id):
     def generate():
         backend_response = None
         final_answer = None
+        event_lines = []
+
         try:
             backend_response = requests.post(
                 BACKEND_URL,
@@ -501,15 +513,27 @@ def send_message(chat_id):
             )
             backend_response.raise_for_status()
 
-            for chunk in backend_response.iter_content(chunk_size=None, decode_unicode=True):
-                if not chunk:
+            for line in backend_response.iter_lines(decode_unicode=True):
+                if line is None:
                     continue
-                for line in chunk.splitlines(keepends=True):
-                    if line.startswith("data:"):
-                        payload_line = parse_sse_payload(line.strip())
-                        if payload_line and payload_line.get("stage") == "fin":
-                            final_answer = payload_line.get("resultado") or payload_line.get("message")
-                    yield line
+
+                # Reenviar exactamente el stream SSE hacia el navegador
+                if line == "":
+                    yield "\n"
+                    if event_lines:
+                        payload_event = parse_sse_event(event_lines)
+                        if payload_event and payload_event.get("stage") == "fin":
+                            final_answer = payload_event.get("resultado") or payload_event.get("message")
+                        event_lines = []
+                else:
+                    event_lines.append(line)
+                    yield line + "\n"
+
+            # Procesar remanente por si el stream cerró sin línea vacía final
+            if event_lines:
+                payload_event = parse_sse_event(event_lines)
+                if payload_event and payload_event.get("stage") == "fin":
+                    final_answer = payload_event.get("resultado") or payload_event.get("message")
 
         except requests.exceptions.Timeout:
             final_answer = "Error: el backend tardó demasiado en responder."

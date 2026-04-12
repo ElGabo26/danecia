@@ -509,13 +509,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         const stage = event.stage || 'proceso';
                         const stageLabel = getStageLabel(stage);
                         const message = event.message || stageLabel;
+                        const resultado = event.resultado ?? null;
 
-                        if (event.resultado) {
-                            finalResult = event.resultado;
+                        if (resultado !== null && resultado !== undefined && String(resultado).trim() !== '') {
+                            finalResult = resultado;
                         }
 
                         if (stage === 'fin') {
-                            updateMessage(assistantRow, finalResult || event.resultado || message, 'Ahora');
+                            const finalText =
+                                (resultado !== null && resultado !== undefined && String(resultado).trim() !== '')
+                                    ? resultado
+                                    : (finalResult || message);
+
+                            updateMessage(assistantRow, finalText, 'Ahora');
                         } else if (stage === 'error') {
                             updateMessage(assistantRow, `Error: ${message}`, 'Ahora');
                         } else {
@@ -529,7 +535,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const events = parseSSEChunk(buffer);
                 for (const event of events) {
                     if (event.stage === 'fin') {
-                        updateMessage(assistantRow, event.resultado || event.message || 'Proceso completado', 'Ahora');
+                        const resultado = event.resultado ?? null;
+                        const finalText =
+                            (resultado !== null && resultado !== undefined && String(resultado).trim() !== '')
+                                ? resultado
+                                : (finalResult || event.message || 'Proceso completado');
+
+                        updateMessage(assistantRow, finalText, 'Ahora');
                     }
                 }
             }
