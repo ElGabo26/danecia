@@ -80,6 +80,7 @@ def analizar():
                 temperature=0.01,
             )
             result = response.choices[0].message.content
+            print(data_text)
            
         except Exception:
             result = data_text
