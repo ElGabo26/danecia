@@ -86,7 +86,7 @@ def analizar():
             
             print(result)
             
-        print(result)
+        print(len(result), print(type(result)))
         yield sse_event({"stage": "fin", "message": result, "resultado": result})
 
         #except Exception as e:
