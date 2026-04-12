@@ -20,7 +20,7 @@ client = OpenAI(
 )
 
 MODELO_LOCAL = os.getenv("MODELO_LOCAL", "qwen2.5-coder:3b")
-MODELO_RESPONSE = os.getenv("MODELO_RESPONSE", "llama3-chatqa:latest")
+MODELO_RESPONSE = os.getenv("MODELO_RESPONSE", "llama3.1:8b")
 MAX_SQL_RETRIES = int(os.getenv("MAX_SQL_RETRIES", "3"))
 
 service = DataService()
