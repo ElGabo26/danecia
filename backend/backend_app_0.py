@@ -80,7 +80,14 @@ def analizar():
                 temperature=0.01,
             )
             result = response.choices[0].message.content
-            print(data_text)
+            choice = response.choices[0]
+            msg = choice.message
+
+            print("finish_reason:", choice.finish_reason)
+            print("content repr:", repr(msg.content))
+            print("tool_calls:", getattr(msg, "tool_calls", None))
+            print("refusal:", getattr(msg, "refusal", None))
+            print("response completa:", response.model_dump())
            
         except Exception:
             result = data_text
