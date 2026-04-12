@@ -128,9 +128,3 @@ def makeContext(question,limit):
     
     context_text="".join(c for c in context_text if c not in ["[","]","{","}","  "])
     return {'context_text':context_text}
-    
-    
-    
-    
-    
-    

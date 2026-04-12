@@ -64,7 +64,7 @@ def analizar():
         data_text = d.to_json(orient="records", force_ascii=False)
         final_prompt = (
             f"Responde la siguiente pregunta:\n{pregunta}\n"
-            f"Solo en base a los siguientes datos adjuntos: {data_text}"
+            f"En base a los siguientes datos adjuntos: {data_text}"
         )
 
         yield sse_event({"stage": "respuesta_final", "message": "Generando respuesta final"})
@@ -79,7 +79,8 @@ def analizar():
                 temperature=0.0,
             )
             result = response.choices[0].message.content
-            print(type(result),'holi')
+            print(len(result),'holi')
+            print(len(final_prompt))
         except Exception:
             result = data_text
             print(result)
