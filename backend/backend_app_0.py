@@ -74,7 +74,7 @@ def analizar():
             response = client.chat.completions.create(
                 model=MODELO_RESPONSE,
                 messages=[
-                    {"role": "system", "content": data_text},
+                    {"role": "system", "content": "genera  respuestas  concisas  solo  en base a la  data"},
                     {"role": "user", "content": final_prompt},
                 ],
                 temperature=0.01,
