@@ -70,19 +70,20 @@ def analizar():
         yield sse_event({"stage": "respuesta_final", "message": "Generando respuesta final"})
 
         try:
+            print(MODELO_RESPONSE)
             response = client.chat.completions.create(
                 model=MODELO_RESPONSE,
                 messages=[
                     {"role": "system", "content": data_text},
                     {"role": "user", "content": final_prompt},
                 ],
-                temperature=0.0,
+                temperature=0.01,
             )
             result = response.choices[0].message.content
-            print(len(result),'holi')
-            print(len(final_prompt))
+           
         except Exception:
             result = data_text
+            
             print(result)
             
         print(result)
