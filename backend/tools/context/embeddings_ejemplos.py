@@ -167,7 +167,7 @@ def buscar_match_pregunta(
             "score": round(float(score), 6),
             "pregunta_match": str(preguntas[idx]),
             "registro_recuperado": meta[idx]["registro_completo"].get("sql",None),
-            "time_columns":meta[idx]["registro_completo"]["time_columns"]
+            "time_columns":meta[idx]["registro_completo"].get("time_columns",None)
         })
 
     mejor = resultados[0] if resultados else None
