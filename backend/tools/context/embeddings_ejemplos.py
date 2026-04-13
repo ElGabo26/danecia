@@ -166,7 +166,7 @@ def buscar_match_pregunta(
             "rank": len(resultados) + 1,
             "score": round(float(score), 6),
             "pregunta_match": str(preguntas[idx]),
-            "registro_recuperado": meta[idx]["registro_completo"]["sql"],
+            "registro_recuperado": meta[idx]["registro_completo"]["sql"] or None,
             "time_columns":meta[idx]["registro_completo"]["time_columns"]
         })
 
