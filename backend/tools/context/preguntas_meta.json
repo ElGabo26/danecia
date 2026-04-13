@@ -276,8 +276,8 @@
           "descripcion": "diciembre"
         }
       ],
-      "joins": [],
-      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%venta%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%ingreso por ventas%'\nORDER BY valor_periodo DESC;"
+      "joins": []
+
     }
   },
   {
@@ -430,8 +430,7 @@
           "descripcion": "diciembre"
         }
       ],
-      "joins": [],
-      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%descuento%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%devolucion%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%bonificacion%';"
+      "joins": []
     }
   },
   {
@@ -584,8 +583,8 @@
           "descripcion": "diciembre"
         }
       ],
-      "joins": [],
-      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%costo de produccion%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%produccion%'\nORDER BY valor_periodo DESC;"
+      "joins": []
+  
     }
   },
   {
@@ -1670,8 +1669,7 @@
           "descripcion": "diciembre"
         }
       ],
-      "joins": [],
-      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%promocion autoconsumo%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%hospedaje%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%gasto de viaje%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%atenciones%';"
+      "joins": []
     }
   },
   {
@@ -1824,8 +1822,7 @@
           "descripcion": "diciembre"
         }
       ],
-      "joins": [],
-      "sql": "SELECT\n    CCIA,\n    COMPANIA,\n    ANIO_FISCAL,\n    ID_CUENTA,\n    NOMBRE_CUENTA,\n    SUBLIBRO,\n    COALESCE(ENE_ACT,0)+COALESCE(FEB_ACT,0)+COALESCE(MAR_ACT,0)+COALESCE(ABR_ACT,0)+\n    COALESCE(MAY_ACT,0)+COALESCE(JUN_ACT,0)+COALESCE(JUL_ACT,0)+COALESCE(AGO_ACT,0)+\n    COALESCE(SEP_ACT,0)+COALESCE(OCT_ACT,0)+COALESCE(NOV_ACT,0)+COALESCE(DIC_ACT,0) AS valor_periodo\nFROM DDM_ERP.FAC_ESTRESULTADOS_ACT_ALL\nWHERE LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%gasto de administracion%' OR LOWER(COALESCE(NOMBRE_CUENTA,'')) LIKE '%administracion%'\nORDER BY valor_periodo DESC;"
+      "joins": []
     }
   },
   {
