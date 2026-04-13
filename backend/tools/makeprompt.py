@@ -35,11 +35,11 @@ def build_prompt(question: str, context: Dict[str, Any], max_chars: int = MAX_PR
     base = (
         "Genera solo SQL MySQL/SingleStore. Solo SELECT. No inventes tablas, columnas ni joins. "
     )
-    prompt = f"{base}\nCTX:{context['context_text']}\nQ:{question}\nSQL:"
+    prompt = f"{base}\nCTX:{context.get('context_text',None)}\nQ:{question}\nSQL:"
     if len(prompt) > max_chars:
         print("contextoexcedido")
         excess = len(prompt) - max_chars
-        reduced_ctx = context["context_text"][:-excess - 3] + "..." if excess + 3 < len(context["context_text"]) else context["context_text"][: max(0, max_chars - len(base) - len(question) - 20)]
+        reduced_ctx = context.get('context_text',None)[:-excess - 3] + "..." if excess + 3 < len(context["context_text"]) else context["context_text"][: max(0, max_chars - len(base) - len(question) - 20)]
         prompt = f"{base}\nCTX:{reduced_ctx}\nQ:{question}\nSQL:"
     print(prompt[:max_chars])
     return prompt[:max_chars]
